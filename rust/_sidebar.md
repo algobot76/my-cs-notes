@@ -1,1 +1,2 @@
-* [The Rust Book](./the-rust-book/README)
+* [Rust](./)
+  * [The Rust Book](./the-rust-book/README)
