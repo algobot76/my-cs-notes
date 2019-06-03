@@ -1,0 +1,2 @@
+* [Home](/)
+* [Rust](/docs/README)
