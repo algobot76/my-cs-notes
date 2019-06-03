@@ -1,2 +1,2 @@
 * [Home](/)
-* [Rust](/docs/README)
+* [Rust](/docs/rust/README)
