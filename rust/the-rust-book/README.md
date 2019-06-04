@@ -145,3 +145,55 @@ fn main() {
   - So Rust can't compile the code.
 
 #### Thinking in Terms of Lifetimes
+
+```rust
+fn longest<'a>(x: &'a str, y: &str) -> &'a str {
+    x
+}
+```
+
+- No need to add a lifetime to `y` since it has nothing to do with `x` or the return value.
+
+```rust
+fn longest<'a>(x: &str, y: &str) -> &'a str {
+    let result = String::from("really long string");
+    result.as_str()
+}
+```
+
+- This is invalid because the reference returned doesn't refer to one of the parameters and might be a dangling reference.
+
+#### Lifetime Annotations in Struct Definitions
+
+```rust
+struct ImportantExcerpt<'a> {
+    part: &'a str,
+}
+
+fn main() {
+    let novel = String::from("Call me Ishmael. Some years ago...");
+    let first_sentence = novel.split('.')
+        .next()
+        .expect("Could not find a '.'");
+    let i = ImportantExcerpt { part: first_sentence };
+}
+```
+
+- An instance of `ImportantExcerpt` struct holds a reference to the first sentence of the `String` owned by the variable `novel`.
+- `ImportantExcerpt` can't outlive the reference it holds in its `part` field.
+
+#### Lifetime Elision
+
+- __Input lifetimes__: lifetimes on function or method parameters.
+- __Output lifetimes__: lifetimes on return values.
+
+There are 3 rules used by Rust to determine lifetimes of references when there are no explicit annotations:
+
+1. Each parameter that is a reference gets its own lifetime parameter.
+2. If there exactly one input lifetime parameter, that lifetime is assigned to all output lifetime parameters.
+3. If there are input lifetime parameters, but one of them is `&self` or `&mut self` because this is a method, the lifetime of `self` is assigned to all output lifetime parameters.
+
+#### The Static Lifetime
+
+- `'static` means this reference can live for the entire duration of the program.
+- All string literals have the `'static` lifetime.
