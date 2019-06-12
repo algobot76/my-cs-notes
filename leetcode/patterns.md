@@ -1,5 +1,41 @@
 # LeetCode Patterns
 
+## Linked List
+
+### Reverse a linked list
+
+```java
+public ListNode reverseList(ListNode head) {
+    if (head == null || head.next == null) {
+        return head;
+    }
+
+    ListNode newHead = null;
+    while (head != null) {
+        ListNode next = head.next;
+        head.next = newHead;
+        newHead = head;
+        head = next;
+    }
+
+    return newHead;
+}
+```
+
+### Find the midpoint
+
+```java
+public ListNode findMid(ListNode head) {
+    ListNode fast = head;
+    ListNode slow = head;
+    while (fast != null && fast.next != null) {
+        fast = fast.next.next;
+        slow = slow.next;
+    }
+    return slow;
+}
+```
+
 ## BFS
 
 ### Variant 1
