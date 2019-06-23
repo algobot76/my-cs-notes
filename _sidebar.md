@@ -1,6 +1,7 @@
 * [Home](/)
 * [CSS](/css/README)
 * [Java](/java/README)
+* [JavaScript](/javascript/README)
 * [Rust](/rust/README)
 * [Compiler Design](/compiler-design/README)
 * [LeetCode](/leetcode/README)
