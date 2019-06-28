@@ -4,4 +4,5 @@
 * [JavaScript](/javascript/README)
 * [Rust](/rust/README)
 * [Compiler Design](/compiler-design/README)
+* [Git](/git/README)
 * [LeetCode](/leetcode/README)
