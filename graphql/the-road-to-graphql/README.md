@@ -59,3 +59,105 @@
 - Under construction.
 - Bold & fashionable.
 - Missing competition.
+
+## GraphQL Fundamentals
+
+### GraphQL Operation: Query
+
+```graphql
+{
+  viewer {
+    name
+    url
+  }
+}
+```
+
+- __Object__: holds data about an entity, e.g. `viewer`.
+- __Field__: used to ask for specific properties in objects, e.g. `name`.
+
+```graphql
+{
+  organization(login: "the-road-to-learn-react") {
+    name
+    url
+  }
+}
+```
+
+- __Argument__: value passed to a field, e.g. `login: "the-road-to-learn-react"`.
+
+```graphql
+{
+  book: organization(login: "the-road-to-learn-react") {
+    name
+    url
+  }
+  company: organization(login: "facebook") {
+    name
+    url
+  }
+}
+```
+
+- __Alias__: used to rename the result of a field, e.g. `book`.
+
+```graphql
+{
+  book: organization(login: "the-road-to-learn-react") { ...sharedOrganizationFields
+  }
+  company: organization(login: "facebook") {
+    ...sharedOrganizationFields
+  }
+}
+
+fragment sharedOrganizationFields on Organization {
+  name
+  url
+}
+```
+
+- __Fragment__: used to extract the query's reusable parts.
+
+```graphql
+query ($organization: String = "the-road-to-learn-react") {
+  organization(login: $organization) {
+    name
+    url
+  }
+}
+```
+
+- It is possible to pass a __variable__ to a query, e.g. `$organization`.
+- __Type__: type of a field, e.g. `String`. If the type ends with `!`, the type is non-nullable.
+- You can also define a default value, e.g. `= "the-road-to-learn-react"`.
+
+```graphql
+query OrganizationForLearningReact {
+  organization(login: "the-road-to-learn-react") {
+    name
+    url
+  }
+}
+```
+
+- `query` is called __operation type__ and `OrganizationForLearningReact` is called __operation name__.
+
+```graphql
+query OrganizationForLearningReact(
+  $organization: String!,
+  $repository: String!,
+  $withFork: Boolean!
+) {
+  organization(login: $organization) {
+    name
+    url
+    repository(name: $repository) {
+      name
+      forkCount @include(if: $withFork)
+    }
+  }
+}
+```
+
+- __Directive__: Two types of directives: an __include__ directive, which includes the field when the Boolean type is set to true; and a __skip__ directive, which excludes it instead.
