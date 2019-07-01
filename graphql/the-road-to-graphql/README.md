@@ -174,3 +174,29 @@ mutation AddStar($repositoryId: ID!) {
   }
 }
 ```
+
+### GraphQL Pagination
+
+```graphql
+query OrganizationForLearningReact {
+  organization(login: "the-road-to-learn-react") {
+    name
+    url
+    repositories(first: 2, after: "Y3Vyc29yOnYyOpHOA8awSw==") {
+      totalCount edges {
+         node {
+           name
+          }
+        }
+      pageInfo {
+        endCursor
+        hasNextPage
+      }
+    }
+  }
+}
+```
+
+- `first` sepcifies how many items from the list are expected in the result.
+- `endCursor` is the cursor of the last item on the list. It can be used to retrieve a successive list of items.
+- `hasNextPage` gives info about whether there is a next page to retrieve.
