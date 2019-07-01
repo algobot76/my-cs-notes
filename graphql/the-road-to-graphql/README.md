@@ -161,3 +161,16 @@ query OrganizationForLearningReact(
 ```
 
 - __Directive__: Two types of directives: an __include__ directive, which includes the field when the Boolean type is set to true; and a __skip__ directive, which excludes it instead.
+
+### GraphQL Operation: Mutation
+
+```graphql
+mutation AddStar($repositoryId: ID!) {
+  addStar(input: { starrableId: $repositoryId }) {
+    starrable {
+      id
+      viewerHasStarred
+    }
+  }
+}
+```
