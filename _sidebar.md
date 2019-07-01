@@ -5,4 +5,5 @@
 * [Rust](/rust/README)
 * [Compiler Design](/compiler-design/README)
 * [Git](/git/README)
+* [GraphQL](/graphql/README)
 * [LeetCode](/leetcode/README)
