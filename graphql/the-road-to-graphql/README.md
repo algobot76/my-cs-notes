@@ -198,5 +198,6 @@ query OrganizationForLearningReact {
 ```
 
 - `first` sepcifies how many items from the list are expected in the result.
+- `after` is the entry point for the next page.
 - `endCursor` is the cursor of the last item on the list. It can be used to retrieve a successive list of items.
 - `hasNextPage` gives info about whether there is a next page to retrieve.
