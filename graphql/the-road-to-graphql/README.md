@@ -37,3 +37,25 @@
   - A GraphQL operation can be cheap or expensive.
 - Caching
   - Each query is different => hard to implement a cache.
+
+## Apollo
+
+### Apollo Advantages
+
+- Ecosystem.
+- A lot of investment on Apollo.
+- Used by many companies.
+- Documentation.
+- Libraries.
+- Features.
+- Interoperability with other frameworks.
+- Modern data handling with Apollo.
+- Modern state management with GraphQL and Apollo.
+- Convenient development experience.
+
+### Apollo Disadvantages
+
+- Bleeding edge.
+- Under construction.
+- Bold & fashionable.
+- Missing competition.
