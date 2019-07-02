@@ -77,3 +77,12 @@
 #### 2.1.7. `.git/refs`
 
 - `refs` stores various kinds of pointers into the `.git/objects` database.
+
+### 2.2. A simple commit
+
+Once you run a commit command, Git shows you the following info about the commit:
+
+- Branch on which the commit is located.
+- Abbreviated ID of the commit.
+- Commit message.
+- File mode of each committed file.
