@@ -2,7 +2,7 @@
 
 ## 2. Getting to know `.git`
 
-### 2.1 The `.git` directory
+### 2.1. The `.git` directory
 
 ```
 .git
