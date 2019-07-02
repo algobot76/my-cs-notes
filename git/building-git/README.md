@@ -31,3 +31,20 @@
    |-- heads
    |-- tags
 ```
+
+#### 2.1.1. `.git/config`
+
+`.git/config` contains config for the current repo.
+
+```
+[core]
+    repositoryformatversion = 0
+    filemode = true
+    bare = false
+    logallrefupdates = true
+```
+
+- Version 0 of the repo file format.
+- Should store each file's mode as reported by the filesystem.
+- Not bare => user edits the working copy of files and create commits, rather than just a shared location for multiple users to push and pull commits from.
+- Reflog is enabled => all changes in `.git/refs` are logged in `.git/logs`.
