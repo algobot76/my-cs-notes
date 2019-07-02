@@ -76,4 +76,4 @@
 
 #### 2.1.7. `.git/refs`
 
-- `refs` stores various kinds of pointers into the `.git/obejcts` database.
+- `refs` stores various kinds of pointers into the `.git/objects` database.
