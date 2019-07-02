@@ -86,3 +86,21 @@ Once you run a commit command, Git shows you the following info about the commit
 - Abbreviated ID of the commit.
 - Commit message.
 - File mode of each committed file.
+
+#### 2.2.1. `.git/COMMIT_EDITMSG`
+
+- The last commit message.
+
+#### 2.2.2. `.git/index`
+
+- A cache that stores info about each file in the current commit and which version of each file should be present.
+- Updated when you run `git add`.
+- Info stored in `index` is used to build the next commit.
+
+#### 2.2.3. `.git/logs`
+
+- `logs` contains history for different branches. It is used by `reflog`.
+
+#### 2.2.4 `.git/refs/heads/master`
+
+- A file that records which commit is at the tip of the master branch.
