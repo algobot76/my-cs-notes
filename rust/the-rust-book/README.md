@@ -1,5 +1,34 @@
 # The Rust Book
 
+## 3. Common Programming Concepts
+
+### Variables and Mutability
+
+- Constants
+  - Can't use `mut` with constants.
+  - Declare constants with `const` instead of `let`.
+  - Type must be annotated.
+  - Can declare in any scope.
+  - Only set to a constant expression, not to the result of a function call or any other value that could only be computed at runtime.
+  - Valid for the entire time with the scope.
+
+### Shadowing
+
+```rust
+let x = 5;
+let x = x + 1;
+let x = x * 2;
+```
+
+- The second `let` statement shadows `x` and the third `let` statement shadows `x` as well.
+
+```rust
+let spaces = "   ";
+let spaces = spaces.len();
+```
+
+- Shadowing allows you to change the type of a variable.
+
 ## Chapter 10: Generic Types, Traits, and Lifetimes
 
 ### Validating References with Lifetimes
