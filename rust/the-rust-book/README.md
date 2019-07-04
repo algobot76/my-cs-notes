@@ -4,6 +4,8 @@
 
 ### Variables and Mutability
 
+#### Differences between Variables and Constants
+
 - Constants
   - Can't use `mut` with constants.
   - Declare constants with `const` instead of `let`.
@@ -12,7 +14,7 @@
   - Only set to a constant expression, not to the result of a function call or any other value that could only be computed at runtime.
   - Valid for the entire time with the scope.
 
-### Shadowing
+#### Shadowing
 
 ```rust
 let x = 5;
@@ -29,41 +31,41 @@ let spaces = spaces.len();
 
 - Shadowing allows you to change the type of a variable.
 
-## Data Types
+### Data Types
 
-### Scalar Types
+#### Scalar Types
 
 - A scalar type represents a single value.
 - 4 primary types: integers, floats, Booleans, and characters.
 
-#### Integer
+##### Integer
 
 - A number without a fractional component.
 - Signed/unsigned (e.g. `i32` and `u32`).
 - Each signed variant: `-2^(n-1)` - `2^(n-1) - 1`.
 
-#### Floating-Point
+##### Floating-Point
 
 - 2 primitive types: `f32`, `f64`.
 
-#### Numeric Operations
+##### Numeric Operations
 
 - Rust supports `+`, `-`, `*`, `/`, `%`.
 
-#### Boolean
+##### Boolean
 
 - `true` or `false`.
 
-#### Character
+##### Character
 
 - `char` represents a Unicode Scalar Value.
 
-### Compound Types
+#### Compound Types
 
 - Compound types can group multiple values into one type.
 - 2 primitive compound types: tuples and arrays.
 
-#### Tuple
+##### Tuple
 
 ```rust
 let tup: (i32, f64, u8) = (500, 6.4, 1);
@@ -77,7 +79,7 @@ let one = tup.2;
 - Each position has a type and the types don't have to be the same.
 - The values of a tuple can be accessed by either destructuring/period (`.`).
 
-#### Array
+##### Array
 
 ```rust
 let a = [1, 2, 3, 4];
