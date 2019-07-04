@@ -29,6 +29,68 @@ let spaces = spaces.len();
 
 - Shadowing allows you to change the type of a variable.
 
+## Data Types
+
+### Scalar Types
+
+- A scalar type represents a single value.
+- 4 primary types: integers, floats, Booleans, and characters.
+
+#### Integer
+
+- A number without a fractional component.
+- Signed/unsigned (e.g. `i32` and `u32`).
+- Each signed variant: `-2^(n-1)` - `2^(n-1) - 1`.
+
+#### Floating-Point
+
+- 2 primitive types: `f32`, `f64`.
+
+#### Numeric Operations
+
+- Rust supports `+`, `-`, `*`, `/`, `%`.
+
+#### Boolean
+
+- `true` or `false`.
+
+#### Character
+
+- `char` represents a Unicode Scalar Value.
+
+### Compound Types
+
+- Compound types can group multiple values into one type.
+- 2 primitive compound types: tuples and arrays.
+
+#### Tuple
+
+```rust
+let tup: (i32, f64, u8) = (500, 6.4, 1);
+let (x, y, z) = tup; // destructuring
+let five_hundred = tup.0;
+let six_point_four = tup.1;
+let one = tup.2;
+```
+
+- A comma-separated list of values inside parentheses.
+- Each position has a type and the types don't have to be the same.
+- The values of a tuple can be accessed by either destructuring/period (`.`).
+
+#### Array
+
+```rust
+let a = [1, 2, 3, 4];
+
+let first = a[0];
+
+let invalid = a[10]; // invalid => runtime error
+```
+
+- A comma-separated list of values inside square brackets.
+- Each value can be accessed by a corresponding index.
+- An invalid index causes a runtime error.
+
 ## 10. Generic Types, Traits, and Lifetimes
 
 ### Validating References with Lifetimes
