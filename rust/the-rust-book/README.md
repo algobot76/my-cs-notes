@@ -29,7 +29,7 @@ let spaces = spaces.len();
 
 - Shadowing allows you to change the type of a variable.
 
-## Chapter 10: Generic Types, Traits, and Lifetimes
+## 10. Generic Types, Traits, and Lifetimes
 
 ### Validating References with Lifetimes
 
