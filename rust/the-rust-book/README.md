@@ -93,6 +93,137 @@ let invalid = a[10]; // invalid => runtime error
 - Each value can be accessed by a corresponding index.
 - An invalid index causes a runtime error.
 
+### Functions
+
+#### Function Parameters
+
+```rust
+fn main() {
+    another_function(5, 6);
+}
+
+fn another_function(x: i32, y: i32) {
+    println!("The value of x is: {}", x);
+    println!("The value of y is: {}", y);
+}
+```
+
+- `x` and `y` are __parameters__/__arguments__.
+- You must declare types for each parameter (e.g. `i32`).
+- Parameters can have different types.
+
+#### Statements and Expressions in Function Bodies
+
+- __Statements__: instructions that perform some action and don't return a value.
+- __Expressions__: evaluate to a resulting value.
+
+```rust
+fn main () {
+    let x = 5;
+    let y = {
+        let x = 3;
+        x + 1
+    };
+}
+```
+
+- `let y = {...};` is a statement.
+- `{...}` is a block.
+- `x + 1` has no semicolon and is an expression.
+
+#### Functions with Return Values
+
+```rust
+fn plus_one(x: i32) -> i32 {
+    x + 1
+}
+```
+
+- `-> i32` specifies the type of the return value.
+
+### Comments
+
+- A __comment__ starts with `//`.
+
+### Control Flow
+
+#### If Expressions
+
+```rust
+fn main() {
+    let number = 3;
+
+    if number < 5 {
+        println!("condition was true");
+    } else {
+        println!("condition was false");
+    }
+}
+```
+
+- The condition of every `if` expression must be a boolean. It cannot be values other than booleans.
+- __Arms__: blocks of code associated with the condition in an `if` expression.
+- Rust also supports `else if`.
+
+```rust
+fn main() {
+    let condition = true;
+    let number  = if condition {
+        5
+    } else {
+        6
+    }
+}
+```
+
+- You can combine a `let` statement with an `if` expression.
+- The return value in each arm must have the same type.
+
+### Repetitions with Loops
+
+#### `loop`
+
+```rust
+fn main() {
+    loop {
+        println!("again!");
+    }
+}
+```
+
+- The `println!` statement is repeatedly executed.
+- Use `CTRL-C` to halt the loop.
+
+#### `while`
+
+```rust
+fn main () {
+    let mut number = 3;
+
+    while number != 0 {
+        println!("{}!", number);
+        number = number - 1;
+    }
+
+    println!("LIFTOFF!!!");
+}
+```
+
+#### `for`
+
+```rust
+fn main() {
+    let a = [1, 2, 3, 4, 5];
+
+    for element in a.iter() {
+        println!("The value is: {}", element);
+    }
+}
+```
+
+- Use `for` to iterate the array `a`.
+- Replace `a.iter()` with `a.rev()` if you want to iterate backward.
+
 ## 10. Generic Types, Traits, and Lifetimes
 
 ### Validating References with Lifetimes
