@@ -104,3 +104,31 @@ Once you run a commit command, Git shows you the following info about the commit
 #### 2.2.4 `.git/refs/heads/master`
 
 - A file that records which commit is at the tip of the master branch.
+
+### 2.3 Storing objects
+
+- The files with hexadecimal names in `.git/objects` = content stored under version control.
+
+#### 2.3.1 The `cat-file` command
+
+```
+$ git cat-file -p 2fb7e6b97a594fa7f9ccb927849e95c7c70e39f5
+
+tree 88e38705fdbd3608cddbe904b67c731f3234c45b
+author James Coglan <james@jcoglan.com> 1511204319 +0000
+committer James Coglan <james@jcoglan.com> 1511204319 +0000
+
+First Commit
+```
+
+- `tree` represents your whole tree of files.
+- `author` and `commiter` are info about the auther's name, email address, and a Unix timestamp + timezone offset.
+
+```
+$ git cat-file -p 88e38705fdbd3608cddbe904b67c731f3234c45b
+100644 blob ce013625030ba8dba906f756967f9e9ca394464a     hello.txt
+100644 blob cc628ccd10742baea8241c5924df992b5c019f71     world.txt
+```
+
+- Git creates a tree for every directory, including the root. Each tree represents the contents for each directory.
+- Each entry in a tree is either a tree (subdirectory) or a blob (regular file).
