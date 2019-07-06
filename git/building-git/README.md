@@ -141,7 +141,7 @@ $ git cat-file -p 88e38705fdbd3608cddbe904b67c731f3234c45b
 #### 2.3.3 Trees on disk
 
 - Git generates a string for each entry consisting its mode in text (e.g. `100641), a space, its filename, a null type, ID (in binary).
-- Git concatentates all these entries into a single string, then prepends the word `tree`, a space, and the length of the rest of the content.
+- Git concatenates all these entries into a single string, then prepends the word `tree`, a space, and the length of the rest of the content.
 
 #### 2.3.4 Commits on disk
 
