@@ -132,3 +132,20 @@ $ git cat-file -p 88e38705fdbd3608cddbe904b67c731f3234c45b
 
 - Git creates a tree for every directory, including the root. Each tree represents the contents for each directory.
 - Each entry in a tree is either a tree (subdirectory) or a blob (regular file).
+
+#### 2.3.2 Blobs on disk
+
+- Git uses the DEFALTE algorithm to compress objects stored in `.git/objects`.
+- Git stores blobs by prepending them with the world `blob`, a space, the length of the blob, and a null type.
+
+#### 2.3.3 Trees on disk
+
+- Git generates a string for each entry consisting its mode in text (e.g. `100641), a space, its filename, a null type, ID (in binary).
+- Git concatentates all these entries into a single string, then prepends the word `tree`, a space, and the length of the rest of the content.
+
+#### 2.3.4 Commits on disk
+
+- A commit is stored as a series of headers, followed by the message.
+- `tree`: all commits refer to a single tree that represents the state of your files at that point in the history.
+- `author`: name + email + Unix timestamp
+- `commiter`: same as `auther` in most cases; could be changed when someone else amends the commit or cherry-picks it into another branch.
