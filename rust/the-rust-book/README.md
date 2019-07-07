@@ -321,6 +321,93 @@ fn takes_and_give_back(a_string: String) -> String {
 }
 ```
 
+### References and Borrowing
+
+```rust
+fn main() {
+    let s1 = String::form("hello");
+    let len = calculate_length(&s1);
+    println!("The length of '{}' is {}.", s1, len);
+}
+
+fn calculate_length(s: &String) -> usize {
+    s.len();
+}
+```
+
+- `s` is a reference to `s1`.
+- `s` doesn't have the ownership of the value of `s1`.
+- When `s` goes out of scope, the value it refers to is not dropped.
+- This is also called __borrowing__.
+- References are immutable by default.
+
+#### Mutable References
+
+```rust
+fn main() {
+    let mut s = String::from("hello");
+    change(&mut s);
+}
+
+fn change(some_string: &mut String) {
+    some_string.push_str(", world");
+}
+```
+
+- `&mut` makes a reference mutable.
+- Only one mutable reference at a time.
+
+
+```rust
+let mut s = String::from("hello");
+
+let r1 = &s; // no problem
+let r2 = &s; // no problem
+let r3 = &mut s; // BIG PROBLEM
+
+println!("{}, {}, and {}", r1, r2, r3);
+```
+
+```rust
+let mut s = String::from("hello");
+
+let r1 = &s; // no problem
+let r2 = &s; // no problem
+println!("{} and {}", r1, r2);
+// r1 and r2 are no longer used after this point
+
+let r3 = &mut s; // no problem
+println!("{}", r3);
+```
+
+- You can have immutable references and mutable references within the same scope, but you can't mix them.
+
+#### Dangling References
+
+```rust
+fn main() {
+    let reference_to_nothing = dangle();
+}
+
+fn dangle() -> &String { // returns a reference to a string
+    let s = String::from("hello"); // s is a new string
+    &s // reference to the string s
+} // &s goes out of scope, and is dropped. Its memory goes away.
+// Danger!
+```
+
+```rust
+fn no_dangle() -> String {
+    let s = String::from("hello");
+    s // ownership is moved out, and nothing is deallocated
+}
+```
+
+#### The Rules of References
+
+- At any given time, you can have either one mutable reference or any number of immutable references.
+- References must always be valid.
+
 ## 10. Generic Types, Traits, and Lifetimes
 
 ### Validating References with Lifetimes
