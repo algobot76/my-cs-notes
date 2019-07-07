@@ -224,6 +224,190 @@ fn main() {
 - Use `for` to iterate the array `a`.
 - Replace `a.iter()` with `a.rev()` if you want to iterate backward.
 
+## 4. Understanding Ownership
+
+### What is Ownership?
+
+#### Ownership Rules
+
+- Each variable in Rust has a variable that's called its owner.
+- There can only be one owner at a time.
+- When the owner goes out of scope, the value will be dropped.
+
+#### Variable Scope
+
+```rust
+{ // s is not valid here, it's not yet declared
+    let s = "hello"; // s is valid from this point forward
+
+    // do stuff swith s
+} // this scope is now over, and s is no longer valid
+```
+
+#### Ways Variables and Data Interact: Move
+
+```rust
+let s1 = String::form("hello");
+let s2 = s1; // s1 is no longer valid here
+
+println!("{}, world!", s1); // error
+```
+
+- `s2` is a copy of `s1`'s pointer, length, and capacity.
+- `s1` is moved into `s2` (`s1` is no longer valid).
+- Rust doesn't have to free anything when `s1` goes out of scope.
+- Only `s2` is valid and will be freed when it goes out of scope.
+
+#### Ways Variables and Data Interact: Clone
+
+```rust
+let s1 = String::from("hello");
+let s2 = s1.clone(); // data of s1 is copied
+
+println!("s1 = {}, s2 = {}", s1, s2); // both s1 and s2 are valid
+```
+
+#### Ways Variables and Data Interact: Copy
+
+```rust
+let x = 5;
+let y = x; // x not moved into y
+
+println!("x = {}, y = {}", x, y); // both x and y are valid
+```
+
+- Size of an integer has a known size at compile time, so Rust stores `x` and `y` on the stack.
+- Types with the `Copy` trait can be stored on the stack.
+- We can't annotate a type with the `Copy` trait if any part of it has implemented the `Drop` trait.
+
+#### Ownership and Functions
+
+```rust
+fn main() {
+    let s = String::form("hello"); // s comes into scope
+    take_ownership(s); // s's value moves into the function
+                       // and is no longer valid here
+    let x = 5; // x comes into scope
+    makes_copy(x); // x would move into the function
+                   // but i32 is Copy, so it's ok to sitll
+                   // use x afterward
+} // both x and s go out of scope. But because s's value was moved, nothing special happens
+
+fn takes_ownership(some_string: String) { // some_string comes into scope
+    println!("{}", some_string);
+} // some_string goes out of scope and `drop` is called
+
+fn makes_copy(some_integer: i32) {
+    println1("{}", some_integer);
+}
+```
+
+#### Return Values and Scope
+
+```rust
+fn main() {
+    let s1 = gives_ownership(); // gives_onwsership moves its return value into s1
+    let s2 = String::form("hello"); // s2 comes into scope
+    let s3 = takes_and_gives_back(s2); // s2 is moved into takes_and_gives_back, which also moves its return value to s3
+} // s3 goes out of scope and is dropped. s2 goes out of scope but was moved, so nothing happens. s1 goes out of scope and is dropped.
+
+fn gives_ownership() -> String {
+    let some_string = String::form("hello");
+    some_string
+}
+
+fn takes_and_give_back(a_string: String) -> String {
+    a_string
+}
+```
+
+### References and Borrowing
+
+```rust
+fn main() {
+    let s1 = String::form("hello");
+    let len = calculate_length(&s1);
+    println!("The length of '{}' is {}.", s1, len);
+}
+
+fn calculate_length(s: &String) -> usize {
+    s.len();
+}
+```
+
+- `s` is a reference to `s1`.
+- `s` doesn't have the ownership of the value of `s1`.
+- When `s` goes out of scope, the value it refers to is not dropped.
+- This is also called __borrowing__.
+- References are immutable by default.
+
+#### Mutable References
+
+```rust
+fn main() {
+    let mut s = String::from("hello");
+    change(&mut s);
+}
+
+fn change(some_string: &mut String) {
+    some_string.push_str(", world");
+}
+```
+
+- `&mut` makes a reference mutable.
+- Only one mutable reference at a time.
+
+
+```rust
+let mut s = String::from("hello");
+
+let r1 = &s; // no problem
+let r2 = &s; // no problem
+let r3 = &mut s; // BIG PROBLEM
+
+println!("{}, {}, and {}", r1, r2, r3);
+```
+
+```rust
+let mut s = String::from("hello");
+
+let r1 = &s; // no problem
+let r2 = &s; // no problem
+println!("{} and {}", r1, r2);
+// r1 and r2 are no longer used after this point
+
+let r3 = &mut s; // no problem
+println!("{}", r3);
+```
+
+- You can have immutable references and mutable references within the same scope, but you can't mix them.
+
+#### Dangling References
+
+```rust
+fn main() {
+    let reference_to_nothing = dangle();
+}
+
+fn dangle() -> &String { // returns a reference to a string
+    let s = String::from("hello"); // s is a new string
+    &s // reference to the string s
+} // &s goes out of scope, and is dropped. Its memory goes away.
+// Danger!
+```
+
+```rust
+fn no_dangle() -> String {
+    let s = String::from("hello");
+    s // ownership is moved out, and nothing is deallocated
+}
+```
+
+#### The Rules of References
+
+- At any given time, you can have either one mutable reference or any number of immutable references.
+- References must always be valid.
+
 ## 10. Generic Types, Traits, and Lifetimes
 
 ### Validating References with Lifetimes
