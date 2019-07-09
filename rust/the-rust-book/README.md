@@ -408,6 +408,61 @@ fn no_dangle() -> String {
 - At any given time, you can have either one mutable reference or any number of immutable references.
 - References must always be valid.
 
+### The Slice Type
+
+- __Slice__ lets you reference a contiguous sequence of elements in a collection rather than the whole collection.
+
+#### String Slices
+
+```rust
+let s = String::from("hello");
+
+let slice = &s[1..3]; // (1, 3]
+let slice = &s[..2]; // (0, 2)
+let slice = &s[3..]; // (3, len]
+let slice = &s[..] // (0, 0]
+```
+
+```rust
+fn first_word(s: &String) -> &str {
+    let bytes = s.as_bytes();
+
+    for (i, &item) in bytes.iter().enumerate() {
+        if item == b' ' {
+            return &s[0..i];
+        }
+    }
+
+    &s[..]
+}
+```
+
+##### String Literals are Slices
+
+```rust
+let s = "hello, world!";
+```
+
+- The type of `s` is `&str`, which is an immutable reference.
+
+##### String Slices as Parameters
+
+```rust
+fn first_word(s: &str) -> &str {
+```
+
+- This allows us to use `first_word` on both `&String` and `&str`.
+
+#### Other Slices
+
+```rust
+let a = [1, 2, 3, 4, 5];
+
+let slice = &a[1..3];
+```
+
+- The type of slice is `&[i32]`.
+
 ## 10. Generic Types, Traits, and Lifetimes
 
 ### Validating References with Lifetimes
