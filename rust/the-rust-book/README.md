@@ -463,6 +463,58 @@ let slice = &a[1..3];
 
 - The type of slice is `&[i32]`.
 
+## 5. Using Structs to Structure Related Data
+
+### Defining and Instantiating Structs
+
+- Define a struct called `User`:
+
+```rust
+struct User {
+    username: String,
+    email: String,
+    sign_in_count: u64,
+    active: bool,
+}
+```
+
+- Create an instance of `User`:
+
+```rust
+let user1 = User {
+    email: String::from("someone@example.com"),
+    username: String::from("someusername123"),
+    active: true,
+    sign_in_count: 1,
+};
+```
+
+- Change the value of the `email` field of `user1`:
+
+```rust
+let mut user1 = User {
+    email: String::from("someone@example.com"),
+    username: String::from("someusername123"),
+    active: true,
+    sign_in_count: 1,
+};
+
+user1.email = String::from("anotheremail@example.com");
+```
+
+- Define a `build_user` function that returns a `User` instance with the given email and username:
+
+```rust
+fn build_user(email: String, username: String) -> User {
+    User {
+        email，
+        username,
+        active: true,
+        sign_in_count: 1,
+    }
+}
+```
+
 ## 10. Generic Types, Traits, and Lifetimes
 
 ### Validating References with Lifetimes
