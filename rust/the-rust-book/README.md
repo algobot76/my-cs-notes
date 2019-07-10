@@ -559,6 +559,64 @@ fn main() {
 }
 ```
 
+### Method Syntax
+
+- Add a method called `area` to `Rectangle`:
+
+```rust
+#[derive(Debug)]
+struct Rectangle {
+    width: u32,
+    height: u32,
+}
+
+impl Rectangle {
+    fn area(&self) -> u32 {
+        self.width * self.height
+    }
+}
+
+fn main() {
+    let rect1 = Rectangle { width: 30, height: 50 };
+
+    println!(
+        "The area of the rectangle is {} square pixels.",
+        rect1.area()
+    );
+}
+```
+
+- Add a method called `can_hold` to `Rectangle`:
+
+```rust
+impl Rectangle {
+    fn area(&self) -> u32 {
+        self.width * self.height
+    }
+
+    fn can_hold(&self, other: &Rectangle) -> bool {
+        self.width > other.width && self.height > other.height
+    }
+}
+```
+
+#### Associated Functions
+
+```rust
+impl Rectangle {
+    fn square(size: u32) -> Rectangle {
+        Rectangle { width: size, height: size }
+    }
+}
+```
+
+- An __associated function__ is defined in an `impl` block but it doesn't work with an instance of the struct it works with.
+- To call an associated function, we use the `::` operator, e.g. `let sq = Rectangle::square(3)`.
+
+#### Multiple `impl` Blocks
+
+- It's possible to have multiple `impl` blocks for the same struct.
+
 ## 10. Generic Types, Traits, and Lifetimes
 
 ### Validating References with Lifetimes
