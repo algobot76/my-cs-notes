@@ -786,6 +786,29 @@ match some_u8_value {
 
 - `_` will match all the other possible cases.
 
+### Concise Control Flow with `if let`
+
+You can rewrite this:
+
+```rust
+let mut count = 0;
+match coin {
+    Coin::Quarter(state) => println!("State quarter from {:?}!", state),
+    _ => count += 1,
+}
+```
+
+into this:
+
+```rust
+let mut count = 0;
+if let Coin::Quarter(state) = coin {
+    println!("State quarter from {:?}!", state);
+} else {
+    count += 1;
+}
+```
+
 ## 10. Generic Types, Traits, and Lifetimes
 
 ### Validating References with Lifetimes
