@@ -463,6 +463,160 @@ let slice = &a[1..3];
 
 - The type of slice is `&[i32]`.
 
+## 5. Using Structs to Structure Related Data
+
+### Defining and Instantiating Structs
+
+- Define a struct called `User`:
+
+```rust
+struct User {
+    username: String,
+    email: String,
+    sign_in_count: u64,
+    active: bool,
+}
+```
+
+- Create an instance of `User`:
+
+```rust
+let user1 = User {
+    email: String::from("someone@example.com"),
+    username: String::from("someusername123"),
+    active: true,
+    sign_in_count: 1,
+};
+```
+
+- Change the value of the `email` field of `user1`:
+
+```rust
+let mut user1 = User {
+    email: String::from("someone@example.com"),
+    username: String::from("someusername123"),
+    active: true,
+    sign_in_count: 1,
+};
+
+user1.email = String::from("anotheremail@example.com");
+```
+
+- Define a `build_user` function that returns a `User` instance with the given email and username:
+
+```rust
+fn build_user(email: String, username: String) -> User {
+    User {
+        email，
+        username,
+        active: true,
+        sign_in_count: 1,
+    }
+}
+```
+
+- Create `user2` from `user1`:
+
+```rust
+let user2 = User {
+    email: String::from("another@example.com"),
+    username: String::from("anotherusername567"),
+    ..user1
+};
+```
+
+#### Using Tuple Structs without Named Fields to Create Different Types
+
+```rust
+struct Color(i32, i32, i32);
+struct Point(i32, i32, i32);
+
+let black = Color(0, 0, 0);
+let origin = Point(0, 0, 0);
+```
+
+- Structs are defined like tuples (called __tuple structs__).
+- `black` and `origin` have different types.
+
+#### Unit-Like Structs Without Any Fields
+
+- A __unit-like__ struct is a struct without any fields.
+- It can be used to implement a trait on some type and you don't have any data to store in the type itself.
+
+### An Example Program Using Structs
+
+```rust
+#[derive(Debug)]
+struct Rectangle {
+    width: u32,
+    height: u32,
+}
+
+fn main() {
+    let rect1 = Rectangle { width: 30, height: 50 };
+
+    println!("rect1 is {:#?}", rect1);
+}
+```
+
+### Method Syntax
+
+- Add a method called `area` to `Rectangle`:
+
+```rust
+#[derive(Debug)]
+struct Rectangle {
+    width: u32,
+    height: u32,
+}
+
+impl Rectangle {
+    fn area(&self) -> u32 {
+        self.width * self.height
+    }
+}
+
+fn main() {
+    let rect1 = Rectangle { width: 30, height: 50 };
+
+    println!(
+        "The area of the rectangle is {} square pixels.",
+        rect1.area()
+    );
+}
+```
+
+- Add a method called `can_hold` to `Rectangle`:
+
+```rust
+impl Rectangle {
+    fn area(&self) -> u32 {
+        self.width * self.height
+    }
+
+    fn can_hold(&self, other: &Rectangle) -> bool {
+        self.width > other.width && self.height > other.height
+    }
+}
+```
+
+#### Associated Functions
+
+```rust
+impl Rectangle {
+    fn square(size: u32) -> Rectangle {
+        Rectangle { width: size, height: size }
+    }
+}
+```
+
+- An __associated function__ is defined in an `impl` block but it doesn't work with an instance of the struct it works with.
+- To call an associated function, we use the `::` operator, e.g. `let sq = Rectangle::square(3)`.
+
+#### Multiple `impl` Blocks
+
+- It's possible to have multiple `impl` blocks for the same struct.
+
 ## 10. Generic Types, Traits, and Lifetimes
 
 ### Validating References with Lifetimes
