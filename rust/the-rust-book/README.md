@@ -543,6 +543,22 @@ let origin = Point(0, 0, 0);
 - A __unit-like__ struct is a struct without any fields.
 - It can be used to implement a trait on some type and you don't have any data to store in the type itself.
 
+### An Example Program Using Structs
+
+```rust
+#[derive(Debug)]
+struct Rectangle {
+    width: u32,
+    height: u32,
+}
+
+fn main() {
+    let rect1 = Rectangle { width: 30, height: 50 };
+
+    println!("rect1 is {:#?}", rect1);
+}
+```
+
 ## 10. Generic Types, Traits, and Lifetimes
 
 ### Validating References with Lifetimes
