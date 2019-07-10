@@ -809,6 +809,272 @@ if let Coin::Quarter(state) = coin {
 }
 ```
 
+## 8. Common Collections
+
+### Storing Lists of Values with Vectors
+
+#### Creating a New Vector
+
+```rust
+let v: Vec<i32> = Vec::new();
+```
+
+```rust
+let v = vec![1, 2, 3];
+```
+
+#### Updating a Vector
+
+```rust
+let mut v = Vec::new();
+
+v.push(5);
+v.push(6);
+v.push(7);
+v.push(8);
+```
+
+#### Dropping a Vector Drops Its Values
+
+- When a vector gets dropped, all of its contents are also dropped.
+
+#### Reading Elements of Vectors
+
+```rust
+let v = vec![1, 2, 3, 4, 5];
+
+let third: &i32 = &v[2]; // method 1
+println!("The third element is {}", third);
+
+match v.get(2) { // method 2
+    Some(third) => println!("The third element is {}", third),
+    None => println!("There is no third element."),
+}
+```
+
+- If the index is out of bound, e.g. `100`:
+  - Method 1: it causes the program to panic.
+  - Method 2: it returns `None` without panicking.
+
+#### Iterating Over the Values in a Vector
+
+- Read each element of an array:
+
+```rust
+let v = vec![100, 32, 57];
+for i in &v {
+    println!("{}", i);
+}
+```
+
+- Update each element of an array:
+
+```rust
+let mut v = vec![100, 32, 57];
+for i in &mut v {
+    *i += 50;
+}
+```
+
+#### Using an Enum to Store Multiple Types
+
+```rust
+enum SpreadsheetCell {
+    Int(i32),
+    Float(f64),
+    Text(String),
+}
+
+let row = vec![
+    SpreadsheetCell::Int(3),
+    SpreadsheetCell::Text(String::from("blue")),
+    SpreadsheetCell::Float(10.12),
+];
+```
+
+### Storing UTF-8 Encoded Text with Strings
+
+#### What Is a String?
+
+- Rust only have one string type: `str`.
+- Rust's standard library provides `String`.
+- Rust's standard library also provides other string types e.g. `OsString`, `OsStr`, `CString`, and `CStr`.
+
+#### Creating a New String
+
+```rust
+let mut s = String::new();
+```
+
+```rust
+let data = "initial contents";
+
+let s = data.to_string();
+
+// the method also works on a literal directly:
+let s = "initial contents".to_string();
+```
+
+```rust
+let s = String::from("initial contents");
+```
+
+#### Updating a String
+
+- Append a string:
+
+```rust
+let mut s = String::from("foo");
+s.push_str("bar");
+```
+
+```rust
+let mut s1 = String::from("foo");
+let s2 = "bar";
+s1.push_str(s2);
+println!("s2 is {}", s2);
+```
+
+- Append a character:
+
+```rust
+let mut s = String::from("lo");
+s.push('l');
+```
+
+- Concatenate strings:
+
+```rust
+let s1 = String::from("tic");
+let s2 = String::from("tac");
+let s3 = String::from("toe");
+
+let s = s1 + "-" + &s2 + "-" + &s3;
+```
+
+```rust
+let s1 = String::from("tic");
+let s2 = String::from("tac");
+let s3 = String::from("toe");
+
+let s = format!("{}-{}-{}", s1, s2, s3);
+```
+
+- Iterate over a string:
+
+```rust
+for c in "नमस्ते".chars() {
+    println!("{}", c);
+}
+```
+
+```rust
+for b in "नमस्ते".bytes() {
+    println!("{}", b);
+}
+```
+
+- Rust doesn't support indexing into a string!!!
+  - A `String` is a wrapper over `Vec<u8>`.
+    - An English letter is represented in one byte.
+    - One Unicode character is represented in two bytes.
+    - Meaning of the element at a specific index can be ambiguous: byte or character?
+  - Performance concern: Rust has to walk through the contents from the  beginning to the index to determine how many valid characters there are.
+
+### Storing Keys with Associated Values in Hash Maps
+
+#### Creating a New Hash Map
+
+```rust
+use std::collections::HashMap;
+
+let mut scores = HashMap::new();
+
+scores.insert(String::from("Blue"), 10);
+scores.insert(String::from("Yellow"), 50);
+```
+
+```rust
+use std::collections::HashMap;
+
+let teams  = vec![String::from("Blue"), String::from("Yellow")];
+let initial_scores = vec![10, 50];
+
+let scores: HashMap<_, _> = teams.iter().zip(initial_scores.iter()).collect();
+```
+
+#### Hash Maps and Ownership
+
+```rust
+use std::collections::HashMap;
+
+let field_name = String::from("Favorite color");
+let field_value = String::from("Blue");
+
+let mut map = HashMap::new();
+map.insert(field_name, field_value);
+// field_name and field_value are invalid at this point, try using them and
+// see what compiler error you get!
+```
+
+#### Accessing Values in a Hash Map
+
+```rust
+use std::collections::HashMap;
+
+let mut scores = HashMap::new();
+
+scores.insert(String::from("Blue"), 10);
+scores.insert(String::from("Yellow"), 50);
+
+let team_name = String::from("Blue");
+let score = scores.get(&team_name); // Some(&10)
+
+for (key, value) in &scores {
+    println!("{}: {}", key, value);
+}
+```
+
+#### Updating a Hash Map
+
+- Overwrite a value:
+
+```rust
+use std::collections::HashMap;
+
+let mut scores = HashMap::new();
+
+scores.insert(String::from("Blue"), 10);
+scores.insert(String::from("Blue"), 25);
+```
+
+- Only insert a value if the key has no value:
+
+```rust
+use std::collections::HashMap;
+
+let mut scores = HashMap::new();
+scores.insert(String::from("Blue"), 10);
+
+scores.entry(String::from("Yellow")).or_insert(50);
+scores.entry(String::from("Blue")).or_insert(50);
+```
+
+- Update a value based on the old value:
+
+```rust
+use std::collections::HashMap;
+
+let text = "hello world wonderful world";
+
+let mut map = HashMap::new();
+
+for word in text.split_whitespace() {
+    let count = map.entry(word).or_insert(0);
+    *count += 1;
+}
+```
+
 ## 10. Generic Types, Traits, and Lifetimes
 
 ### Validating References with Lifetimes
