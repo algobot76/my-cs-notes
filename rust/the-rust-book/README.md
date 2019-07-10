@@ -617,6 +617,77 @@ impl Rectangle {
 
 - It's possible to have multiple `impl` blocks for the same struct.
 
+## 6. Enums and Pattern Matching
+
+### Defining an Enum
+
+- Define an enum called `IPAddrKind` for IP addresses:
+
+```rust
+enum IpAddrKind {
+    V4,
+    V6,
+}
+```
+
+#### Some Examples
+
+- `IpAddrKind`
+
+```rust
+enum IpAddrKind {
+    V4,
+    V6,
+}
+
+struct IpAddr {
+    kind: IpAddrKind,
+    address: String,
+}
+
+let home = IpAddr {
+    kind: IpAddrKind::V4,
+    address: String::from("127.0.0.1"),
+};
+
+let loopback = IpAddr {
+    kind: IpAddrKind::V6,
+    address: String::from("::1"),
+};
+```
+
+- `Message`
+
+```rust
+enum Message {
+    Quit,
+    Move { x: i32, y: i32 },
+    Write(String),
+    ChangeColor(i32, i32, i32),
+}
+impl Message {
+    fn call(&self) {
+        // method body would be defined here
+    }
+}
+
+let m = Message::Write(String::from("hello"));
+m.call();
+```
+
+#### The `Option` Enum and its Advantages Over Null Values
+
+- Definition of `Option`:
+
+```rust
+enum Option<T> {
+    Some(T),
+    None,
+}
+```
+
+- Read [this](https://doc.rust-lang.org/std/option/enum.Option.html) to learn how to use it.
+
 ## 10. Generic Types, Traits, and Lifetimes
 
 ### Validating References with Lifetimes
