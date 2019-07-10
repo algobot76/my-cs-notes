@@ -515,6 +515,34 @@ fn build_user(email: String, username: String) -> User {
 }
 ```
 
+- Create `user2` from `user1`:
+
+```rust
+let user2 = User {
+    email: String::from("another@example.com"),
+    username: String::from("anotherusername567"),
+    ..user1
+};
+```
+
+#### Using Tuple Structs without Named Fields to Create Different Types
+
+```rust
+struct Color(i32, i32, i32);
+struct Point(i32, i32, i32);
+
+let black = Color(0, 0, 0);
+let origin = Point(0, 0, 0);
+```
+
+- Structs are defined like tuples (called __tuple structs__).
+- `black` and `origin` have different types.
+
+#### Unit-Like Structs Without Any Fields
+
+- A __unit-like__ struct is a struct without any fields.
+- It can be used to implement a trait on some type and you don't have any data to store in the type itself.
+
 ## 10. Generic Types, Traits, and Lifetimes
 
 ### Validating References with Lifetimes
