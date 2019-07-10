@@ -809,6 +809,89 @@ if let Coin::Quarter(state) = coin {
 }
 ```
 
+## 8. Common Collections
+
+### Storing Lists of Values with Vectors
+
+#### Creating a New Vector
+
+```rust
+let v: Vec<i32> = Vec::new();
+```
+
+```rust
+let v = vec![1, 2, 3];
+```
+
+#### Updating a Vector
+
+```rust
+let mut v = Vec::new();
+
+v.push(5);
+v.push(6);
+v.push(7);
+v.push(8);
+```
+
+#### Dropping a Vector Drops Its Values
+
+- When a vector gets dropped, all of its contents are also dropped.
+
+#### Reading Elements of Vectors
+
+```rust
+let v = vec![1, 2, 3, 4, 5];
+
+let third: &i32 = &v[2]; // method 1
+println!("The third element is {}", third);
+
+match v.get(2) { // method 2
+    Some(third) => println!("The third element is {}", third),
+    None => println!("There is no third element."),
+}
+```
+
+- If the index is out of bound, e.g. `100`:
+  - Method 1: it causes the program to panic.
+  - Method 2: it returns `None` without panicking.
+
+#### Iterating Over the Values in a Vector
+
+- Read each element of an array:
+
+```rust
+let v = vec![100, 32, 57];
+for i in &v {
+    println!("{}", i);
+}
+```
+
+- Update each element of an array:
+
+```rust
+let mut v = vec![100, 32, 57];
+for i in &mut v {
+    *i += 50;
+}
+```
+
+#### Using an Enum to Store Multiple Types
+
+```rust
+enum SpreadsheetCell {
+    Int(i32),
+    Float(f64),
+    Text(String),
+}
+
+let row = vec![
+    SpreadsheetCell::Int(3),
+    SpreadsheetCell::Text(String::from("blue")),
+    SpreadsheetCell::Float(10.12),
+];
+```
+
 ## 10. Generic Types, Traits, and Lifetimes
 
 ### Validating References with Lifetimes
