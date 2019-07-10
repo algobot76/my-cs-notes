@@ -892,6 +892,95 @@ let row = vec![
 ];
 ```
 
+### Storing UTF-8 Encoded Text with Strings
+
+#### What Is a String?
+
+- Rust only have one string type: `str`.
+- Rust's standard library provides `String`.
+- Rust's standard library also provides other string types e.g. `OsString`, `OsStr`, `CString`, and `CStr`.
+
+#### Creating a New String
+
+```rust
+let mut s = String::new();
+```
+
+```rust
+let data = "initial contents";
+
+let s = data.to_string();
+
+// the method also works on a literal directly:
+let s = "initial contents".to_string();
+```
+
+```rust
+let s = String::from("initial contents");
+```
+
+#### Updating a String
+
+- Append a string:
+
+```rust
+let mut s = String::from("foo");
+s.push_str("bar");
+```
+
+```rust
+let mut s1 = String::from("foo");
+let s2 = "bar";
+s1.push_str(s2);
+println!("s2 is {}", s2);
+```
+
+- Append a character:
+
+```rust
+let mut s = String::from("lo");
+s.push('l');
+```
+
+- Concatenate strings:
+
+```rust
+let s1 = String::from("tic");
+let s2 = String::from("tac");
+let s3 = String::from("toe");
+
+let s = s1 + "-" + &s2 + "-" + &s3;
+```
+
+```rust
+let s1 = String::from("tic");
+let s2 = String::from("tac");
+let s3 = String::from("toe");
+
+let s = format!("{}-{}-{}", s1, s2, s3);
+```
+
+- Iterate over a string:
+
+```rust
+for c in "नमस्ते".chars() {
+    println!("{}", c);
+}
+```
+
+```rust
+for b in "नमस्ते".bytes() {
+    println!("{}", b);
+}
+```
+
+- Rust doesn't support indexing into a string!!!
+  - A `String` is a wrapper over `Vec<u8>`.
+    - An English letter is represented in one byte.
+    - One Unicode character is represented in two bytes.
+    - Meaning of the element at a specific index can be ambiguous: byte or character?
+  - Performance concern: Rust has to walk through the contents from the  beginning to the index to determine how many valid characters there are.
+
 ## 10. Generic Types, Traits, and Lifetimes
 
 ### Validating References with Lifetimes
