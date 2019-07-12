@@ -1226,3 +1226,41 @@ fn read_username_from_file() -> Result<String, io::Error> {
 ```
 
 - The `?` operator can only be used in functions that return `Result`.
+
+### To `panic!` or Not to `panic!`
+
+#### Guidelines for Error Handling
+
+- Panic when it's possible for you code to end up in a bad state.
+  - __Bad state__: some assumption, guarantee, contract, or invariant has been broken.
+    - It's not expected to happen occasionally.
+    - You code after this point needs to rely on not being in this bad state.
+    - No good way to encode this info in the types you use.
+- When a failure is expected, use `Result`.
+- You can use Rust's type system for error checking.
+
+#### Creating Custom Types for Validation
+
+An example of using types for validation in a guessing game:
+
+```rust
+pub struct Guess {
+    value: i32,
+}
+
+impl Guess {
+    pub fn new(value: i32) -> Guess {
+        if value < 1 || value > 100 {
+            panic!("Guess value must be between 1 and 100, got {}.", value);
+        }
+
+        Guess {
+            value
+        }
+    }
+
+    pub fn value(&self) -> i32 {
+        self.value
+    }
+}
+```
