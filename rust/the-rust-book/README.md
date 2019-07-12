@@ -1226,4 +1226,3 @@ fn read_username_from_file() -> Result<String, io::Error> {
 ```
 
 - The `?` operator can only be used in functions that return `Result`.
-`
