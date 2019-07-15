@@ -18,3 +18,13 @@
 
 - Some CSS properties aren't inherited. There is a [list](https://stackoverflow.com/questions/5612302/which-css-properties-are-inherited) of those properties.
 - Inherited values have no specificity at all, not even zero specificity.
+
+### The Cascade
+
+Cascade rules:
+
+- Find all rules that contain a selector that matches a given element.
+- Sort all declarations applying to the given element by explicit weight. Those rules marked `!important` have a higher weight than those are not.
+- Sort all declarations applying to the given element by origin. There are three basic origins: author, reader, and user agent. Under normal circumstances, the author’s styles win out over the reader’s styles. !important reader styles are stronger than any other styles, including !important author styles. Both author and reader styles override the user agent’s default styles.
+- Sort all declarations applying to the given element by specificity. Those elements with a higher specificity have more weight than those with lower specificity.
+- Sort all declarations applying to the given element by order. The later a declaration appears in the style sheet or document, the more weight it is given. Declarations that appear in an imported style sheet are considered to come before all declarations within the style sheet that imports them.
