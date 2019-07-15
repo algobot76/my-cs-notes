@@ -13,3 +13,8 @@
 - Every element and pseudo-element in a selector => `+ 0, 0, 0, 1`.
 - Universal selector (`*`) => `+ 0, 0, 0, 0`
 - `!important` doesn't have a specificity value but always wins.
+
+### Inheritance
+
+- Some CSS properties aren't inherited. There is a [list](https://stackoverflow.com/questions/5612302/which-css-properties-are-inherited) of those properties.
+- Inherited values have no specificity at all, not even zero specificity.
