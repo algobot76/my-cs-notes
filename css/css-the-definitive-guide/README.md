@@ -4,7 +4,7 @@
 
 ### Sepcificity
 
-- Cascading is determined by __specificity__ of each selector.
+- Which CSS rule to be applied is determined by __specificity__ of each selector.
 - Each specificity value can be expressed in 4 parts, e.g. `0, 0, 0, 0`.
 - Every inline declaration => `+ 1, 0, 0, 0`
 - Every ID attribute value in a  selector => `+ 0, 1, 0, 0`
