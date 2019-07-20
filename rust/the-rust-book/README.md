@@ -1345,3 +1345,196 @@ fn main() {
 
 - Generics don't affect performance due to monomorphization.
 - __Monomorphization__: process of turning generic code into specific code by filling in the concrete types that are used when compiled.
+
+## 10.2 Traits: Defining Shared Bahaviour
+
+__Traits__: define shared bahaviour between different types, similar to the interfaces in other languages.
+
+### Defining a Trait
+
+```rust
+pub trait Summary {
+    fn summarize(&self) -> String;
+}
+```
+
+- A type that has the `Summary` trait should have the `summarize` method.
+
+### Implementing a Trait on a Type
+
+```rust
+pub struct NewsArticle {
+    pub headline: String,
+    pub location: String,
+    pub author: String,
+    pub content: String,
+}
+
+impl Summary for NewsArticle {
+    fn summarize(&self) -> String {
+        format!("{}, by {} ({})", self.headline, self.author, self.location)
+    }
+}
+
+pub struct Tweet {
+    pub username: String,
+    pub content: String,
+    pub reply: bool,
+    pub retweet: bool,
+}
+
+impl Summary for Tweet {
+    fn summarize(&self) -> String {
+        format!("{}: {}", self.username, self.content)
+    }
+}
+```
+
+- If you want to someone else to implement the `Summary` trait, you need to make it public.
+- _Note_: we can implement a trait on a type only if either the trait or the type is local to our crate.
+
+### Default Implementations
+
+```rust
+pub trait Summary {
+    fn summarize(&self) -> String {
+        String::from("(Read more...)")
+    }
+}
+```
+
+- To use the default behaviour: `impl Summary for NewsArticle {}`.
+- A method in a trait can call other methods in the same trait.
+
+### Traits as Parameters
+
+```rust
+pub fn notify(item: impl Summary) {
+    println!("Breaking news! {}", item.summarize());
+}
+```
+
+or
+
+```rust
+pub fn notify<T: Summary>(item: T) {
+    println!("Breaking news! {}", item.summarize());
+}
+```
+
+- The `notify` method accepts a parameter that implements the `Summary` trait.
+
+#### Specifying Multiple Trait Bounds with the `+` Syntax
+
+```rust
+pub fn notify(item: impl Summary + Display) {
+```
+
+or
+
+```rust
+pub fn notify<T: Summary + Display>(item: T) {
+```
+
+#### Clearer Trait Bounds with `where` Clauses
+
+Rewrite:
+
+```rust
+fn some_function<T: Display + Clone, U: Clone + Debug>(t: T, u: U) -> i32 {
+```
+
+into :
+
+```rust
+fn some_function<T, U>(t: T, u: U) -> i32
+    where T: Display + Clone,
+          U: Clone + Debug
+{
+```
+
+### Returning Types that Implement Traits
+
+```rust
+fn returns_summarizable() -> impl Summary {
+    Tweet {
+        username: String::from("horse_ebooks"),
+        content: String::from("of course, as you probably already know, people"),
+        reply: false,
+        retweet: false,
+    }
+}
+```
+
+_Warning_: The code below won't be compiled.
+
+```rust
+fn returns_summarizable(switch: bool) -> impl Summary {
+    if switch {
+        NewsArticle {
+            headline: String::from("Penguins win the Stanley Cup Championship!"),
+            location: String::from("Pittsburgh, PA, USA"),
+            author: String::from("Iceburgh"),
+            content: String::from("The Pittsburgh Penguins once again are the best
+            hockey team in the NHL."),
+        }
+    } else {
+        Tweet {
+            username: String::from("horse_ebooks"),
+            content: String::from("of course, as you probably already know, people"),
+            reply: false,
+            retweet: false,
+        }
+    }
+}
+```
+
+- You can't return either a `NewArticle` or `Tweet` bacause of the restrictions of `impl Trait` syntax.
+
+### Fixing the `largest` Function with Trait Bounds
+
+```rust
+fn largest<T: PartialOrd + Copy>(list: &[T]) -> T {
+    let mut largest = list[0];
+
+    for &item in list.iter() {
+        if item > largest {
+            largest = item;
+        }
+    }
+
+    largest
+}
+```
+
+### Using Trait Bounds to Conditionally Implement Methods
+
+```rust
+use std::fmt::Display;
+
+struct Pair<T> {
+    x: T,
+    y: T,
+}
+
+impl<T> Pair<T> {
+    fn new(x: T, y: T) -> Self {
+        Self {
+            x,
+            y,
+        }
+    }
+}
+
+impl<T: Display + PartialOrd> Pair<T> {
+    fn cmp_display(&self) {
+        if self.x >= self.y {
+            println!("The largest member is x = {}", self.x);
+        } else {
+            println!("The largest member is y = {}", self.y);
+        }
+    }
+}
+```
+
+- `Pair<T>` only implements the `cmd_display` method if the inner type `T` implements the `PartialOrd` trait enables comparison and the `Display` trait the enables printing.
