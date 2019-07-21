@@ -1345,3 +1345,268 @@ fn main() {
 
 - Generics don't affect performance due to monomorphization.
 - __Monomorphization__: process of turning generic code into specific code by filling in the concrete types that are used when compiled.
+
+## 10.2 Traits: Defining Shared Bahaviour
+
+__Traits__: define shared bahaviour between different types, similar to the interfaces in other languages.
+
+### Defining a Trait
+
+```rust
+pub trait Summary {
+    fn summarize(&self) -> String;
+}
+```
+
+- A type that has the `Summary` trait should have the `summarize` method.
+
+### Implementing a Trait on a Type
+
+```rust
+pub struct NewsArticle {
+    pub headline: String,
+    pub location: String,
+    pub author: String,
+    pub content: String,
+}
+
+impl Summary for NewsArticle {
+    fn summarize(&self) -> String {
+        format!("{}, by {} ({})", self.headline, self.author, self.location)
+    }
+}
+
+pub struct Tweet {
+    pub username: String,
+    pub content: String,
+    pub reply: bool,
+    pub retweet: bool,
+}
+
+impl Summary for Tweet {
+    fn summarize(&self) -> String {
+        format!("{}: {}", self.username, self.content)
+    }
+}
+```
+
+- If you want to someone else to implement the `Summary` trait, you need to make it public.
+- _Note_: we can implement a trait on a type only if either the trait or the type is local to our crate.
+
+### Default Implementations
+
+```rust
+pub trait Summary {
+    fn summarize(&self) -> String {
+        String::from("(Read more...)")
+    }
+}
+```
+
+- To use the default behaviour: `impl Summary for NewsArticle {}`.
+- A method in a trait can call other methods in the same trait.
+
+### Traits as Parameters
+
+```rust
+pub fn notify(item: impl Summary) {
+    println!("Breaking news! {}", item.summarize());
+}
+```
+
+or
+
+```rust
+pub fn notify<T: Summary>(item: T) {
+    println!("Breaking news! {}", item.summarize());
+}
+```
+
+- The `notify` method accepts a parameter that implements the `Summary` trait.
+
+#### Specifying Multiple Trait Bounds with the `+` Syntax
+
+```rust
+pub fn notify(item: impl Summary + Display) {
+```
+
+or
+
+```rust
+pub fn notify<T: Summary + Display>(item: T) {
+```
+
+#### Clearer Trait Bounds with `where` Clauses
+
+Rewrite:
+
+```rust
+fn some_function<T: Display + Clone, U: Clone + Debug>(t: T, u: U) -> i32 {
+```
+
+into :
+
+```rust
+fn some_function<T, U>(t: T, u: U) -> i32
+    where T: Display + Clone,
+          U: Clone + Debug
+{
+```
+
+### Returning Types that Implement Traits
+
+```rust
+fn returns_summarizable() -> impl Summary {
+    Tweet {
+        username: String::from("horse_ebooks"),
+        content: String::from("of course, as you probably already know, people"),
+        reply: false,
+        retweet: false,
+    }
+}
+```
+
+_Warning_: The code below won't be compiled.
+
+```rust
+fn returns_summarizable(switch: bool) -> impl Summary {
+    if switch {
+        NewsArticle {
+            headline: String::from("Penguins win the Stanley Cup Championship!"),
+            location: String::from("Pittsburgh, PA, USA"),
+            author: String::from("Iceburgh"),
+            content: String::from("The Pittsburgh Penguins once again are the best
+            hockey team in the NHL."),
+        }
+    } else {
+        Tweet {
+            username: String::from("horse_ebooks"),
+            content: String::from("of course, as you probably already know, people"),
+            reply: false,
+            retweet: false,
+        }
+    }
+}
+```
+
+- You can't return either a `NewArticle` or `Tweet` bacause of the restrictions of `impl Trait` syntax.
+
+### Fixing the `largest` Function with Trait Bounds
+
+```rust
+fn largest<T: PartialOrd + Copy>(list: &[T]) -> T {
+    let mut largest = list[0];
+
+    for &item in list.iter() {
+        if item > largest {
+            largest = item;
+        }
+    }
+
+    largest
+}
+```
+
+### Using Trait Bounds to Conditionally Implement Methods
+
+```rust
+use std::fmt::Display;
+
+struct Pair<T> {
+    x: T,
+    y: T,
+}
+
+impl<T> Pair<T> {
+    fn new(x: T, y: T) -> Self {
+        Self {
+            x,
+            y,
+        }
+    }
+}
+
+impl<T: Display + PartialOrd> Pair<T> {
+    fn cmp_display(&self) {
+        if self.x >= self.y {
+            println!("The largest member is x = {}", self.x);
+        } else {
+            println!("The largest member is y = {}", self.y);
+        }
+    }
+}
+```
+
+- `Pair<T>` only implements the `cmd_display` method if the inner type `T` implements the `PartialOrd` trait enables comparison and the `Display` trait the enables printing.
+
+## 10.3 Validating References with Lifetimes
+
+### Lifetime Annotation Syntax
+
+```rust
+&i32        // a reference
+&'a i32     // a reference with an explicit lifetime
+&'a mut i32 // a mutable reference with an explicit lifetime
+```
+
+- Lifetime annotations don't change how long any of the references live.
+- Lifetime annotations describe the relationships of the lifetimes of multiple references to each other without affecting the lifetimes.
+
+### Lifetime Annotations in Function Signatures
+
+```rust
+fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
+    if x.len() > y.len() {
+        x
+    } else {
+        y
+    }
+}
+```
+
+- For some lifetime `'a`, the function takes two parameters, both of which are string slices that live at least as long as lifetime `'a`.
+- The lifetime of `x` should overlap with the lifetime of `y` at the scope of `longest`.
+
+### Thinking in Terms of Lifetimes
+
+```rust
+fn longest<'a>(x: &str, y: &str) -> &'a str {
+    let result = String::from("really long string");
+    result.as_str()
+}
+```
+
+- Rust won't compile this code, because the return value's lifetime isn't related to the lifetime of any of the parameters.
+
+### Lifetime Annotations in Structs Definitions
+
+```rust
+struct ImportantExcerpt<'a> {
+    part: &'a str,
+}
+
+fn main() {
+    let novel = String::from("Call me Ishmael. Some years ago...");
+    let first_sentence = novel.split('.')
+        .next()
+        .expect("Could not find a '.'");
+    let i = ImportantExcerpt { part: first_sentence };
+}
+```
+
+- `'a` means an instance of `ImportantExcerpt` can't outlive the reference it holds in its `part` field.
+
+### Lifetime Elision
+
+- __Input lifetimes__: lifetimes on function or method parameters.
+- __Output lifetimes__: lifetimes on return values.
+- __Lifetime elision rules__: rules used by the compiler to infer lifetimes.
+  - Each parameter that is a reference gets its own lifetime paramter.
+  - If there is exactly one input lifetime parameter, that lifetime is assigned to all output lifetime paramters
+  - If there are multiple input lifetime parameters, but one of them is `&self` or `&mut self` because this is a method, the lifetime of `self` is assigned to all output lifetime paramters.
+
+### Static Lifetime
+
+- `'static`: the reference can live for the entire duration of the program.
+
+### 
