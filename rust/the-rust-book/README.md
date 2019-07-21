@@ -1538,3 +1538,75 @@ impl<T: Display + PartialOrd> Pair<T> {
 ```
 
 - `Pair<T>` only implements the `cmd_display` method if the inner type `T` implements the `PartialOrd` trait enables comparison and the `Display` trait the enables printing.
+
+## 10.3 Validating References with Lifetimes
+
+### Lifetime Annotation Syntax
+
+```rust
+&i32        // a reference
+&'a i32     // a reference with an explicit lifetime
+&'a mut i32 // a mutable reference with an explicit lifetime
+```
+
+- Lifetime annotations don't change how long any of the references live.
+- Lifetime annotations describe the relationships of the lifetimes of multiple references to each other without affecting the lifetimes.
+
+### Lifetime Annotations in Function Signatures
+
+```rust
+fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
+    if x.len() > y.len() {
+        x
+    } else {
+        y
+    }
+}
+```
+
+- For some lifetime `'a`, the function takes two parameters, both of which are string slices that live at least as long as lifetime `'a`.
+- The lifetime of `x` should overlap with the lifetime of `y` at the scope of `longest`.
+
+### Thinking in Terms of Lifetimes
+
+```rust
+fn longest<'a>(x: &str, y: &str) -> &'a str {
+    let result = String::from("really long string");
+    result.as_str()
+}
+```
+
+- Rust won't compile this code, because the return value's lifetime isn't related to the lifetime of any of the parameters.
+
+### Lifetime Annotations in Structs Definitions
+
+```rust
+struct ImportantExcerpt<'a> {
+    part: &'a str,
+}
+
+fn main() {
+    let novel = String::from("Call me Ishmael. Some years ago...");
+    let first_sentence = novel.split('.')
+        .next()
+        .expect("Could not find a '.'");
+    let i = ImportantExcerpt { part: first_sentence };
+}
+```
+
+- `'a` means an instance of `ImportantExcerpt` can't outlive the reference it holds in its `part` field.
+
+### Lifetime Elision
+
+- __Input lifetimes__: lifetimes on function or method parameters.
+- __Output lifetimes__: lifetimes on return values.
+- __Lifetime elision rules__: rules used by the compiler to infer lifetimes.
+  - Each parameter that is a reference gets its own lifetime paramter.
+  - If there is exactly one input lifetime parameter, that lifetime is assigned to all output lifetime paramters
+  - If there are multiple input lifetime parameters, but one of them is `&self` or `&mut self` because this is a method, the lifetime of `self` is assigned to all output lifetime paramters.
+
+### Static Lifetime
+
+- `'static`: the reference can live for the entire duration of the program.
+
+### 
