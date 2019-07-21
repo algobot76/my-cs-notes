@@ -1601,9 +1601,9 @@ fn main() {
 - __Input lifetimes__: lifetimes on function or method parameters.
 - __Output lifetimes__: lifetimes on return values.
 - __Lifetime elision rules__: rules used by the compiler to infer lifetimes.
-  - Each parameter that is a reference gets its own lifetime paramter.
-  - If there is exactly one input lifetime parameter, that lifetime is assigned to all output lifetime paramters
-  - If there are multiple input lifetime parameters, but one of them is `&self` or `&mut self` because this is a method, the lifetime of `self` is assigned to all output lifetime paramters.
+  - Each parameter that is a reference gets its own lifetime parameter.
+  - If there is exactly one input lifetime parameter, that lifetime is assigned to all output lifetime parameters
+  - If there are multiple input lifetime parameters, but one of them is `&self` or `&mut self` because this is a method, the lifetime of `self` is assigned to all output lifetime parameters.
 
 ### Static Lifetime
 
