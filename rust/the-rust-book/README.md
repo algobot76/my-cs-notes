@@ -1346,11 +1346,11 @@ fn main() {
 - Generics don't affect performance due to monomorphization.
 - __Monomorphization__: process of turning generic code into specific code by filling in the concrete types that are used when compiled.
 
-## 10.2 Traits: Defining Shared Bahaviour
+### 10.2 Traits: Defining Shared Bahaviour
 
 __Traits__: define shared bahaviour between different types, similar to the interfaces in other languages.
 
-### Defining a Trait
+#### Defining a Trait
 
 ```rust
 pub trait Summary {
@@ -1360,7 +1360,7 @@ pub trait Summary {
 
 - A type that has the `Summary` trait should have the `summarize` method.
 
-### Implementing a Trait on a Type
+#### Implementing a Trait on a Type
 
 ```rust
 pub struct NewsArticle {
@@ -1393,7 +1393,7 @@ impl Summary for Tweet {
 - If you want to someone else to implement the `Summary` trait, you need to make it public.
 - _Note_: we can implement a trait on a type only if either the trait or the type is local to our crate.
 
-### Default Implementations
+#### Default Implementations
 
 ```rust
 pub trait Summary {
@@ -1406,7 +1406,7 @@ pub trait Summary {
 - To use the default behaviour: `impl Summary for NewsArticle {}`.
 - A method in a trait can call other methods in the same trait.
 
-### Traits as Parameters
+#### Traits as Parameters
 
 ```rust
 pub fn notify(item: impl Summary) {
@@ -1424,7 +1424,7 @@ pub fn notify<T: Summary>(item: T) {
 
 - The `notify` method accepts a parameter that implements the `Summary` trait.
 
-#### Specifying Multiple Trait Bounds with the `+` Syntax
+##### Specifying Multiple Trait Bounds with the `+` Syntax
 
 ```rust
 pub fn notify(item: impl Summary + Display) {
@@ -1436,7 +1436,7 @@ or
 pub fn notify<T: Summary + Display>(item: T) {
 ```
 
-#### Clearer Trait Bounds with `where` Clauses
+##### Clearer Trait Bounds with `where` Clauses
 
 Rewrite:
 
@@ -1453,7 +1453,7 @@ fn some_function<T, U>(t: T, u: U) -> i32
 {
 ```
 
-### Returning Types that Implement Traits
+#### Returning Types that Implement Traits
 
 ```rust
 fn returns_summarizable() -> impl Summary {
@@ -1491,7 +1491,7 @@ fn returns_summarizable(switch: bool) -> impl Summary {
 
 - You can't return either a `NewArticle` or `Tweet` bacause of the restrictions of `impl Trait` syntax.
 
-### Fixing the `largest` Function with Trait Bounds
+#### Fixing the `largest` Function with Trait Bounds
 
 ```rust
 fn largest<T: PartialOrd + Copy>(list: &[T]) -> T {
@@ -1507,7 +1507,7 @@ fn largest<T: PartialOrd + Copy>(list: &[T]) -> T {
 }
 ```
 
-### Using Trait Bounds to Conditionally Implement Methods
+#### Using Trait Bounds to Conditionally Implement Methods
 
 ```rust
 use std::fmt::Display;
@@ -1539,9 +1539,9 @@ impl<T: Display + PartialOrd> Pair<T> {
 
 - `Pair<T>` only implements the `cmd_display` method if the inner type `T` implements the `PartialOrd` trait enables comparison and the `Display` trait the enables printing.
 
-## 10.3 Validating References with Lifetimes
+### 10.3 Validating References with Lifetimes
 
-### Lifetime Annotation Syntax
+#### Lifetime Annotation Syntax
 
 ```rust
 &i32        // a reference
@@ -1552,7 +1552,7 @@ impl<T: Display + PartialOrd> Pair<T> {
 - Lifetime annotations don't change how long any of the references live.
 - Lifetime annotations describe the relationships of the lifetimes of multiple references to each other without affecting the lifetimes.
 
-### Lifetime Annotations in Function Signatures
+#### Lifetime Annotations in Function Signatures
 
 ```rust
 fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
@@ -1567,7 +1567,7 @@ fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
 - For some lifetime `'a`, the function takes two parameters, both of which are string slices that live at least as long as lifetime `'a`.
 - The lifetime of `x` should overlap with the lifetime of `y` at the scope of `longest`.
 
-### Thinking in Terms of Lifetimes
+#### Thinking in Terms of Lifetimes
 
 ```rust
 fn longest<'a>(x: &str, y: &str) -> &'a str {
@@ -1578,7 +1578,7 @@ fn longest<'a>(x: &str, y: &str) -> &'a str {
 
 - Rust won't compile this code, because the return value's lifetime isn't related to the lifetime of any of the parameters.
 
-### Lifetime Annotations in Structs Definitions
+#### Lifetime Annotations in Structs Definitions
 
 ```rust
 struct ImportantExcerpt<'a> {
@@ -1596,7 +1596,7 @@ fn main() {
 
 - `'a` means an instance of `ImportantExcerpt` can't outlive the reference it holds in its `part` field.
 
-### Lifetime Elision
+#### Lifetime Elision
 
 - __Input lifetimes__: lifetimes on function or method parameters.
 - __Output lifetimes__: lifetimes on return values.
@@ -1605,6 +1605,6 @@ fn main() {
   - If there is exactly one input lifetime parameter, that lifetime is assigned to all output lifetime parameters
   - If there are multiple input lifetime parameters, but one of them is `&self` or `&mut self` because this is a method, the lifetime of `self` is assigned to all output lifetime parameters.
 
-### Static Lifetime
+#### Static Lifetime
 
 - `'static`: the reference can live for the entire duration of the program.
