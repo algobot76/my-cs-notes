@@ -1608,5 +1608,3 @@ fn main() {
 ### Static Lifetime
 
 - `'static`: the reference can live for the entire duration of the program.
-
-### 
