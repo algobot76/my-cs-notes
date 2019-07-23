@@ -1267,7 +1267,7 @@ impl Guess {
 
 ## 10. Generic Types, Traits, and Lifetimes
 
-### 10.1 Generic Data Types
+### Generic Data Types
 
 #### In Function Definitions
 
@@ -1346,7 +1346,7 @@ fn main() {
 - Generics don't affect performance due to monomorphization.
 - __Monomorphization__: process of turning generic code into specific code by filling in the concrete types that are used when compiled.
 
-### 10.2 Traits: Defining Shared Bahaviour
+### Traits: Defining Shared Bahaviour
 
 __Traits__: define shared bahaviour between different types, similar to the interfaces in other languages.
 
@@ -1539,7 +1539,7 @@ impl<T: Display + PartialOrd> Pair<T> {
 
 - `Pair<T>` only implements the `cmd_display` method if the inner type `T` implements the `PartialOrd` trait enables comparison and the `Display` trait the enables printing.
 
-### 10.3 Validating References with Lifetimes
+### Validating References with Lifetimes
 
 #### Lifetime Annotation Syntax
 
