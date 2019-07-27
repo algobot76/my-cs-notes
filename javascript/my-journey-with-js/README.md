@@ -29,3 +29,20 @@ Links:
 ## Falsy Values
 
 In JavaScript, `false`, `null`, `0`, `""`, `undefined`, `NaN` are falsy.
+
+## Check if a collection should be iterated as array/object
+
+```javascript
+const MAX_ARRAY_INDEX = Math.pow(2, 53) - 1;
+const isArrayLike = collection =>{
+  let length;
+  if (!collection.hasOwnProperty('length')) {
+    return false;
+  } else {
+    length = collection.length;
+  }
+  return typeof length == 'number' && length >= 0 && length <= MAX_ARRAY_INDEX;
+}
+```
+
+_Note_: This snippet is derived from a helper function called `isArrayLike` in [Underscore.js](https://underscorejs.org/).
