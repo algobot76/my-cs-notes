@@ -1,5 +1,31 @@
 # LeetCode Patterns
 
+## Queue
+
+### Implement a queue
+
+```python
+class MyQueue:
+    def __init__(self):
+        self.elements = []
+        self.pointer = 0
+
+    def size(self):
+        return len(self.elements)-pointer
+
+    def empty(self):
+        return self.size() == 0
+
+    def add(self, e):
+        self.elements.append(e)
+
+    def poll(self):
+        if self.empty():
+            return None
+        pointer += 1
+        return self.elements[pointer-1]
+```
+
 ## Linked List
 
 ### Reverse a linked list
