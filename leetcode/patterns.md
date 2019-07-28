@@ -98,6 +98,8 @@ public int findPosition(int[] nums, int target) {
 
 ### Variant 1
 
+Java:
+
 ```java
 Queue<T> q = new LinkedList<>();
 Set<T> s = new HashSet<>();
@@ -114,7 +116,27 @@ while(!q.isEmpty()) {
 }
 ```
 
+Python:
+
+```python
+from collections import deque
+
+queue = deque()
+seen = set()
+
+seen.add(start)
+queue.append(start)
+while len(queue):
+    head = queue.popleft()
+    for neighbor in head.neighbors:
+        if neighbor not in seen:
+            seen.add(neighbor)
+            queue.append(neighbor)
+```
+
 ### Variant 2
+
+Java:
 
 ```java
 Queue<T> q = new LinkedList<>();
@@ -135,7 +157,55 @@ while(!q.isEmpty()) {
 }
 ```
 
+Python:
+
+```python
+from collections import deque
+
+queue = deque()
+seen = set()
+
+seen.add(start)
+queue.append(start)
+while len(queue):
+    size = len(queue)
+    for _ in range(size):
+        head = queue.popleft()
+        for neighbor in head.neighbors:
+            if neighbor not in seen:
+                seen.add(neighbor)
+                queue.append(neighbor)
+```
+
+### Use two queues to implement BFS
+
+Python:
+
+```python
+from collections import deque
+
+queue1, queue2 = deque(), deque()
+seen = set()
+
+seen.add(start)
+queue1.append(start)
+currentLevel = 0
+while len(queue1):
+    size = len(queue1)
+    for _ in range(size):
+        head = queue1.popleft()
+        for neighbor in head.neighbors:
+            if neighbor not in seen:
+                seen.add(neighbor)
+                queue2.append(neighbor)
+    queue1, queue2 = queue2, queue1
+    queue2.clear()
+    currentLevel += 1
+```
+
 ### Use a dummy head in BFS
+
+Java:
 
 ```java
 Queue<T> q = new LinkedList<>();
@@ -153,6 +223,77 @@ while(q.size() > 1) {
         q.offer(neighbor);
     }
 }
+```
+
+Python:
+
+```python
+from collections import deque
+
+queue = deque()
+seen = set()
+
+seen.add(start)
+queue.append(start)
+queue.append(None)
+currentLevel = 0
+while len(queue) > 1:
+    head = queue.popleft()
+    if head == None:
+        currentLevel += 1
+        queue.append(None)
+        continue
+    for neighbor in head.neighbors:
+        if neighbor not in seen:
+            seen.add(neighbor)
+            queue.append(neighbor)
+```
+
+### Bidirectional BFS
+
+Python:
+
+```python
+from collections import deque
+
+def doubleBFS(start, end):
+    if start == end:
+        return 1
+
+    startQueue, endQueue = deque(), deque()
+    startQueue.append(start)
+    endQueue.append(end)
+    step = 0
+
+    startVisited, endVisited = set(), set()
+    startVisited.add(start)
+    endVisited.add(end)
+    while len(startQueue) and len(endQueue):
+        startSize, endSize = len(startQueue), len(endQueue)
+        step += 1
+        for _ in range(startSize):
+            cur = startQueue.popleft()
+            for neighbor in cur.neighbors:
+                if neighbor in startVisited:
+                    continue
+                elif neighbor in endVisited:
+                    return step
+                else:
+                    startVisited.add(neighbor)
+                    startQueue.append(neighbor)
+        step += 1
+        for _ in range(endSize):
+            cur = endQueue.popleft()
+            for neighbor in cur.neighbors:
+                if neighbor in endVisited:
+                    continue
+                elif neighbor in startVisited:
+                    return step
+                else:
+                    endVisited.add(neighbor)
+                    endQueue.append(neighbor)
+
+    return -1
 ```
 
 ## Matrix
