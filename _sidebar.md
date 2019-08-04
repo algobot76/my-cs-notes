@@ -1,5 +1,6 @@
 * [Home](/)
 * [CSS](/css/README)
+* [Go](/go/README)
 * [Java](/java/README)
 * [JavaScript](/javascript/README)
 * [Rust](/rust/README)
