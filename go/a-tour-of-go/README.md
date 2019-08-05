@@ -98,3 +98,76 @@ u := uint(f)
 
 - High-precision values.
 - An untyped constant takes the type needed by its context.
+
+### Flow control statements: for, if, else, switch and defer
+
+#### For
+
+- init statement `;` condition `;` post statement
+  - init and post statements are optional
+
+"while" in Go:
+
+```go
+func main() {
+  sum := 1
+  for sum < 1000 {
+    sum += sum
+  }
+  fmt.Println(sum)
+}
+```
+
+Infinite loop:
+
+```go
+func main() {
+  for {
+  }
+}
+```
+
+#### If and else
+
+```go
+func pow(x, n, lim float64) float64 {
+  if v := math.Pow(x, n); v < lim {
+    return v
+  } else {
+    fmt.Printf("%g >= %g\n", v, lim)
+  }
+  // can't use v here, though
+  return lim
+}
+
+func main() {
+  fmt.Println(
+  pow(3, 2, 10),
+  pow(3, 3, 20),
+  )
+}
+```
+
+#### Switch
+
+```go
+func main() {
+ fmt.Println("When's Saturday?")
+ today := time.Now().Weekday()
+ switch time.Saturday {
+ case today + 0:
+    fmt.Println("Today.")
+  case today + 1:
+    fmt.Println("Tomorrow.")
+  case today + 2:
+    fmt.Println("In two days.")
+  default:
+    fmt.Println("Too far away.")
+  }
+}
+```
+
+#### Defer
+
+- `defer` defers the execution of a function until the surrounding function returns
+- `defer` statements are pushed onto a stack (LIFO).
