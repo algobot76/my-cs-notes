@@ -171,3 +171,211 @@ func main() {
 
 - `defer` defers the execution of a function until the surrounding function returns
 - `defer` statements are pushed onto a stack (LIFO).
+
+### More types: structs, slices, and maps
+
+#### Pointers
+
+- A pointer holds the memory address of value.
+
+```go
+func main() {
+  i, j := 42, 2701
+
+  p := &i         // point to i
+  fmt.Println(*p) // read i through the pointer
+  *p = 21         // set i through the pointer
+  fmt.Println(i)  // see the new value of i
+
+  p = &j         // point to j
+  *p = *p / 37   // divide j through the pointer
+  fmt.Println(j) // see the new value of j
+}
+```
+
+#### Structs
+
+- A `struct` is a collection of fields.
+
+```go
+type Vertex struct {
+  X int
+  Y int
+}
+
+func main() {
+  v := Vertex{1, 2}
+  v.X = 4
+  fmt.Println(v.X)
+}
+```
+
+#### Pointers to structs
+
+- You can use `p.X` instead of `(*p).X` to access a field of a struct via its pointer.
+
+#### Struct Literals
+
+```go
+type Vertex struct {
+  X, Y int
+}
+
+var (
+  v1 = Vertex{1, 2}  // has type Vertex
+  v2 = Vertex{X: 1}  // Y:0 is implicit
+  v3 = Vertex{}      // X:0 and Y:0
+  p  = &Vertex{1, 2} // has type *Vertex
+)
+```
+
+#### Arrays
+
+```go
+func main() {
+ var a [2]string
+ a[0] = "Hello"
+ a[1] = "World"
+ fmt.Println(a[0], a[1])
+ fmt.Println(a)
+
+ primes := [6]int{2, 3, 5, 7, 11, 13}
+ fmt.Println(primes)
+}
+```
+
+#### Slices
+
+- A slice is a dynamically-sized, flexible view into the elements of an array.
+- A slice is a reference to the underlying array.
+- A slice can be specified with two indices: `a[low : high]`.
+- A slice has both a length and a capacity:
+  - length: number of elements in the slice
+  - capacity: number of elements in the underlying array
+- Zero value of a slice is `nil` (nil slice), with `0` length and `0` capacity.
+
+#### Creating a slice with make
+
+```go
+a := make([]int, 5) // len(a) = 5
+b := make([]int, 0, 5) // len(b) = 0, cap(b) = 5
+```
+
+#### Appending to a slice
+
+- You can add new elements to a slice with `append`.
+
+```go
+// append works on nil slices.
+s = append(s, 0)
+// The slice grows as needed.
+s = append(s, 1)
+// We can add more than one element at a time.
+s = append(s, 2, 3, 4)
+```
+
+#### Range
+
+```go
+var pow = []int{1, 2, 4, 8, 16, 32, 64, 128}
+
+func main() {
+  for i, v := range pow {
+    fmt.Printf("2**%d = %d\n", i, v)
+  }
+}
+```
+
+- `i`: index
+- `v`: value
+- You can skip `i` or `v` with `_`.
+
+#### Maps
+
+- A map maps keys to values.
+- Zero value of a map is `nil`. A `nil` map has no keys, nor can keys be added.
+
+```go
+var m map[string]Vertex
+
+m = make(map[string]Vertex)
+m["Bell Labs"] = Vertex{
+  40.68433, -74.39967,
+}
+fmt.Println(m["Bell Labs"])
+```
+
+or
+
+```go
+var m = map[string]Vertex{
+  "Bell Labs": Vertex{
+    0.68433, -74.39967,
+  },
+  "Google": Vertex{
+    37.42202, -122.08408,
+  },
+}
+```
+
+or
+
+```go
+var m = map[string]Vertex{
+  "Bell Labs": {40.68433, -74.39967},
+  "Google":    {37.42202, -122.08408},
+}
+```
+
+#### Mutating maps
+
+- Insert/update: `m[key] = elem`
+- Retrieve: `elem = m[key]`
+- Delete: `delete(m, key)`
+- Test if a key already exists: `elem, ok = m[key]`
+  - If `key` in `m`: `ok` is `true`, `false` otherwise.
+  - If `key` not in `m`: `elem` is the zero value.
+
+#### Function values
+
+- Functions can be used as arguments/return values.
+
+```go
+func compute(fn func(float64, float64) float64) float64 {
+  return fn(3, 4)
+}
+
+func main() {
+  hypot := func(x, y float64) float64 {
+    return math.Sqrt(x*x + y*y)
+  }
+  fmt.Println(hypot(5, 12))
+
+  fmt.Println(compute(hypot))
+  fmt.Println(compute(math.Pow))
+}
+```
+
+#### Function closures
+
+- A closure is a function value that references variables from outside its body.
+
+```go
+func adder() func(int) int {
+  sum := 0
+  return func(x int) int {
+    sum += x
+    return sum
+  }
+}
+
+func main() {
+  pos, neg := adder(), adder()
+  for i := 0; i < 10; i++ {
+    fmt.Println(
+      pos(i),
+      neg(-2*i),
+    )
+  }
+}
+```
