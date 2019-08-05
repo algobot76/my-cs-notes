@@ -18,7 +18,7 @@ import (
 )
 ```
 
-#### Exported Names
+#### Exported names
 
 - An exported name starts with a capital letter.
 - Unexported names cannot be accessed outside the package.
@@ -41,7 +41,7 @@ import (
   java := true
   ```
 
-#### Basic Types
+#### Basic types
 
 ```
 bool
@@ -61,13 +61,13 @@ float32 float64
 complex64 complex128
 ```
 
-#### Zero Values
+#### Zero values
 
 - `0` for numeric types.
 - `false` for the boolea type.
 - `""` for strings.
 
-#### Type Conversions
+#### Type conversions
 
 ```go
 i := 42
@@ -75,7 +75,7 @@ f := float64(i)
 u := uint(f)
 ```
 
-#### Type Inference
+#### Type inference
 
 - When the RHS is typed, the new variable is of that same type.
   ```go
@@ -94,7 +94,7 @@ u := uint(f)
 - Declared with the `const` keyword.
 - Cannot be declared with `:=`.
 
-#### Numeric Constants
+#### Numeric constants
 
 - High-precision values.
 - An untyped constant takes the type needed by its context.
