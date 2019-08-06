@@ -379,3 +379,79 @@ func main() {
   }
 }
 ```
+
+## Methods and Interfaces
+
+### Methods and interfaces
+
+#### Methods
+
+- Methods are functions defined for a type.
+- Each method has a pointer receiver.
+
+Method:
+
+```go
+func (v *Vertex) Scale(f float64) {
+  v.X = v.X * f
+  v.Y = v.Y * f
+}
+```
+
+```go
+v.Scale(10)
+```
+
+Function:
+
+```go
+func Scale(v *Vertex, f float64) {
+  v.X = v.X * f
+  v.Y = v.Y * f
+}
+```
+
+```go
+Scale(&v, 100)
+```
+
+#### Interfaces
+
+- An interface defines a set of method signatures.
+- Interfaces are implmented implicitly.
+- `inteface {}` is called an empty interface and it has 0 methods.
+  
+Type assertions:
+
+```go
+func main() {
+  var i interface{} = "hello"
+
+  s := i.(string)
+  fmt.Println(s)
+
+  s, ok := i.(string)
+  fmt.Println(s, ok)
+
+  f, ok := i.(float64)
+  fmt.Println(f, ok)
+
+  f = i.(float64) // panic
+  fmt.Println(f)
+}
+```
+
+Type switches:
+
+```go
+func do(i interface{}) {
+  switch v := i.(type) {
+  case int:
+    fmt.Printf("Twice %v is %v\n", v, v*2)
+  case string:
+    fmt.Printf("%q is %v bytes long\n", v, len(v))
+  default:
+    fmt.Printf("I don't know about type %T!\n", v)
+  }
+}
+```
