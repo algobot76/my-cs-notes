@@ -4,6 +4,7 @@
 * [Java](/java/README)
 * [JavaScript](/javascript/README)
 * [Rust](/rust/README)
+* [Scala](/scala/README)
 * [Compiler Design](/compiler-design/README)
 * [Git](/git/README)
 * [GraphQL](/graphql/README)
