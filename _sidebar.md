@@ -8,4 +8,5 @@
 * [Compiler Design](/compiler-design/README)
 * [Git](/git/README)
 * [GraphQL](/graphql/README)
+* [Spark](/spark/README)
 * [LeetCode](/leetcode/README)
