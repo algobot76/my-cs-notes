@@ -18,3 +18,14 @@
   - data only kept for a limited time
   - data cannot be mutated
   - data assigned randomly to a partition unless a key is provided
+
+### Brokers and topics
+
+- A kafka cluster is composed of multiple brokers (servers).
+- Each broker is identified by its ID (integer).
+- Each broker contains topic partitions.
+- Connect to one broker => get metadata about the whole cluster
+
+An example:
+
+![brokers and topics](./brokers_and_topics.png)
