@@ -29,3 +29,12 @@
 An example:
 
 ![brokers and topics](./brokers_and_topics.png)
+
+## Topic replication
+
+- Topics should have a replication factor > 1 (2 or 3)
+- If a broker is down, another broker can serve the data.
+- At any time, only one broker can be a leader for a given partition.
+- Only that leader can receive and serve data for the partition.
+- The other brokers just synchronize the data.
+
