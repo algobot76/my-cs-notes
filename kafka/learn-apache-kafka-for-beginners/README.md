@@ -38,3 +38,15 @@ An example:
 - Only that leader can receive and serve data for the partition.
 - The other brokers just synchronize the data.
 
+## Producers and message keys
+
+- Producers write data to topics.
+- Producers automatically know which broker and partition to write to.
+- Producers will automatically recover if case of broker failures.
+- Producers can choose to receive acknowledgement of data writes:
+  - `acks=0`: don't wait for ack (possible data loss)
+  - `acks=1`: wait for leader ack (limited data loss)
+  - `acks=all`: leader ack + replica acks (no data loss)
+- Producers can choose to send a key with the message.
+  - `key=null` => data sent round robin
+  - key sent => all messages for the key go to the same partition
