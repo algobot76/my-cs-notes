@@ -26,11 +26,7 @@
 - Each broker contains topic partitions.
 - Connect to one broker => get metadata about the whole cluster
 
-An example:
-
-![brokers and topics](./brokers_and_topics.png)
-
-## Topic replication
+### Topic replication
 
 - Topics should have a replication factor > 1 (2 or 3)
 - If a broker is down, another broker can serve the data.
@@ -38,7 +34,7 @@ An example:
 - Only that leader can receive and serve data for the partition.
 - The other brokers just synchronize the data.
 
-## Producers and message keys
+### Producers and message keys
 
 - Producers write data to topics.
 - Producers automatically know which broker and partition to write to.
@@ -50,3 +46,13 @@ An example:
 - Producers can choose to send a key with the message.
   - `key=null` => data sent round robin
   - key sent => all messages for the key go to the same partition
+
+### Consumers & Consumer Groups
+
+- Consumers read data from a topic.
+- Consumers know which broker to read from.
+- Consumers know how to recover in case of broker failures.
+- Data is read in order within each partition.
+- Consumers reads in consumer groups.
+- Each consumer within a group reads from exclusive partitions.
+- comsumers > brokers => some comsumers become inactive
