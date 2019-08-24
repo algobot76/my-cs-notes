@@ -14,3 +14,100 @@
 - string formatting
   - `"I like %s" % "Python"`
   - `"Python is as simple as {0}, {1}, {2}".format("a", "b", "c")`
+
+## Chapter3. Lists, Tuples, and Dictionaries
+
+### Lists
+
+- Create an empty list.
+
+```python
+my_list = []
+```
+
+or
+
+```python
+my_list = list()
+```
+
+- Initialize a list with values.
+
+```python
+my_list = [1, 2, 3]
+my_list2 = ["a", "b", "c"]
+my_list3 = ["a", 1, "Python", 5]
+my_nested_list = [my_list, my_list2]
+```
+
+- Combine lists.
+
+```python
+my_list = [1, 2, 3]
+my_list2 = ["a", "b", "c"]
+combo_list = my_list.extend(my_list2)
+```
+
+or
+
+```python
+my_list = [1, 2, 3]
+my_list2 = ["a", "b", "c"]
+combo_list = my_list + my_list2
+```
+
+- Sort a list.
+
+```python
+alpha_list = [34, 23, 67, 100, 88, 2]
+alpha_list.sort() // [2, 23, 34, 67, 88, 100]
+```
+
+_Note_: `sort()` is in-place
+
+### Tuples
+
+- Define a tuple and create a slice of it.
+
+```python
+my_tuple = (1, 2, 3, 4, 5)
+my_tuple[0:3] // (1, 2, 3)
+```
+
+- Convert a tuple to a list.
+
+```python
+my_list = list(my_tuple)
+```
+
+### Dictionaries
+
+- Define a dictionary.
+
+```python
+my_dict = {}
+another_dict = dict()
+my_other_dict = {
+    "one":1,
+    "two":2,
+    "three":3
+}
+```
+
+- Access a value in a dictionary.
+
+```python
+my_other_dict["one"]
+```
+
+- Check if a key exists.
+
+```python
+<key> in my_other_dict
+```
+
+- Get a list of keys.
+
+```python
+my_other_dict.keys()
+```
