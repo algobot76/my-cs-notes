@@ -111,3 +111,30 @@ my_other_dict["one"]
 ```python
 my_other_dict.keys()
 ```
+
+## Chapter4. Conditional Statements
+
+### The if statement
+
+```python
+if value < 10:
+    print("That's a great deal!")
+elif 10 <= value <= 20:
+    print("I'd still pay that...")
+else:
+    print("Wow! That's too much!")
+```
+
+### Boolean
+
+- `or`, `and`, `not`
+
+### Special characters
+
+- `\n` is a new line.
+- `\t` is a new tab.
+- Use `\` to escape a character.
+
+### `if __name__ = "__main__"`
+
+- Run this program if this python file is run as a standalone file.
