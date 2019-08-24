@@ -3,6 +3,7 @@
 * [Go](/go/README)
 * [Java](/java/README)
 * [JavaScript](/javascript/README)
+* [Python](/python/README)
 * [Rust](/rust/README)
 * [Scala](/scala/README)
 * [Compiler Design](/compiler-design/README)
