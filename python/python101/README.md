@@ -138,3 +138,18 @@ else:
 ### `if __name__ = "__main__"`
 
 - Run this program if this python file is run as a standalone file.
+
+## Chapter 7. Exception Handling
+
+```python
+my_dict = {"a":1, "b":2, "c":3}
+
+try:
+    value = my_dict["d"]
+except KeyError
+    print("A KeyError occured!")
+else:
+    print("No error occurred!")
+finally:
+    print("The finally statement has executed!")
+```
