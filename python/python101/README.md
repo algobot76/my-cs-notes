@@ -177,6 +177,25 @@ finally:
   - `os.path.join()` joins one or more path components together.
   - `os.path.split()` splits a path into a tuple that contains the directory and the file.
 
+## Chapter 25. Decorators
+
+A decorator is a function that accepts another function as an argument and returns a modified version of it.
+
+```python
+def bar(func):
+  def wrapper():
+    val = "The result of %s is %s" % (func(), eval(func()))
+    return val
+  return wrapper
+
+@bar
+def foo():
+  return "1+1"
+
+if __name__ == "__main__":
+    print(foo()) # The result of 1+1 is 2
+```
+
 ## Chapter 26. The Lambda
 
 Lambda is an anonymous or unbound function.
