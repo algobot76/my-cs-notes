@@ -153,3 +153,26 @@ else:
 finally:
     print("The finally statement has executed!")
 ```
+
+## Chapter 16. The os Module
+
+- `os.name` tells info about the platform you are running on.
+- `os.environ` returns a dict of environmental variables.
+- `os.getenv()` gets the value of an environment variable.
+- `os.putenv()` sets the value of an environment variable.
+- `os.chdir()` changes the current directory.
+- `os.getcwd()` gets the current directory.
+- `os.mkdir()` creates a single directory.
+- `os.mkdirs()` creates intermediate directories.
+- `os.remove()` deletes a file.
+- `os.rmdir()` deletes a directory.
+- `os.rename()` renames a file/directory.
+- `os.startfile()` starts a file with its associated program.
+- `os.walk()` gives a way to iterate over a root level path.
+- `os.path`
+  - `os.path.basename()` returns the filename of a path.
+  - `os.path.dirname()` returns the directory portion of a path.
+  - `os.path.exists()` checks if a path exists.
+  - `os.path.isdir()` / `os.path.isfile()` checks if a path is a directory/file.
+  - `os.path.join()` joins one or more path components together.
+  - `os.path.split()` splits a path into a tuple that contains the directory and the file.
