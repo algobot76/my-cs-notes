@@ -176,3 +176,13 @@ finally:
   - `os.path.isdir()` / `os.path.isfile()` checks if a path is a directory/file.
   - `os.path.join()` joins one or more path components together.
   - `os.path.split()` splits a path into a tuple that contains the directory and the file.
+
+## Chapter 26. The Lambda
+
+Lambda is an anonymous or unbound function.
+
+```python
+import math
+
+square_rt = lambda x: math.sqrt(x)
+```
