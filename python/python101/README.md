@@ -177,6 +177,22 @@ finally:
   - `os.path.join()` joins one or more path components together.
   - `os.path.split()` splits a path into a tuple that contains the directory and the file.
 
+## Chapter 22. Working with Dates and Time
+
+### The `datetime` Module
+
+- `datetime.date()` accepts year, month, day.
+- `datetime.datetime()` accepts year, month, day, hour, minute, second.
+  - `strftime()` creates human-readable string of time.
+- `datetime.timedelta()` represents a time duration.
+
+### The `time` Module
+
+- `time.ctime()` converts a time in seconds since the epoch to a string representing local time.
+- `time.sleep()` suspends program execution for a given number of seconds.
+- `time.strftime()` accepts a `struct_time` object and returns a human-readable string of time.
+- `time.time()`returns the time in seconds since the epoch as a floating point number.
+
 ## Chapter 25. Decorators
 
 A decorator is a function that accepts another function as an argument and returns a modified version of it.
