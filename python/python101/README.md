@@ -226,6 +226,17 @@ finally:
     print("The finally statement has executed!")
 ```
 
+## Chapter 8. Working with Files
+
+```python
+try:
+    with open("test.txt") as file_handler:
+        for line in file_handler:
+            print(line)
+except IOError:
+    print("An IOError has occurred!")
+```
+
 ## Chapter 10. Functions
 
 ### An Empty Function (the stub)
