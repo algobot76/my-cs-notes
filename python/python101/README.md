@@ -139,6 +139,55 @@ else:
 
 - Run this program if this python file is run as a standalone file.
 
+## Chapter 5. Loops
+
+### The `for` Loop
+
+- Iterate over a range.
+
+```python
+for number in range(5):
+    print(number)
+```
+
+- Iterate over a list.
+
+```python
+for number in [0, 1, 2, 3, 4]:
+    print(number)
+```
+
+- Iterate the keys of a dict.
+
+```python
+a_dict = {"one":1, "two":2, "three":3}
+for key in a_dict:
+    print(key)
+```
+
+- Use `else` with a `for` loop.
+
+```python
+my_list = [1, 2, 3, 4, 5]
+
+for i in my_list:
+    if i == 3:
+        print("Item found!")
+        break print(i)
+else:
+    print("Item not found!")
+```
+
+### The `while` Loop
+
+```python
+while i < 10:
+  print(i)
+  if i == 5:
+    break
+  i += 1
+```
+
 ## Chapter 7. Exception Handling
 
 ```python
