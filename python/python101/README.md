@@ -154,6 +154,44 @@ finally:
     print("The finally statement has executed!")
 ```
 
+## Chapter 10. Functions
+
+### An Empty Function (the stub)
+
+```python
+def empty_function():
+    pass
+```
+
+### Passing Arguments to a Function
+
+```python
+def add(a, b):
+    return a + b
+```
+
+or
+
+```python
+# with default values
+def add(a=2, b=3):
+    return a + b
+```
+
+### Keyword Arguments
+
+```python
+def keyword_function(a=1, b=2):
+    return a + b
+
+keyword_function(b=4, a=5) # 9
+```
+
+### `*args` and `**kwargs`
+
+- `*args`: infinite arguments
+- `**kwargs`: infinite keyword arguments
+
 ## Chapter 11. Classes
 
 ### Create a class
