@@ -188,6 +188,29 @@ while i < 10:
   i += 1
 ```
 
+## Chapter 6. Python Comprehensions
+
+### List Comprehensions
+
+```python
+my_strings = [s.strip() for s in my_string_list]
+```
+
+### Dictionary Comprehensions
+
+```python
+my_dict = {1:"dog", 2:"cat", 3:"hamster"}
+print({value:key for key, value in my_dict.items()}) # {'hamster': 3, 'dog': 1, 'cat': 2}
+```
+
+### Set Comprehensions
+
+```python
+my_list = [1, 2, 2, 3, 4, 5, 5, 7, 8]
+my_set = set(my_list)
+print(my_set) # set([1, 2, 3, 4, 5, 7, 8])
+```
+
 ## Chapter 7. Exception Handling
 
 ```python
