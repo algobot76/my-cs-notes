@@ -358,6 +358,15 @@ if __name__ == "__main__":
   - `os.path.join()` joins one or more path components together.
   - `os.path.split()` splits a path into a tuple that contains the directory and the file.
 
+## Chapter 20. The `sys` Module
+
+- `sys.argv` is a list of command line arguments passed to the Python script.
+- `sys.executable` is the absolute path to the Python interpreter.
+- `sys.exit()` exits from a Python program.
+- `sys.path` is a list of strings that specifies the search path for modules.
+- `sys.platform` is a platform identifier.
+- `sys.stdin` / `sys.stdout` / `sys.stderr`corresponds to the interpreter's standard input/standard output/error streams.
+
 ## Chapter 21. The Threading module
 
 ### Writing a Threaded Downloader
