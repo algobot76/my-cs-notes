@@ -257,6 +257,12 @@ if __name__ == "__main__":
     "I'm driving a yellow car
 ```
 
+## Chapter 12. Introspection
+
+- `type()` tells the type of a variable/value.
+- `dir()` tells the methods and attributes of an object.
+- `help()` calls the help utility in a Python shell.
+
 ## Chapter 16. The os Module
 
 - `os.name` tells info about the platform you are running on.
