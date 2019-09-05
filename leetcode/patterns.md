@@ -4,6 +4,41 @@
 
 ### Implement a queue
 
+Java:
+
+```java
+class MyQueue {
+    private ArrayList<Integer> elements;
+    private int pointer;
+
+    public MyQueue() {
+        this.elements = new ArrayList<>();
+        pointer = 0;
+    }
+
+    public int size() {
+        return this.elements.size() - pointer;
+    }
+
+    public boolean empty() {
+        return this.size() == 0;
+    }
+
+    public void add(Integer e) {
+        this.elements.add(e);
+    }
+
+    public Integer poll() {
+        if (this.empty()) {
+            return null;
+        }
+        return this.elements.get(pointer++);
+    }
+}
+```
+
+Python:
+
 ```python
 class MyQueue:
     def __init__(self):
@@ -92,8 +127,6 @@ public int findPosition(int[] nums, int target) {
 }
 ```
 
-<!-- TODO: Add topological sorting -->
-
 ## BFS
 
 ### Variant 1
@@ -179,6 +212,31 @@ while len(queue):
 
 ### Use two queues to implement BFS
 
+Java:
+
+```java
+Queue<T> queue1 = new LinkedList<>();
+Queue<T> queue2 = new LinkedList<>();
+queue1.offer(startNode);
+int currentLevel = 0;
+
+while (!queue1.isEmpty()) {
+   int size = queue1.size();
+    for (int i = 0; i < size; i++) {
+        T head = queue1.poll();
+        for (all neighbors of head) {
+            queue2.offer(neighbor);
+        }
+    }
+    Queue<T> temp = queue1;
+    queue1 = queue2;
+    queue2 = temp;
+
+    queue2.clear();
+    currentLevel++;
+}
+```
+
 Python:
 
 ```python
@@ -251,6 +309,58 @@ while len(queue) > 1:
 
 ### Bidirectional BFS
 
+Java:
+
+```java
+public int doubleBFS(UndirectedGraphNode start, UndirectedGraphNode end) {
+    if (start.equals(end)) {
+        return 1;
+    }
+    Queue<UndirectedGraphNode> startQueue = new LinkedList<>();
+    Queue<UndirectedGraphNode> endQueue = new LinkedList<>();
+    startQueue.add(start);
+    endQueue.add(end);
+    int step = 0;
+    Set<UndirectedGraphNode> startVisited = new HashSet<>();
+    Set<UndirectedGraphNode> endVisited = new HashSet<>();
+    startVisited.add(start);
+    endVisited.add(end);
+    while (!startQueue.isEmpty() || !endQueue.isEmpty()) {
+        int startSize = startQueue.size();
+        int endSize = endQueue.size();
+        step ++;
+        for (int i = 0; i < startSize; i ++) {
+            UndirectedGraphNode cur = startQueue.poll();
+            for (UndirectedGraphNode neighbor : cur.neighbors) {
+                if (startVisited.contains(neighbor)) {
+                    continue;
+                } else if (endVisited.contains(neighbor)) {
+                    return step;
+                } else {
+                    startVisited.add(neighbor);
+                    startQueue.add(neighbor);
+                }
+            }
+        }
+        step ++;
+        for (int i = 0; i < endSize; i ++) {
+            UndirectedGraphNode cur = endQueue.poll();
+            for (UndirectedGraphNode neighbor : cur.neighbors) {
+                if (endVisited.contains(neighbor)) {
+                    continue;
+                } else if (startVisited.contains(neighbor)) {
+                    return step;
+                } else {
+                    endVisited.add(neighbor);
+                    endQueue.add(neighbor);
+                }
+            }
+        }
+    }
+    return -1;
+}
+```
+
 Python:
 
 ```python
@@ -294,6 +404,91 @@ def doubleBFS(start, end):
                     endQueue.append(neighbor)
 
     return -1
+```
+
+### Topological sorting
+
+- [127. Topological Sorting](https://www.lintcode.com/problem/topological-sorting/description)
+
+Java:
+
+```java
+public class Solution {
+    /**
+     * @param graph: A list of Directed graph node
+     * @return: Any topological order for the given graph.
+     */
+    public ArrayList<DirectedGraphNode> topSort(ArrayList<DirectedGraphNode> graph) {
+        HashMap<DirectedGraphNode, Integer> map = new HashMap();
+        for (DirectedGraphNode node : graph) {
+            for (DirectedGraphNode neighbor : node.neighbors) {
+                if (map.containsKey(neighbor)) {
+                    map.put(neighbor, map.get(neighbor) + 1);
+                } else {
+                    map.put(neighbor, 1);
+                }
+            }
+        }
+
+        ArrayList<DirectedGraphNode> result = new ArrayList<DirectedGraphNode>();
+
+        Queue<DirectedGraphNode> q = new LinkedList<DirectedGraphNode>();
+        for (DirectedGraphNode node : graph) {
+            if (!map.containsKey(node)) {
+                q.offer(node);
+                result.add(node);
+            }
+        }
+
+        while (!q.isEmpty()) {
+            DirectedGraphNode node = q.poll();
+            for (DirectedGraphNode n : node.neighbors) {
+                map.put(n, map.get(n) - 1);
+                if (map.get(n) == 0) {
+                    result.add(n);
+                    q.offer(n);
+                }
+            }
+        }
+
+        return result;
+    }
+}
+```
+
+Python:
+
+```python
+class Solution:
+    """
+    @param graph: A list of Directed graph node
+    @return: Any topological order for the given graph.
+    """
+    def topSort(self, graph):
+        node_to_indegree = self.get_indegree(graph)
+
+        # bfs
+        order = []
+        start_nodes = [n for n in graph if node_to_indegree[n] == 0]
+        queue = collections.deque(start_nodes)
+        while queue:
+            node = queue.popleft()
+            order.append(node)
+            for neighbor in node.neighbors:
+                node_to_indegree[neighbor] -= 1
+                if node_to_indegree[neighbor] == 0:
+                    queue.append(neighbor)
+
+        return order
+
+    def get_indegree(self, graph):
+        node_to_indegree = {x: 0 for x in graph}
+
+        for node in graph:
+            for neighbor in node.neighbors:
+                node_to_indegree[neighbor] += 1
+
+        return node_to_indegree
 ```
 
 ## Matrix
