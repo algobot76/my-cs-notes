@@ -30,7 +30,8 @@ Links:
 
 In JavaScript, `false`, `null`, `0`, `""`, `undefined`, `NaN` are falsy.
 
-## Check if a collection should be iterated as array/object
+## Check if a coll
+ection should be iterated as array/object
 
 ```javascript
 const MAX_ARRAY_INDEX = Math.pow(2, 53) - 1;
