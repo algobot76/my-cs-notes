@@ -4,6 +4,35 @@
 
 ### BFS
 
+Python:
+
+```python
+from collections import deque
+
+
+class Solution:
+    def levelOrder(self, root):
+        if root is None:
+            return []
+
+        queue = deque([root])
+        result = []
+        while queue:
+            level = []
+            for _ in range(len(queue)):
+                node = queue.popleft()
+                level.append(node.val)
+                if node.left:
+                    queue.append(node.left)
+                if node.right:
+                    queue.append(node.right)
+            result.append(level)
+        return result
+
+```
+
+Java:
+
 ```java
 class Solution {
     public List<List<Integer>> levelOrder(TreeNode root) {
@@ -95,6 +124,42 @@ class Solution:
 
 ### Topological Order
 
+Python:
+
+```python
+from collections import deque
+
+
+class Solution:
+    def canFinish(self, numCourses, prerequisites):
+        edges = {i: [] for i in range(numCourses)}
+        degrees = [0 for i in range(numCourses)]
+
+        for i, j in prerequisites:
+            edges[j].append(i)
+            degrees[i] += 1
+
+        queue = deque([])
+        count = 0
+
+        for i in range(numCourses):
+            if degrees[i] == 0:
+                queue.append(i)
+
+        while queue:
+            node = queue.popleft()
+            count += 1
+
+            for x in edges[node]:
+                degrees[x] -= 1
+                if degrees[x] == 0:
+                    queue.append(x)
+
+        return count == numCourses
+```
+
+Java:
+
 ```java
 class Solution {
     public boolean canFinish(int numCourses, int[][] prerequisites) {
@@ -135,12 +200,53 @@ class Solution {
 
 - We use the `prerequisites` to build a graph
 - Since topological order only exists on a DAG.
-- If there is a tologocial order, it is possible to finish all courses; otherwise it is impossible.
-- We need to count the number of courses in the tologocial order.
+- If there is a topological order, it is possible to finish all courses; otherwise it is impossible.
+- We need to count the number of courses in the topological order.
 - __Time Complexity__: `O(n)`
 - __Space Complexity__: `O(n)`
 
 ## LeetCode 210. Course Schedule II
+
+### Topological Order
+
+Python:
+
+```python
+from collections import deque
+
+
+class Solution:
+    def findOrder(self, numCourses, prerequisites):
+        edges = {i: [] for i in range(numCourses)}
+        degrees = [0 for i in range(numCourses)]
+
+        for i, j in prerequisites:
+            edges[j].append(i)
+            degrees[i] += 1
+
+        queue = deque([])
+        count = 0
+
+        for i in range(numCourses):
+            if degrees[i] == 0:
+                queue.append(i)
+
+        result = []
+        while queue:
+            node = queue.popleft()
+            count += 1
+            result.append(node)
+
+            for x in edges[node]:
+                degrees[x] -= 1
+                if degrees[x] == 0:
+                    queue.append(x)
+
+        return result if count == numCourses else []
+
+```
+
+Java:
 
 ```java
 class Solution {
