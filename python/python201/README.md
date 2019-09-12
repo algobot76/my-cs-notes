@@ -89,3 +89,77 @@ print(parts)
 #### OrderedDict
 
 `OrderedDict` keeps track of the order of the keys as they are added. Learn more about `OrderedDict` [here](https://docs.python.org/3.7/library/collections.html#collections.OrderedDict).
+
+### Chapter 7. Iterators and Generators
+
+#### Iterators
+
+An iterator is an object that will allow you to iterate over a container. It is implemented via two distinct methods: `__iter__` and `__next__`.
+
+- `__iter__` provides iteration support.
+- `__next__` returns the next item in the container.
+
+Iterable is an object that has `__iter__` defined; Iterator is an object has has both `__iter__` and `__next__` defined.
+
+```python
+my_list = [1, 2, 3] # list is an iterable not an iterator
+for num in my_list:
+    print(num)
+
+# make it an iterator
+my_iter = iter(my_list)
+print(next(my_iter))
+print(next(my_iter))
+print(next(my_iter))
+```
+
+Create a custom iterator:
+
+```python
+class Doubler:
+    def __init__(self):
+        self.number = 0
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        self.number += 1
+        return self.number * self.number
+
+d = Doubler()
+count = 0
+for num in d:
+    print(num)
+    if count > 10:
+        break
+    count += 1
+```
+
+#### Generators
+
+A generator works by "saving" where it last left off (or yielding) and giving the calling function  a value. It returns a `StopIteration`, if it has been exhausted. It can be used together with the `for ... in ..` syntax.
+
+```python
+def doubler_generator():
+    number = 2
+    while True:
+        yield number
+        number *= number
+
+d = doubler_generator()
+print(next(d))
+print(next(d))
+print(next(d))
+```
+
+```python
+def string_generator():
+    yield 'Python'
+    yield 'rocks'
+    yield 'so do you!'
+
+sg = string_generator()
+for s in sg:
+    print(s)
+```
