@@ -17,6 +17,21 @@ References:
 
 ## Type Checking
 
+### Check if an object is a number
+
+Check if the object is an instance of `numbers.Number`.
+
+_Note_:
+
+```python
+isinstance(True, numbers.Number) # True
+```
+
+References:
+
+- [How can I check if my python object is a number? [duplicate]
+](https://stackoverflow.com/questions/4187185/how-can-i-check-if-my-python-object-is-a-number)
+
 ### Check if an object is a dict
 
 ```python
