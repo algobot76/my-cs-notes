@@ -15,6 +15,21 @@ References:
 
 - [Why use setattr() and getattr() built-ins?](https://stackoverflow.com/a/19123719)
 
+## Type Checking
+
+### Check if an object is a dict
+
+```python
+from collections.abc import Mapping
+
+foo = dict()
+isinstance(foo, Mapping)
+```
+
+References:
+
+- [How to check if a variable is a dictionary in Python? [duplicate]](https://stackoverflow.com/questions/25231989/how-to-check-if-a-variable-is-a-dictionary-in-python)
+
 ## Misc
 
 ### Use `==` to compare two dictionaries
