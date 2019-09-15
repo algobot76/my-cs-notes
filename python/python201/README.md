@@ -163,3 +163,238 @@ sg = string_generator()
 for s in sg:
     print(s)
 ```
+
+### Chapter 8 - The itertools Module
+
+#### count(start=0, step=1)
+
+`count` returns evenly spaced values starting with the number you pass in as its `start` parameter. It also accepts a `step` parameter.
+
+```python
+from itertools import count
+
+
+for i in count(10):
+    if i > 20:
+        break
+    else:
+        print(i)
+```
+
+or
+
+```python
+from itertools import count
+from itertools import islice
+
+
+for i in islice(count(10), 20):
+    if i > 20:
+        break
+    else:
+        print(i)
+```
+
+#### cycle(iterable)
+
+`cycle` creates an iterator that cycles through a series of values infinitely.
+
+```python
+from itertools import cycle
+
+
+for letter in cycle('abc'):
+    print(letter)
+```
+
+#### repeat(object)
+
+`repeat` returns the same object over and over again unless you specify the `times` parameter.
+
+#### accumulate(iterable)
+
+`accumulate` returns accumulated sums or the accumulated results of a two argument function that you can pass to `accumulate`.
+
+```python
+from itertools import accumulate
+from operator import mul
+
+
+print(list(accumulate(range(1,5), mul)))
+```
+
+#### chain(*iterables)
+
+`chain` takes a series of iterables and basically flatten them down into one long iterable.
+
+```python
+from itertools import chain
+
+
+my_list = list(chain(['foo', 'bar'],[1, 2, 3]))
+print(my_list)
+```
+
+#### chain.from_iterable(iterable)
+
+Similar to `chain`, but it accepts a nested list instead.
+
+```python
+from itertools import chain
+
+
+my_list = list(chain.from_iterable(['hello', list(range(5))]))
+print(my_list)
+```
+
+#### compress(data, selectors)
+
+`compress` filters the first iterable with the second.
+
+```python
+from itertools import compress
+
+
+letters = 'ABCDEFG'
+bools = [True, False, True, True, False]
+print(list(compress(letters, bools)))
+```
+
+#### dropwhile(predicate, iterable)
+
+`dropwhile` drops elements as long as the filter criteria is `True`.
+
+```python
+from itertools import dropwhile
+
+
+print(list(dropwhile(lambda x: x<5, [1, 4, 6, 4, 1])))
+```
+
+#### filterfalse(predicate, iterable)
+
+`filterfalse` only returns those values that evaluated to `False`.
+
+```python
+from itertools import filterfalse
+
+
+print(list(filterfalse(lambda x: x<5, [1, 4, 6, 4, 1])))
+```
+
+#### groupby(iterable, key=None)
+
+`groupby` returns consecutive keys and groups from your iterable.
+
+```python
+from itertools import groupby
+
+
+vehicles = [('Ford', 'Taurus'), ('Dodge', 'Durango'),
+            ('Chevrolet', 'Cobalt'), ('Ford', 'F150'),
+            ('Dodge', 'Charger'), ('Ford', 'GT')]
+
+sorted_vehicles = sorted(vehicles)
+
+for key, group in groupby(sorted_vehicles, lambda make: make[0]):
+    for make, model in group:
+        print('{model} is made by {make}'.format(model=model,
+                                                 make=make))
+        print ("**** END OF GROUP ***\n")
+```
+
+#### islice(iterable, start, stop)
+
+`islice` returns selected elements from the iterable.
+
+```python
+from itertools import count
+from itertools import islice
+
+
+for i in islice(count(), 3, 15):
+    print(i)
+```
+
+#### starmap(function, iterable)
+
+`starmap` creates an iterator that can compute using the function and iterable provided.
+
+```python
+from itertools import starmap
+from operator import add
+
+
+for item in starmap(add, [(2, 3), (4, 5)]):
+    print(item)
+```
+
+#### takewhile(predicate, iterable)
+
+`takewhile` is the opposite of `dropwhile`.
+
+```python
+from itertools import takewhile
+
+
+print(list(takewhile(lambda x: x<5, [1, 4, 6, 4, 1])))
+```
+
+#### tee(iterable, n=2)
+
+`tee` creates `n` iterators from a single iterable.
+
+#### zip_longest(*iterables, fillvalue=None)
+
+`zip_longest` can zip two iterables together. If the iterables do not have the same lenght, you can also specify a `fillvalue`.
+
+```python
+from itertools import zip_longest
+
+
+for item in zip_longest('ABCD', 'xy', fillvalue='BLANK'):
+    print(item)
+```
+
+#### combinations(iterable, r)
+
+`combinations` creates an iterator from an iterable that is some length long. `combinations` does not produce repeat values if all the input elements are unique.
+
+```python
+from itertools import combinations
+
+
+print(list(combinations('WXYZ', 2)))
+```
+
+#### combinations_with_replacement(iterable, r)
+
+```python
+from itertools import combinations_with_replacement
+
+
+print(list(combinations_with_replacement('WXYZ', 2)))
+```
+
+#### product(*iterables, repeat=1)
+
+`product` creates Cartesian products fro a series of input iterables.
+
+```python
+from itertools import product
+
+
+arrays = [(-1, 1), (-3, 3), (-5, 5)]
+print(list(product(*arrays)))
+```
+
+#### permutations
+
+`permutations` return successive `r` length permutations of elements from an iterable.
+
+```python
+from itertools import permutations
+
+
+print(list(permutations('WXYZ', 2)))
+```
