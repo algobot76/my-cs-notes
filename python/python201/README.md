@@ -427,3 +427,29 @@ from itertools import permutations
 
 print(list(permutations('WXYZ', 2)))
 ```
+
+### Chapter 11 - Python Built-ins
+
+#### any
+
+`any` accepts an iterable and will return `True` if any element in the iterable is `True`
+
+#### enumerate
+
+`enumerate` helps you know the position of the current element while iterating through an iterable.
+
+#### eval
+
+`eval` accepts a string and runs it as Python code.
+
+#### filter
+
+`filter` takes a function and an iterable and returns an iterator for those elements within the iterable for which the passed in function return `True`.
+
+#### map
+
+`map` takes a function and an iterable and returns an iterator that applies the function to each item in the iterable.
+
+#### zip
+
+`zip` takes a series of iterable and aggregate the elements for each of them.
