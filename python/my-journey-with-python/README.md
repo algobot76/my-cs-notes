@@ -2,6 +2,21 @@
 
 ## Built-in Functions
 
+### `__new__`
+
+The magic method `__new__` has the following use cases:
+
+- create a singleton pattern
+- dynamically extend classes from external modules without editing the source
+- and more ...
+
+References:
+
+- [Official Documentation](https://docs.python.org/3.7/reference/datamodel.html#object.__new__)
+- [What are the use cases for Python's `__new__`?
+](https://stackoverflow.com/questions/12835176/what-are-the-use-cases-for-pythons-new)
+- [Cast base class to derived class python (or more pythonic way of extending classes)](https://stackoverflow.com/questions/3464061/cast-base-class-to-derived-class-python-or-more-pythonic-way-of-extending-class/4714744#4714744)
+
 ### `getattr`
 
 We can use `getattr` to access an attribute with a dynamic variable.
