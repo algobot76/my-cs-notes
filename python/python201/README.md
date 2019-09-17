@@ -90,7 +90,36 @@ print(parts)
 
 `OrderedDict` keeps track of the order of the keys as they are added. Learn more about `OrderedDict` [here](https://docs.python.org/3.7/library/collections.html#collections.OrderedDict).
 
-### Chapter 7. Iterators and Generators
+### Chapter 4 - The functools modules
+
+#### Caching with functools.lru_cache
+
+`lru_cache` wraps a function with a memoizing callable that saves up to the `maxsize` most recent calls.
+
+#### functools.partial
+
+`partial` creates a new function with partial application of the arguments and keywords that you pass to it.
+
+```python
+from functools import partial
+
+
+def add(x, y):
+    return x + y
+
+add_two = partial(add, 2)
+print(add_two(3))
+```
+
+#### Function Overloading with functools.singledispatch
+
+`singledispatch` transforms a regular function into a single dispatch generic function. Note that `singledispatch`  only happens based on the first argument's type.
+
+#### functools.wraps
+
+`wraps` fixes docstrings and names of decorated functions.
+
+### Chapter 7 - Iterators and Generators
 
 #### Iterators
 
