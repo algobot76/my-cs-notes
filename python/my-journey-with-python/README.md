@@ -92,3 +92,11 @@ def foo():
 foo()
 foo()
 ```
+
+or
+
+```python
+def foo():
+    print('foo')
+    foo.__code__ == (lambda: None).__code__
+```
