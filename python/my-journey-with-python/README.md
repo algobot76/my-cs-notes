@@ -69,3 +69,26 @@ The `==` operator recursively checks each key and each value.
 References:
 
 - [What does the == operator actually do on a Python dictionary?](https://stackoverflow.com/questions/17217225/what-does-the-operator-actually-do-on-a-python-dictionary)
+
+### Only call a function once
+
+```python
+from functools import wraps
+
+
+def run_once(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        if not wrapper.called:
+            wrapper.called = True
+            return func(*args, **kwargs)
+    wrapper.called = False
+    return wrapper
+
+@run_once
+def foo():
+    print('foo')
+
+foo()
+foo()
+```
