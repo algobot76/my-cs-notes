@@ -60,6 +60,22 @@ References:
 
 - [How to check if a variable is a dictionary in Python? [duplicate]](https://stackoverflow.com/questions/25231989/how-to-check-if-a-variable-is-a-dictionary-in-python)
 
+## Flask
+
+### Use a logger in a flask blueprint
+
+```python
+from flask import current_app
+
+
+current_app.logger.info('grolsh')
+```
+
+References:
+
+- [In Flask: How to access app Logger within Blueprint
+](https://stackoverflow.com/questions/16994174/in-flask-how-to-access-app-logger-within-blueprint)
+
 ## Misc
 
 ### Use `==` to compare two dictionaries
@@ -92,3 +108,4 @@ def foo():
 foo()
 foo()
 ```
+
