@@ -71,6 +71,24 @@ from flask import current_app
 current_app.logger.info('grolsh')
 ```
 
+or
+
+```python
+# core.py
+from werkzeug.local import LocalProxy
+from flask import current_app
+
+logger = LocalProxy(lambda: current_app.logger)
+
+
+# views.py
+from core import logger
+
+@mod.route("/")
+def index():
+    logger.info("serving index")
+```
+
 References:
 
 - [In Flask: How to access app Logger within Blueprint
