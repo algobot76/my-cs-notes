@@ -79,10 +79,10 @@ from functools import wraps
 def run_once(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
-        if not wrapper.called:
-            wrapper.called = True
+        if not wrapper._called:
+            wrapper._called = True
             return func(*args, **kwargs)
-    wrapper.called = False
+    wrapper._called = False
     return wrapper
 
 @run_once
@@ -91,12 +91,4 @@ def foo():
 
 foo()
 foo()
-```
-
-or
-
-```python
-def foo():
-    print('foo')
-    foo.__code__ == (lambda: None).__code__
 ```
