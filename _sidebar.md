@@ -1,5 +1,6 @@
 * [Home](/)
 * [CSS](/css/README)
+* [Elixir](/elixir/README)
 * [Go](/go/README)
 * [Java](/java/README)
 * [JavaScript](/javascript/README)
