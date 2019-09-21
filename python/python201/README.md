@@ -90,6 +90,107 @@ print(parts)
 
 `OrderedDict` keeps track of the order of the keys as they are added. Learn more about `OrderedDict` [here](https://docs.python.org/3.7/library/collections.html#collections.OrderedDict).
 
+### Chapter 3 - Context Managers
+
+#### Creating a Context Manager Class
+
+```python
+import sqlite3
+
+
+class DataConn:
+    """"""
+
+    def __init__(self, db_name):
+        """Constructor"""
+        self.db_name = db_name
+
+    def __enter__(self):
+        """
+        Open the database connection
+        """
+        self.conn = sqlite3.connect(self.db_name)
+        return self.conn
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        """
+        Close the connection
+        """
+        self.conn.close()
+        if exc_val:
+            raise
+
+if __name__ == '__main__':
+    db = '/home/mdriscoll/test.db'
+    with DataConn(db) as conn:
+        cursor = conn.cursor()
+```
+
+#### Creating a Context Manager using contextlib
+
+```python
+from contextlib import contextmanager
+
+
+@contextmanager
+def file_open(path):
+    try:
+        f_obj = open(path, 'w')
+        yield f_obj
+    except OSError:
+        print("We had an error!")
+    finally:
+        print('Closing file')
+        f_obj.close()
+
+if __name__ == '__main__':
+    with file_open('/home/mdriscoll/test.txt') as fobj:
+        fobj.write('Testing context managers')
+```
+
+#### contextlib.closing(thing)
+
+```python
+from contextlib import closing
+from urllib.request import urlopen
+
+
+with closing(urlopen('http://www.google.com')) as webpage:
+    for line in webpage:
+        # process the line
+        pass
+```
+
+#### contextlib.supress
+
+```python
+from contextlib import suppress
+
+
+with suppress(FileNotFoundError):
+    with open('fauxfile.txt') as fobj:
+        for line in fobj:
+            print(line)
+```
+
+_Note_: The context manager should be reentrant.
+
+#### contextlib.redirect_stdout/redirect_stderr
+
+```python
+from contextlib import redirect_stdout
+
+
+path = '/path/to/text.txt'
+with open(path, 'w') as fobj:
+    with redirect_stdout(fobj):
+        help(redirect_stdout)
+```
+
+#### ExitStack
+
+`ExitStack` combines other context managers and cleanup functions.
+
 ### Chapter 4 - The functools modules
 
 #### Caching with functools.lru_cache
