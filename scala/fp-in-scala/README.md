@@ -85,3 +85,64 @@ def coalesce(charges: List[Charge]): List[Charge] =
 A function `f` with input type `A` and output type `B` is a computation that relates every value `a` of type `A` to exactly one value `b` of type `B` such that `b` is determined solely by the value of `a`.
 
 Referential transparency (RT) is a property of expression in general and not just functions. An expression is RT referentially transparent if it can be replaced by its result without changing the meaning of the program. A function is pure if calling it with RT arguments is also RT.
+
+## 2. Getting started with functional programming in Scala
+
+A function that accepts other functions as argument is called a higher-order function (HOF).
+
+---
+
+Write loops functionally
+
+```scala
+def factorial(n: Int): Int = {
+  @annotation.tailrec
+  def go(n: Int, acc: Int): Int =
+    if (n <= 0) acc
+    else go(n-1, n*acc)
+
+  go(n, 1)
+}
+```
+
+---
+
+- Monomorphic functions operate on only one type of data.
+- Polymorphic functions work for any type it's given.
+
+Monomorphic version:
+
+```scala
+def findFirst(ss: Array[String], key: String): Int = {
+  @annotation.tailrec
+  def loop(n: Int): Int =
+    if (n >= ss.length) -1
+    else if (ss(n) == key) n
+    else loop(n + 1)
+
+  loop(0)
+}
+```
+
+Polymorphic version:
+
+```scala
+def findFirst[A](as: Array[A], p: A => Boolean): Int = {
+    @annotation.tailrec
+    def loop(n: Int): Int =
+      if (n >= as.length) -1
+      else if (p(as(n))) n
+      else loop(n + 1)
+
+    loop(0)
+}
+```
+
+---
+
+A function signature that can only be implemented in one way is a HOF for performing partial application.
+
+```scala
+ def partial1[A,B,C](a: A, f: (A,B) => C): B => C =
+    (b: B) => f(a, b)
+```
