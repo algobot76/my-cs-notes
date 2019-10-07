@@ -94,6 +94,92 @@ References:
 - [In Flask: How to access app Logger within Blueprint
 ](https://stackoverflow.com/questions/16994174/in-flask-how-to-access-app-logger-within-blueprint)
 
+## Mocking
+
+### `.configure_mock()`
+
+`.cofigure_mock` changes an existing `Mock`. The configurable values include `.side_effect`, `.return_value`, and `.name`.
+
+```python
+# Verbose, old Mock
+response_mock = Mock()
+response_mock.json.return_value = {
+    '12/25': 'Christmas',
+    '7/4': 'Independence Day',
+}
+
+# Shiny, new .configure_mock()
+holidays = {'12/25': 'Christmas', '7/4': 'Independence Day'}
+response_mock = Mock(**{'json.return_value': holidays})
+```
+
+### `patch()`
+
+`patch()` looks up an object in a given module and replaces that object with a `Mock`.
+
+#### `patch()` as a decorator
+
+```python
+import unittest
+from my_calendar import get_holidays
+from requests.exceptions import Timeout
+from unittest.mock import patch
+
+class TestCalendar(unittest.TestCase):
+    @patch('my_calendar.requests')
+    def test_get_holidays_timeout(self, mock_requests):
+            mock_requests.get.side_effect = Timeout
+            with self.assertRaises(Timeout):
+                get_holidays()
+                mock_requests.get.assert_called_once()
+
+if __name__ == '__main__':
+    unittest.main()
+```
+
+#### `patch()` as a context manager
+
+```python
+import unittest
+from my_calendar import get_holidays
+from requests.exceptions import Timeout
+from unittest.mock import patch
+
+class TestCalendar(unittest.TestCase):
+    def test_get_holidays_timeout(self):
+        with patch('my_calendar.requests') as mock_requests:
+            mock_requests.get.side_effect = Timeout
+            with self.assertRaises(Timeout):
+                get_holidays()
+                mock_requests.get.assert_called_once()
+
+if __name__ == '__main__':
+    unittest.main()
+```
+
+#### Patching an object's attributes
+
+`patch.object()` mocks one method of an object instead of the entire object.
+
+```python
+import unittest
+from my_calendar import requests, get_holidays
+from unittest.mock import patch
+
+class TestCalendar(unittest.TestCase):
+    @patch.object(requests, 'get', side_effect=requests.exceptions.Timeout)
+    def test_get_holidays_timeout(self, mock_requests):
+            with self.assertRaises(requests.exceptions.Timeout):
+                get_holidays()
+
+if __name__ == '__main__':
+    unittest.main()
+```
+
+### References
+
+- [Understanding the Python Mock Object Library](https://realpython.com/python-mock-library/)
+
 ## Misc
 
 ### Use `==` to compare two dictionaries
@@ -126,4 +212,3 @@ def foo():
 foo()
 foo()
 ```
-
