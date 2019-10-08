@@ -146,3 +146,114 @@ A function signature that can only be implemented in one way is a HOF for perfor
  def partial1[A,B,C](a: A, f: (A,B) => C): B => C =
     (b: B) => f(a, b)
 ```
+
+## 3. Functional data structures
+
+```scala
+sealed trait List[+A]
+case object Nil extends List[Nothing]
+case class Cons[+A](head: A, tail: List[A]) extends List[A]
+
+object List {
+  def sum(ints: List[Int]): Int = ints match {
+    case Nil => 0
+    case Cons(x, xs) => x + sum(xs)
+  }
+
+  def product(ds: List[Double]): Double = ds match {
+    case Nil => 0.0
+    case Cons(0.0, _) => 0.0
+    case Cons(x, xs) => x * product(xs)
+  }
+
+  def apply[A](as: A*): List[A] =
+    if (as.isEmpty) = Nil
+    else Cons(as.head, apply(as.tail, _*))
+}
+```
+
+- A `trait` is an abstract interface that may optionally contain implementations of some methods.
+- `seal` means all the implementations must be declared in the same file.
+- `Nil` and `Cons` are the data constructors (implementations) of `List`.
+- `+` in front of the type parameter `A` is a variance annotation. See [this](https://docs.scala-lang.org/tour/variances.html) for more info.
+- `object List` is the companion object to `List`, with methods that make use of pattern matching (`sum` and `product`).
+- `apply` is a variadic function, meaning it can take zero or more arguments of type `A`. A syntactic sugar for creating and passing a `Seq` of elements explicitly.
+
+---
+
+Data sharing is used by functional programming in immutable data structures.
+
+![data sharing](./images/ch3_data_sharing.png)
+
+To remove the first element of `myList = Cons(x, xs)`, we simply return the `xs` without changing `myList`.
+
+---
+
+```scala
+def dropWhile[A](as: List[A]) (f: A => boolean): List[A] =
+  as match {
+    case Cons(h, t) if f(h) => dropWhile(t) (f)
+    case _ => as
+  }
+```
+
+- Place `f` as a second argument to assist type inference, making it possible to use `dropWhile` without type annotations.
+
+e.g.
+
+```scala
+val xs: List[Int] = List(1, 2, 3, 4, 5)
+val ex1 = dropWhile(xs) (x => x < 4)
+```
+
+---
+
+```scala
+def foldRight[A,B](as: List[A], z: B)(f: (A, B) => B): B =
+  as match {
+    case Nil => z
+    case Cons(x, xs) => f(x, foldRight(xs, z)(f))
+  }
+```
+
+- `foldRight` can help you write concise code.
+
+`sum` (version 1)
+
+```scala
+def sum(ints: List[Int]): Int = ints match {
+  case Nil => 0
+  case Cons(x, xs) => x + sum(xs)
+}
+```
+
+`sum` (version 2)
+
+```scala
+def sum(ns: List[Int]) =
+  foldRight(ns, 0)(_ + _)
+```
+
+`product` (version 1)
+
+```scala
+def product(ints: List[Int]): Int = ints match {
+  case Nil => 0
+  case Cons(x, xs) => x * product(xs)
+}
+```
+
+`product` (version 2)
+
+```scala
+def sum(ns: List[Int]) =
+  foldRight(ns, 1.0)(_ * _)
+```
+
+---
+
+```scala
+sealed trait Tree[+A]
+case class Leaf[A](value: A) extends Tree[A]
+case class Branch[A](left: Tree[A], right: Tree[A]) extemds Tree[A]
+```
