@@ -10,6 +10,7 @@
 * [Compiler Design](/compiler-design/README)
 * [Git](/git/README)
 * [GraphQL](/graphql/README)
+* [Jenkins](./jenkins/README)
 * [Kafka](./kafka/README)
 * [Spark](/spark/README)
 * [LeetCode](/leetcode/README)
