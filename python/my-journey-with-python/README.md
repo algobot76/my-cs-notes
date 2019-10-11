@@ -60,6 +60,34 @@ References:
 
 - [How to check if a variable is a dictionary in Python? [duplicate]](https://stackoverflow.com/questions/25231989/how-to-check-if-a-variable-is-a-dictionary-in-python)
 
+## Magic Methods
+
+### `__init__` vs. `__call__`
+
+```python
+class Foo:
+    def __init__(self, a, b, c):
+        # ...
+
+x = Foo(1, 2, 3) # __init__
+```
+
+```python
+class Foo:
+    def __call__(self, a, b, c):
+        # ...
+
+x = Foo()
+x(1, 2, 3) # __call__
+```
+
+- `__init__` initializes an instance.
+- `__call_` makes an instance callable.
+
+#### References
+
+- [What is the difference between `__init__` and `__call__`?](https://stackoverflow.com/questions/9663562/what-is-the-difference-between-init-and-call)
+
 ## Flask
 
 ### Use a logger in a flask blueprint
