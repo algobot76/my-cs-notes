@@ -489,6 +489,29 @@ class Solution:
 
 ```
 
+### Sorting
+
+Java:
+
+```java
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class Solution {
+    public List<Integer> findClosestElements(int[] arr, int k, int x) {
+        List<Integer> nums = Arrays.stream(arr)
+                .boxed()
+                .sorted(Comparator.comparingInt(n -> Math.abs(n - x)))
+                .collect(Collectors.toList());
+        List<Integer> ans = nums.subList(0, k);
+        ans.sort(Comparator.naturalOrder());
+        return ans;
+    }
+}
+```
+
 ## LeetCode 852. Peak Index in a Mountain Array
 
 ### Binary Search
