@@ -440,6 +440,44 @@ class Codec:
 
 ```
 
+## LeetCode 852. Peak Index in a Mountain Array
+
+### Binary Search
+
+```python
+class Solution:
+    def peakIndexInMountainArray(self, A):
+        if not A:
+            return -1
+
+        start = 0
+        end = len(A) - 1
+        while start + 1 < end:
+            mid = (start + end) // 2
+            if A[mid] > A[mid + 1]:
+                end = mid
+            else:
+                start = mid
+
+        return start if A[start] > A[end] else end
+
+```
+
+### Linear Search
+
+```python
+class Solution:
+    def peakIndexInMountainArray(self, A):
+        if not A:
+            return -1
+
+        prev = A[0]
+        for i in range(len(A)):
+            if A[i] < prev:
+                return i - 1
+            prev = A[i]
+```
+
 ---
 
 ## LintCode 127. Topological Sorting
