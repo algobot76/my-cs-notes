@@ -1,5 +1,39 @@
 # Solutions
 
+## LeetCode 33. Search in Rotated Sorted Array
+
+### Binary Search
+
+Python:
+
+```python
+class Solution:
+    def search(self, nums, target):
+        if not nums:
+            return -1
+
+        start = 0
+        end = len(nums) - 1
+        while start + 1 < end:
+            mid = (start + end) // 2
+            if nums[mid] >= nums[start]:
+                if nums[start] <= target <= nums[mid]:
+                    end = mid
+                else:
+                    start = mid
+            else:
+                if nums[mid] <= target <= nums[end]:
+                    start = mid
+                else:
+                    end = mid
+
+        if nums[start] == target:
+            return start
+        if nums[end] == target:
+            return end
+        return -1
+```
+
 ## LeetCode 50. Pow(x, n)
 
 Python:
