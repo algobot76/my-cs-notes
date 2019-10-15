@@ -518,6 +518,106 @@ class Solution:
         return node_to_indegree
 ```
 
+## Binary Tree
+
+### Pre-order traversal
+
+Java:
+
+```java
+public void traverse(TreeNode root, ArrayList<Integer> result) {
+    if (root == null) {
+        return;
+    }
+    result.add(root.val);
+    traverse(root.left, result);
+    traverse(root.right, result);
+}
+```
+
+Python:
+
+```python
+def traverse(root, result):
+    if not root:
+        return
+    result.append(root.val)
+    traverse(root.left, result)
+    traverse(root.right, result)
+```
+
+### In-order traversal
+
+Java:
+
+```java
+public void traverse(TreeNode root, ArrayList<Integer> result) {
+    if (root == null) {
+        return;
+    }
+    traverse(root.left, result);
+    result.add(root.val);
+    traverse(root.right, result);
+}
+```
+
+Python:
+
+```python
+def traverse(root, result):
+    if not root:
+        return
+    traverse(root.left, result)
+    result.append(root.val)
+    traverse(root.right, result)
+```
+
+### Post-order traversal
+
+Java:
+
+```java
+public void traverse(TreeNode root, ArrayList<Integer> result) {
+    if (root == null) {
+        return;
+    }
+    traverse(root.left, result);
+    traverse(root.right, result);
+    result.add(root.val);
+}
+```
+
+Python:
+
+```python
+def traverse(root, result):
+    if not root:
+        return
+    traverse(root.left, result)
+    traverse(root.right, result)
+    result.append(root.val)
+```
+
+### `ResultType`
+
+Java:
+
+```java
+class ResultType {
+    int maxValue, minValue;
+    public ResultType(int maxValue, int minValue) {
+        this.maxValue = maxValue;
+        this.minValue = minValue;
+    }
+}
+```
+
+### Related problems
+
+- [Maximum Depth of Binary Tree](https://leetcode.com/problems/maximum-depth-of-binary-tree/)
+- [Balanced Binary Tree](https://leetcode.com/problems/balanced-binary-tree/)
+- [Validate Binary Search Tree](https://leetcode.com/problems/validate-binary-search-tree/)
+
 ## Matrix
 
 ### Move in 4 directions
