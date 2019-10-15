@@ -425,6 +425,39 @@ class Solution {
 
 - Similar to LeetCode 207.
 
+## LeetCode 278. Fist Bad Version
+
+### Binary Search
+
+Python:
+
+```python
+# The isBadVersion API is already defined for you.
+# @param version, an integer
+# @return a bool
+# def isBadVersion(version):
+
+
+class Solution:
+    def firstBadVersion(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        start = 1
+        end = n
+        while start + 1 < end:
+            mid = (start + end) // 2
+            if isBadVersion(mid):
+                end = mid
+            else:
+                start = mid
+        if isBadVersion(start):
+            return start
+        else:
+            return end
+```
+
 ## LeetCode 297. Serialize and Deserialize Binary Tree
 
 Python:
