@@ -38,3 +38,73 @@ target_link_libraries(calc PUBLIC calclib)
 
 - `add_library` supports `STATIC`, `SHARED`, or `MODULE`.
   - For a header-only library, use `INTERFACE`.
+
+### Variables and the Cache
+
+Set a variable:
+
+```cmake
+set(MY_VARIABLE "value")
+```
+
+```cmake
+set(MY_LIST "one" "two")
+```
+
+Use `${}` syntax to access a variable.
+
+### Control Flow
+
+```cmake
+if("${variable}")
+    # True if variable is not false-like
+else()
+    # Note that undefined variables would be `""` thus false
+endif()
+```
+
+### Macros and Functions
+
+- Macros don't have a scope.
+- To make a variable in a function visible from outside, use `PARANT_SCOPE`.
+
+```cmake
+function(SIMPLE REQUIRED_ARG)
+    message(STATUS "Simple arguments: ${REQUIRED_ARG}, followed by ${ARGV}")
+    set(${REQUIRED_ARG} "From SIMPLE" PARENT_SCOPE)
+endfunction()
+
+simple(This)
+message("Output: ${This}")
+```
+
+### How to Structure Your Project
+
+```
+- project
+  - .gitignore
+  - README.md
+  - LICENCE.md
+  - CMakeLists.txt
+  - cmake
+    - FindSomeLib.cmake
+    - something_else.cmake
+  - include
+    - project
+      - lib.hpp
+  - src
+    - CMakeLists.txt
+    - lib.cpp
+  - apps
+    - CMakeLists.txt
+    - app.cpp
+  - tests
+    - CMakeLists.txt
+    - testlib.cpp
+  - docs
+    - CMakeLists.txt
+  - extern
+    - googletest
+  - scripts
+    - helper.py
+```
