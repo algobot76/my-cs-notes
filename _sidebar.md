@@ -8,6 +8,7 @@
 * [Rust](/rust/README)
 * [Scala](/scala/README)
 * [Compiler Design](/compiler-design/README)
+* [CMake](/cmake/README)
 * [Git](/git/README)
 * [GraphQL](/graphql/README)
 * [Jenkins](./jenkins/README)
