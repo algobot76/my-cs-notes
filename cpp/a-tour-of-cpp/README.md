@@ -97,3 +97,53 @@ Initialize an enum with a `int`:
 Color x = Color{5}; // Ok, but verbose
 Color y {6}; // Ok
 ```
+
+## 3 Modularity
+
+### Error Handling
+
+A function that should never throw an exception can be declared `noexcept`.
+
+```cpp
+void user(int sz) noexcept
+{
+    Vector v(sz);
+    iota(&v[0], &v[sz], 1);
+    // ..
+}
+```
+
+3 ways to report errors:
+
+1. throwing an exception
+   - a rare error
+   - an error that cannot be handled by an immediate caller
+   - new kinds of errors can be added in lower-modules of an application so that higher-level modules are not written to cope with such errors
+   - no suitable return path for errors
+   - the return path of a function is made more complicated or expensive by a need to pass both a value and an error indicator back, possibly leading to the use of out-parameters, non-local error-status indicators, or other workarounds
+   - the error has to be transmitted up to a call chain to an "ultimate caller"
+   - the recovery from errors depends on the results of several function calls, leading to the lead to maintain local state between calls and complicated control structures
+   - the function that found the error was a callback, so the immediate caller may not even know what function was called
+   - an error implies that some "undo action" is needed
+2. returning an error code
+   - a failure is normal and expected
+   - an immediate caller can reasonably be expected to handle the failure
+3. terminating the program
+   - an error that we cannot recover from
+   - error-handling is based on restarting a thread, process, or computer whenever a non-trivial error is detected
+   - add `noexcept` to a function so that a `throw` will turn into a `terminte()`
+
+`static_assert` can be used to find errors at compile time.
+
+```cpp
+static_assert(4<=sizeof(int), "intergers are too small") // check integer size
+```
+
+---
+
+### Structure Binding
+
+```cpp
+complex<double> z = {1, 2};
+auto [re,im] = z+2; // re=3; im=2
+```
