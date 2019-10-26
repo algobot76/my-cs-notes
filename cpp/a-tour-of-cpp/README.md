@@ -147,3 +147,76 @@ static_assert(4<=sizeof(int), "intergers are too small") // check integer size
 complex<double> z = {1, 2};
 auto [re,im] = z+2; // re=3; im=2
 ```
+
+## 4 Classes
+
+### An Example of RAII
+
+```cpp
+class Vector {
+public:
+    Vector(int s) :elem{new double[s]}, sz {s} // contructor: acquire resources
+    {
+        for (int i=0; i!=s; ++i) // initialize elements
+            elem[i]=0;
+    }
+    ~Vector() {delete[] elem;} // destructor: release resources
+    // ...
+}
+```
+
+---
+
+### Abstract Types
+
+```cpp
+class Container {
+public:
+    virtual double& operator[](int) = 0;
+    virtual int size() const = 0;
+    virtual ~Container(){}
+}
+```
+
+- `=0` means the function is pure virtual, so it must be implemented in the derived class.
+
+```cpp
+class Vector_container :public Container {
+public:
+    // ...
+    double& operator[](int i) override {return v[i];}
+    // ...
+}
+```
+
+- `:public` means `Vector_container` is derived from `Container`.
+- `override` is optional but helpful for the compiler to detect mistakes.
+- Each class with virtual functions has its own vtbl (virtaul function table). It allows the correct functions to be called.
+
+`dynamic_cast` can be used to check the concrete type of an object.
+
+```cpp
+// ...
+if (Smiley* p = dynamic_cast<Smiley*>(ps)) { // .. does ps point to a Smiley
+    // ... a Smiley, use it
+}
+else {
+    // ... not a Smiley, try something else
+}
+```
+
+### Avoiding Resource Leaks
+
+`unique_ptr` can be used to avoid resource leaks.
+
+```cpp
+class Smiley :public Circle {
+    // ...
+private:
+    vector<uniqe_ptr<Shape>> eys;
+    unique_ptr<Shape> mouth;
+}
+```
+
+- No need to create a destructor for `Smiley`.
+- A `unique_ptr` deletes a resource when the `unique_ptr` goes out of scope.
