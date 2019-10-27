@@ -368,6 +368,40 @@ class Solution:
             return start
 ```
 
+## LeetCode 173. Binary Search Tree Iterator
+
+### Tree Traversal
+
+Python:
+
+```python
+class BSTIterator:
+
+    def __init__(self, root):
+        self.stack = []
+        self.curr = root
+
+    def next(self):
+        """
+        @return the next smallest number
+        """
+        while self.curr:
+            self.stack.append(self.curr)
+            self.curr = self.curr.left
+
+        self.curr = self.stack.pop()
+        node = self.curr
+        self.curr = self.curr.right
+
+        return node.val
+
+    def hasNext(self):
+        """
+        @return whether we have a next smallest number
+        """
+        return self.stack or self.curr
+```
+
 ## LeetCode 200. Number of Islands
 
 ### BFS
