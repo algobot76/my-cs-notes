@@ -220,3 +220,48 @@ private:
 
 - No need to create a destructor for `Smiley`.
 - A `unique_ptr` deletes a resource when the `unique_ptr` goes out of scope.
+
+## 5 Essential Operations
+
+### Essential Operations
+
+```cpp
+class X {
+public:
+    X(Sometype); // "ordinary contructor": create an object
+    X(); // default constructor
+    X(const X&); // copy constructor
+    X(X&&); // move constructor
+    X& operator=(const X&); // copy assignment: clean up target and copy
+    X& operator=(X&&); // move assignment: clean up target and move
+    ~X(); // destructor: clean up
+    // ...
+}
+```
+
+An object can be copied or moved:
+
+- as the source of an assignment
+- as an object initializer
+- as a function argument
+- as a function return value
+- as an exception
+
+`=default` uses the default constructor; `=delete` indicates default operation should not be used (use of `delete`d functions causes a compile-time error).
+
+The rule of zero: either define all of the essential operations or none (using the default for all).
+
+---
+
+### Conversions
+
+```cpp
+class Vector {
+public:
+    explicit Vector(int s); // no implicit conversion from int to Vector
+    // ...
+}
+
+Vector v1(7); // Ok
+Vector v2 = 7; // error: no implicit conversion from int to Vector
+```
