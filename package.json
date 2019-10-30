@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/algobot76/my-cs-notes#readme",
   "devDependencies": {
+    "prettier": "^1.18.2",
     "vuepress": "^1.2.0"
   }
 }
