@@ -1,1 +1,3 @@
-# Kaitian's CS Notes
+---
+home: true
+---
