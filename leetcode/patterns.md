@@ -85,6 +85,21 @@ public ListNode reverseList(ListNode head) {
 
 ### Find the midpoint
 
+Python:
+
+```python
+class Solution:
+    def findMid(self, head):
+        fast = head
+        slow = head
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+        return slow
+```
+
+Java:
+
 ```java
 public ListNode findMid(ListNode head) {
     ListNode fast = head;

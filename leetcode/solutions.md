@@ -1037,6 +1037,23 @@ class Solution:
             prev = A[i]
 ```
 
+## LeetCode 876. Middle of the Linked List
+
+### Two Pointers
+
+Python:
+
+```python
+class Solution:
+    def middleNode(self, head):
+        fast = head
+        slow = head
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+        return slow
+```
+
 ---
 
 ## LintCode 127. Topological Sorting
