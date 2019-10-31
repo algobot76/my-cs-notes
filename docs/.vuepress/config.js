@@ -6,7 +6,6 @@ module.exports = {
     sidebar: [
       {
         title: 'C++',
-        path: '/cpp/my-cpp-notes/',
         children: [
           ['/cpp/my-cpp-notes/', 'My C++ Notes'],
           ['/cpp/a-tour-of-cpp/', 'A Tour of C++'],

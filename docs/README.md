@@ -1,5 +1,5 @@
 ---
 home: true
 actionText: Get Started →
-actionLink: /cpp/
+actionLink: /cpp/my-cpp-notes/
 ---
