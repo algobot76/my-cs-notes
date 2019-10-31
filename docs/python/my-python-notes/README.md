@@ -1,5 +1,7 @@
 # My Python Notes
 
+[[toc]]
+
 ## Built-in Functions
 
 ### `__new__`
