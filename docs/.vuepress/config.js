@@ -45,6 +45,11 @@ module.exports = {
           ['/python/python-tricks/', 'Python Tricks'],
         ],
       },
+      {
+        title: 'Rust',
+        path: '/rust/',
+        children: [['/rust/the-rust-book/', 'The Rust Book']],
+      },
     ],
   },
 }
