@@ -1,1 +1,1 @@
-# Kaitian Xie's CS Notes
+# my-cs-notes
