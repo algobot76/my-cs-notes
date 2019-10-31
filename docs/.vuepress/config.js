@@ -50,6 +50,14 @@ module.exports = {
         path: '/rust/',
         children: [['/rust/the-rust-book/', 'The Rust Book']],
       },
+      {
+        title: 'Scala',
+        path: '/scala/',
+        children: [
+          ['/scala/fp-in-scala/', 'Functional Programming in Scala'],
+          ['/scala/programming-in-scala/', 'Programming in Scala'],
+        ],
+      },
     ],
   },
 }

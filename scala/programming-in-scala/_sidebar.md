@@ -1,2 +1,0 @@
-* [Scala](../)
-  * [Programming in Scala](./)
