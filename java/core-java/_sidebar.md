@@ -1,2 +1,0 @@
-* [Java](../README)
-  * [Core Java](./)

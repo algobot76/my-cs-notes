@@ -2,6 +2,7 @@ module.exports = {
   title: "Kaitian's CS Notes",
   description: "Let's learn more about Computer Science",
   themeConfig: {
+    searchPlaceholder: 'Search...',
     sidebar: [
       {
         title: 'C++',
@@ -21,9 +22,14 @@ module.exports = {
         path: '/golang/',
         children: [
           ['/golang/my-golang-notes/', 'My Golang Notes'],
-          ['/golang/a-tour-of-go/', 'A Tour of Go']
-      ],
-      }
+          ['/golang/a-tour-of-go/', 'A Tour of Go'],
+        ],
+      },
+      {
+        title: 'Java',
+        path: '/java/',
+        children: [['/java/core-java/', 'Core Java']],
+      },
     ],
   },
 }
