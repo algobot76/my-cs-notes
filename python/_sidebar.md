@@ -1,6 +1,0 @@
-* [Python](../)
-  * [My Journey with Python](./my-journey-with-python/README)
-  * [The Python 3 Standard Library by Example](./py3-std-examples/README)
-  * [Python 101](./python101/README)
-  * [Python 201](./python201/README)
-  * [Python Tricks](./python-tricks/README)

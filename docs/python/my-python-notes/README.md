@@ -1,4 +1,4 @@
-# My Journey with Python
+# My Python Notes
 
 ## Built-in Functions
 
