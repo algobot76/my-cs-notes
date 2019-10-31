@@ -90,6 +90,308 @@ x(1, 2, 3) # __call__
 
 - [What is the difference between `__init__` and `__call__`?](https://stackoverflow.com/questions/9663562/what-is-the-difference-between-init-and-call)
 
+## Tox
+
+### Tox config in the Pallets projects
+
+#### Flask
+
+```ini
+[tox]
+envlist =
+    py{37,36,35,27,py3,py}
+    py37-{simplejson,devel,lowest}
+    docs-html
+    coverage
+
+[testenv]
+passenv = LANG
+deps =
+    pytest
+    coverage
+    greenlet
+    blinker
+    python-dotenv
+
+    lowest: Werkzeug==0.15
+    lowest: Jinja2==2.10
+    lowest: itsdangerous==0.24
+    lowest: Click==5.1
+
+    devel: https://github.com/pallets/werkzeug/archive/master.tar.gz
+    devel: https://github.com/pallets/markupsafe/archive/master.tar.gz
+    devel: https://github.com/pallets/jinja/archive/master.tar.gz
+    devel: https://github.com/pallets/itsdangerous/archive/master.tar.gz
+    devel: https://github.com/pallets/click/archive/master.tar.gz
+
+    simplejson: simplejson
+
+commands =
+    # the examples need to be installed to test successfully
+    pip install -q -e examples/tutorial[test]
+    pip install -q -e examples/javascript[test]
+
+    # pytest-cov doesn't seem to play nice with -p
+    coverage run -p -m pytest --tb=short -Werror {posargs:tests examples}
+
+[testenv:nightly]
+# courtesy Python nightly test, don't fail the build in CI
+ignore_outcome = true
+commands =
+    pip install -q -e examples/tutorial[test]
+    pip install -q -e examples/javascript[test]
+    coverage run -p -m pytest --tb=short -Werror --junitxml=test-results.xml {posargs:tests examples}
+
+[testenv:stylecheck]
+deps = pre-commit
+skip_install = true
+commands = pre-commit run --all-files --show-diff-on-failure
+
+[testenv:docs-html]
+deps =
+    -r docs/requirements.txt
+commands = sphinx-build -W -b html -d {envtmpdir}/doctrees docs {envtmpdir}/html
+
+[testenv:coverage]
+deps = coverage
+skip_install = true
+commands =
+    coverage combine
+    coverage html
+    coverage report
+
+[testenv:coverage-ci]
+deps = coverage
+skip_install = true
+commands =
+    coverage combine
+    coverage xml
+    coverage report
+```
+
+#### Jinja
+
+```ini
+[tox]
+envlist =
+    py{37,36,35,27,py3,py}
+    docs-html
+    coverage
+skip_missing_interpreters = true
+
+[testenv]
+deps =
+    coverage
+    pytest
+commands = coverage run -p -m pytest --tb=short -Werror --basetemp={envtmpdir} {posargs}
+
+[testenv:docs-html]
+deps =
+    Sphinx
+    Pallets-Sphinx-Themes
+    sphinxcontrib-log-cabinet
+    sphinx-issues
+commands = sphinx-build -b html -d {envtmpdir}/doctrees docs {envtmpdir}/html
+
+[testenv:coverage]
+deps = coverage
+skip_install = true
+commands =
+    coverage combine
+    coverage html
+    coverage report
+
+[testenv:coverage-ci]
+deps = coverage
+skip_install = true
+commands =
+    coverage combine
+    # Ignoring errors because 2.7.15 and 3.5.5 on Azure can't parse async files.
+    coverage xml --ignore-errors
+```
+
+#### Werkzeug
+
+```ini
+[tox]
+envlist =
+    py{37,36,35,27,py3,py}
+    style
+    docs-html
+    coverage
+skip_missing_interpreters = true
+
+[testenv]
+deps =
+    coverage
+    pytest
+    pytest-timeout
+    pytest-xprocess
+    requests
+    requests_unixsocket
+    cryptography
+    greenlet
+    watchdog
+commands = coverage run -p -m pytest --tb=short --basetemp={envtmpdir} {posargs}
+
+[testenv:style]
+deps = pre-commit
+skip_install = true
+commands = pre-commit run --all-files --show-diff-on-failure
+
+[testenv:docs-html]
+deps =
+    Sphinx
+    Pallets-Sphinx-Themes
+    sphinx-issues
+commands = sphinx-build -W -b html -d {envtmpdir}/doctrees docs {envtmpdir}/html
+
+[testenv:coverage]
+deps = coverage
+skip_install = true
+commands =
+    coverage combine
+    coverage html
+    coverage report
+
+[testenv:coverage-ci]
+deps = coverage
+skip_install = true
+commands =
+    coverage combine
+    coverage xml
+    coverage report
+```
+
+#### Click
+
+```ini
+[tox]
+envlist =
+    py{37,36,35,27,py3,py}
+    docs
+    coverage
+skip_missing_interpreters = true
+
+[testenv]
+deps =
+    pytest
+    coverage
+    colorama
+commands = coverage run -p -m pytest --tb=short -Werror --basetemp={envtmpdir} {posargs}
+
+[testenv:docs]
+deps = -r docs/requirements.txt
+commands = sphinx-build -W -b html -d {envtmpdir}/doctrees docs {envtmpdir}/html
+
+[testenv:coverage]
+deps = coverage
+skip_install = true
+commands =
+    coverage combine
+    coverage html
+    coverage report
+
+[testenv:coverage-ci]
+deps = codecov
+skip_install = true
+commands =
+    coverage combine
+    coverage xml
+```
+
+#### ItsDangerous
+
+```ini
+[tox]
+envlist =
+    py{37,36,35,27,py3,py}
+    style
+    docs
+    coverage
+skip_missing_interpreters = true
+
+[testenv]
+deps =
+    coverage
+    pytest
+    freezegun
+commands = coverage run -p -m pytest -Werror --tb=short --basetemp={envtmpdir} {posargs}
+
+[testenv:style]
+deps = pre-commit
+skip_install = True
+commands = pre-commit run --all-files --show-diff-on-failure
+
+[testenv:docs-html]
+deps = -r docs/requirements.txt
+commands = sphinx-build -W -b html -d {envtmpdir}/doctrees docs {envtmpdir}/html
+
+[testenv:coverage]
+deps = coverage
+skip_install = true
+commands =
+    coverage combine
+    coverage html
+    coverage report
+
+[testenv:coverage-ci]
+deps = coverage
+skip_install = true
+commands =
+    coverage combine
+    coverage xml
+```
+
+#### MarkupSafe
+
+```ini
+tox]
+envlist =
+    py{37,36,35,34,27,py3,py3,py}
+    stylecheck
+    docs-html
+    coverage-report
+skip_missing_interpreters = true
+
+[testenv]
+setenv =
+    COVERAGE_FILE = .coverage.{envname}
+deps =
+    pytest-cov
+commands = pytest --tb=short --cov --cov-report= {posargs}
+
+[testenv:stylecheck]
+deps = pre-commit
+skip_install = true
+commands = pre-commit run --all-files --show-diff-on-failure
+
+[testenv:docs-html]
+deps = -r docs/requirements.txt
+commands = sphinx-build -W -b html -d {envtmpdir}/doctrees docs {envtmpdir}/html
+
+[testenv:coverage-report]
+setenv =
+    COVERAGE_FILE = .coverage
+deps = coverage
+skip_install = true
+commands =
+    coverage combine
+    coverage html
+    coverage report
+
+[testenv:codecov]
+passenv = CI TRAVIS TRAVIS_*
+setenv =
+    COVERAGE_FILE = .coverage
+deps = codecov
+skip_install = true
+commands =
+    coverage combine
+    codecov
+    coverage report
+```
+
 ## Flask
 
 ### Use a logger in a flask blueprint
