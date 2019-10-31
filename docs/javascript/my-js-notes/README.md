@@ -1,4 +1,4 @@
-# My Journey with JS
+# My JS Notes
 
 ## `== null`
 

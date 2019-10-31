@@ -30,6 +30,11 @@ module.exports = {
         path: '/java/',
         children: [['/java/core-java/', 'Core Java']],
       },
+      {
+        title: 'JavaScript',
+        path: '/javascript/',
+        children: [['/javascript/my-js-notes/', 'My JS Notes']],
+      },
     ],
   },
 }
