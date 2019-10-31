@@ -16,6 +16,14 @@ module.exports = {
         path: '/css/',
         children: [['/css/css-the-definitive-guide/', 'CSS The Definitive Guide']],
       },
+      {
+        title: 'Golang',
+        path: '/golang/',
+        children: [
+          ['/golang/my-golang-notes/', 'My Golang Notes'],
+          ['/golang/a-tour-of-go/', 'A Tour of Go']
+      ],
+      }
     ],
   },
 }

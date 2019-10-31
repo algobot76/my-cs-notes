@@ -1,4 +1,4 @@
-# My Journey with Go
+# My Golang Notes
 
 ## The Laws of Reflection
 
