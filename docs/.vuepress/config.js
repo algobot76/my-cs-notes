@@ -58,6 +58,14 @@ module.exports = {
           ['/scala/programming-in-scala/', 'Programming in Scala'],
         ],
       },
+      {
+        title: 'LeetCode',
+        path: '/leetcode/',
+        children: [
+          ['/leetcode/patterns', 'Patterns'],
+          ['/leetcode/solutions', 'Solutions'],
+        ],
+      },
     ],
   },
 }
