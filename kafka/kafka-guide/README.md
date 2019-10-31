@@ -1,1 +1,0 @@
-# Kafka The Definitive Guide
