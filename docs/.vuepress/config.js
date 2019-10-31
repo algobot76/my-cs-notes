@@ -53,11 +53,9 @@ module.exports = {
       },
       {
         title: 'LeetCode',
-        children: [
-          ['/leetcode/patterns', 'Patterns'],
-          ['/leetcode/solutions', 'Solutions'],
-        ],
+        children: [['/leetcode/patterns', 'Patterns'], ['/leetcode/solutions', 'Solutions']],
       },
     ],
   },
+  plugins: ['@vuepress/back-to-top'],
 }
