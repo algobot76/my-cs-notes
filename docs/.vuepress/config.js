@@ -51,10 +51,6 @@ module.exports = {
           ['/scala/programming-in-scala/', 'Programming in Scala'],
         ],
       },
-      {
-        title: 'LeetCode',
-        children: [['/leetcode/solutions', 'Solutions']],
-      },
     ],
   },
   markdown: {
