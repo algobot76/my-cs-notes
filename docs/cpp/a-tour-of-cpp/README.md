@@ -265,3 +265,27 @@ public:
 Vector v1(7); // Ok
 Vector v2 = 7; // error: no implicit conversion from int to Vector
 ```
+
+## 9 Strings
+
+### Introduction to Strings
+
+```cpp
+string name = "Niels Stroustrup";
+
+void m3()
+{
+    string s = name.substr(6, 10); // s = "Stroustrup"
+    name.replace(0, 5); // name becomes "nicholas Stroustrup"
+    name[0].toupper(name[0]) // name becomes "Nicholas Stroustrup"
+}
+```
+
+```cpp
+auto s = "Cat"s; // a std::string
+auto p = "Dog" // a C-style string: a const char*
+```
+
+`string` is implemented using short-string optimization.
+    - short strings stored in `string` object
+    - long strings placed on free store
