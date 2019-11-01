@@ -53,7 +53,7 @@ module.exports = {
       },
       {
         title: 'LeetCode',
-        children: [['/leetcode/patterns', 'Patterns'], ['/leetcode/solutions', 'Solutions']],
+        children: [['/leetcode/solutions', 'Solutions']],
       },
     ],
   },
