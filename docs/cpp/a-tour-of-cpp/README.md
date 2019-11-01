@@ -289,3 +289,41 @@ auto p = "Dog" // a C-style string: a const char*
 `string` is implemented using short-string optimization.
     - short strings stored in `string` object
     - long strings placed on free store
+
+---
+
+### String Views
+
+`string_view` is a (pointer, length) pair denoting a sequence of characters. The sequence of characters can be stored in many different ways (including `string` or C-style string).
+
+- Read-only view
+- Out-of-range access is unspecified
+- Use `at()` for range checking
+
+```cpp
+string cat(string_view sv1, string_view sv2)
+{
+    string res(sv1.length() + sv2.length());
+    char* p = &res[0];
+    for (char c : sv1) // one way to copy
+        *p++ = c;
+    copy(sv2.begin(), sv2.end(), p); // another way to copy
+    return res;
+}
+```
+
+- Can be used for character sequences managed in different ways.
+- No temporary `string` arguments are created for C-style string arguments.
+- Can easily pass substrings.
+
+```cpp
+using namespace std::literals::string_view_literals;
+
+string king  = "Harold";
+auto s1 = cat(king,"William"); // string and const char*
+auto s2 = cat(king,king); // string and string
+auto s3 = cat("Edward","Stephen"sv); // const char * and string_view
+auto s4 = cat("Canute"sv,king);
+auto s5 = cat({&king[0],2},"Henry"sv); // HaHenry
+auto s6 = cat({&king[0],2},{&king[2],4}); // Harold
+```
