@@ -41,7 +41,6 @@ module.exports = {
       },
       {
         title: 'Rust',
-        path: '/rust/',
         children: [['/rust/the-rust-book/', 'The Rust Book']],
       },
       {
