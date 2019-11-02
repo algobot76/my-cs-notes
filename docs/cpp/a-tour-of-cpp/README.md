@@ -370,3 +370,31 @@ void f(const Entry& ee, list<Entry>::iterator p, list<Entry>::iterator q)
     phone_book.erase(q) // remove the element referred to by q
 }
 ```
+
+---
+
+### Unordered Map
+
+Define a hash function for a struct:
+
+```cpp
+struct Record {
+    string name;
+    int product_code;
+}
+
+struct Rehash {
+    size_t operator()(const Record& r) const
+    {
+        return hash<string>()(r.name) ^ hash<int>()(r.product_code);
+    }
+}
+```
+
+---
+
+### Map vs Unordered Map
+
+- A `map` requires an ordering function (the default is `<`) and yields an ordered sequence.
+- An `unordered_map` requires a hash function and does not maintain an order among its elements.
+- Given a good hash function, an `unordered_map` is much faster than a `map` for large containers. However, with a poor hash function, its is worse than a `map` in terms of works-case bahavior.
