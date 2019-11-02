@@ -1,5 +1,7 @@
 # A Tour of C++
 
+[[toc]]
+
 ## 1 The Basics
 
 ### Hello, World!
@@ -398,3 +400,42 @@ struct Rehash {
 - A `map` requires an ordering function (the default is `<`) and yields an ordered sequence.
 - An `unordered_map` requires a hash function and does not maintain an order among its elements.
 - Given a good hash function, an `unordered_map` is much faster than a `map` for large containers. However, with a poor hash function, its is worse than a `map` in terms of works-case bahavior.
+
+---
+
+### Container Overview
+
+#### Standard Container Summary
+
+- `vector<T>`: a variable-size vector
+- `list<T>`: a doubly-linked list
+- `forward_list<T>`: a singly-linked list
+- `deque<T>`: a double-ended queue
+- `set<T>`: a set (a `map` with just a key with no value)
+- `multiset<T>`: a set in which a value can occur many times
+- `map<T>`: an associative array
+- `multimap<T>`: a map in which a key can occur many times
+- `unordered_map<K,V>`: a map using a hashed lookup
+- `unordered_multimap<K,V>`: a multimap using a hashed lookup
+- `unordered_set<T>`: a set using a hashed lookup
+- `unordered_multiset<T>`: a multiset using a hashed lookup
+
+#### Standard Container Operation (partial)
+
+- `value_type`: the type of an element
+- `p=c.begin()`: `p` points to first element of `c`; also `cbegin()` for an iterator to `const`
+- `p=c.end()`: `p` points to one-past-the-last element of `c`; also `cend()` for an iterator to `const`
+- `k=c.size()`: `k` is the number of elements in `c`
+- `c.empty()`: Is `c` empty?
+- `k=c.capacity()`: `k` is the number of elements that `c` can hold without a new allocation
+- `c.reserve(k)`: Make the capacity `k`
+- `c.resize(k)`: Make the number of elements `k`; added elements have the value of `value_type{}`
+- `c[k]`: The `k`th element of `c`; no range checking
+- `c.at(k)`: The `k`th element of `c`; if out of range, throw `out_of_range`
+- `c.push_back(x)`: Add `x` at the end of `c`; increase the size of `c` by one
+- `c.emplace_back(a)`: Add `value_type{a}` at the end of `c`; increase size of `c` by one
+- `q=c.insert(p,x)`: Add `x` before `p` in `c`
+- `q=c.erase(p)`: Remove element at `p` from `c`
+- `=`: Assignment
+- `==`, `!=`: Equality of all elements of `c`
+- `<`, `<=`, `>`, `>=`: Lexicographical order
