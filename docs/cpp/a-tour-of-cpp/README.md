@@ -344,3 +344,29 @@ vector<Shape> vs; // No, don't - there is no room for a Circle or a Similey
 vector<Shape*> vps: // better, but potential resouce leaks
 vector<uniqe_ptr<Shape>> vups: // OK
 ```
+
+---
+
+### List
+
+```cpp
+list<Entry> phone_book = {
+    {"David HUme", 123456},
+    {"Karl Popper", 234567},
+    {"Bertrand Arthur William Russell", 345678}
+}
+
+int get_number(const string& s)
+{
+    for (const auto& x : phone_book)
+        if (x.name == s)
+            return x.number;
+    return 0; // 0 reprents "number not found"
+}
+
+void f(const Entry& ee, list<Entry>::iterator p, list<Entry>::iterator q)
+{
+    phone_book.insert(p,ee); // add ee before the element referred to by p
+    phone_book.erase(q) // remove the element referred to by q
+}
+```
