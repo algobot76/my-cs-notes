@@ -460,3 +460,14 @@ vector<Iterator<C>> find_all(C&c, V v)
     return res;
 }
 ```
+
+---
+
+### Iterator Types
+
+An iterator is an object of some type.
+
+- holds enough info for doing its job
+- its type depends on its container and its job
+- `++` yields an iterator that refers to the next element
+- `*` yields the element it refers to
