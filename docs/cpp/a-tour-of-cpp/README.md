@@ -439,3 +439,24 @@ struct Rehash {
 - `=`: Assignment
 - `==`, `!=`: Equality of all elements of `c`
 - `<`, `<=`, `>`, `>=`: Lexicographical order
+
+## 12 Algorithms
+
+### Use of Iterators
+
+Use iterators to implement `find_all`:
+
+```cpp
+template<typename T>
+using Iterator = typename T::iterator
+
+template<typename C, typename V>
+vector<Iterator<C>> find_all(C&c, V v)
+{
+    vector<Iterator<C>> res;
+    for (auto p=c.begin(); p!=c.end(); ++p)
+        if (*p==v)
+            res.push_back(p)
+    return res;
+}
+```
