@@ -471,3 +471,15 @@ An iterator is an object of some type.
 - its type depends on its container and its job
 - `++` yields an iterator that refers to the next element
 - `*` yields the element it refers to
+
+---
+
+<!-- TODO: 12.4 -->
+
+### Predicates
+
+Search a `map<string,int>` for the first value larger than 42:
+
+```cpp
+auto p = find_if(m.begin(), m.end(), [](const pair<string,int>& r) { return r.second>2 })
+```
