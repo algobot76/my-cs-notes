@@ -66,5 +66,11 @@
 - __<< operator__: Output operator. Writes the right-hand operand to the output stream indicated by the left-hand operand: `cout << "hi"` writes `hi` to the standard output. Output operations can be chained together: `cout << "hi" << "bye"` writes  `hibye`.
 - __>> operator__: Input operator. Reads from the input stream specified by the left-hand operand into the right-hand operand: `cin >> i` reads the next value on the standard input into `i`. Input operations can be chained together: `cin >> i >> j` reads first into `i` and then into `j`.
 - __# include__: Directive that makes code in a header available to a program.
+- __== operator__: The equality operator. Tests whether the left-hand operand is equal to the right-hand operand.
+- __!= operator__: The inequality operator. Tests whether the left-hand operand is not equal to the right-hand operand.
+- __<= operator__: The less-than-or-equal operator. Tests whether the left-hand operand is less than or equal to the right-hand operand.
+- __< operator__: The less-than operator. Tests whether the left-hand operand is greater than or equal to the right-hand operand.
+- __>= operator__: Greater-than-or-equal operator. Tests whether the left-hand operand is greater than or equal to the right-hand operand.
+- __operator__: Greater-than operator. Tests whether the left-hand operand is greater than the right-hand operand.
 
 :::
