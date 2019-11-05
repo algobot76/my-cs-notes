@@ -268,6 +268,14 @@ Vector v1(7); // Ok
 Vector v2 = 7; // error: no implicit conversion from int to Vector
 ```
 
+<!-- TODO: Finish the reset of 5 -->
+
+<!-- TODO: 6 -->
+
+<!-- TODO: 7 -->
+
+<!-- TODO: 8 -->
+
 ## 9 Strings
 
 ### Introduction to Strings
@@ -329,6 +337,8 @@ auto s4 = cat("Canute"sv,king);
 auto s5 = cat({&king[0],2},"Henry"sv); // HaHenry
 auto s6 = cat({&king[0],2},{&king[2],4}); // Harold
 ```
+
+<!-- TODO: 10 -->
 
 ## 11 Containers
 
@@ -508,3 +518,5 @@ auto p = find_if(m.begin(), m.end(), [](const pair<string,int>& r) { return r.se
 - `p=merge(b,e,b2,e2,out,f)`: Merge two sorted sequences [`b`:`e`) and [`b2`:`e2`) into [`out`:`p`) using `f` as the comparison
 
 <!-- TODO: 12.7 - 12.9 -->
+
+<!-- TODO: 13 -->
