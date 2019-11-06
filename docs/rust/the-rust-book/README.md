@@ -1,5 +1,7 @@
 # The Rust Book
 
+[[toc]]
+
 ## 3. Common Programming Concepts
 
 ### Variables and Mutability
