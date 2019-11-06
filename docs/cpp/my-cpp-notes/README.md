@@ -6,8 +6,6 @@
 
 ### `std::move`
 
----
-
 #### What is it?
 
 A converter between ways the compiler considers an expression's value.
@@ -42,4 +40,28 @@ swap(T& a, T& b) {
 
 - [What is std::move(), and when should it be used?](https://stackoverflow.com/a/27026280/9639472)
 
----
+## Snippets
+
+### Create a random string
+
+```cpp
+std::string random_string( size_t length )
+{
+    auto randchar = []() -> char
+    {
+        const char charset[] =
+        "0123456789"
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        "abcdefghijklmnopqrstuvwxyz";
+        const size_t max_index = (sizeof(charset) - 1);
+        return charset[ rand() % max_index ];
+    };
+    std::string str(length,0);
+    std::generate_n( str.begin(), length, randchar );
+    return str;
+}
+```
+
+#### References
+
+- [How do I create a random alpha-numeric string in C++?](https://stackoverflow.com/a/12468109/9639472)
