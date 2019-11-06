@@ -71,6 +71,6 @@
 - __<= operator__: The less-than-or-equal operator. Tests whether the left-hand operand is less than or equal to the right-hand operand.
 - __< operator__: The less-than operator. Tests whether the left-hand operand is greater than or equal to the right-hand operand.
 - __>= operator__: Greater-than-or-equal operator. Tests whether the left-hand operand is greater than or equal to the right-hand operand.
-- __operator__: Greater-than operator. Tests whether the left-hand operand is greater than the right-hand operand.
+- __> operator__: Greater-than operator. Tests whether the left-hand operand is greater than the right-hand operand.
 
 :::
