@@ -74,3 +74,33 @@
 - __> operator__: Greater-than operator. Tests whether the left-hand operand is greater than the right-hand operand.
 
 :::
+
+## Chapter 2 Variables and Basic Types
+
+### Section 2.1 Primitive Built-in Types
+
+#### Arithmetic Types
+
+|     Type      |              Meaning              |  Minimum Size  |
+| :-----------: | :-------------------------------: | :------------: |
+|    `bool`     |              boolean              |       NA       |
+|    `char`     |             character             |     8 bits     |
+|   `wchar_t`   |          wide character           |    16 bits     |
+|  `char16_t`   |         Unicode character         |    16 bits     |
+|  `char32_t`   |         Unicode character         |    32 bits     |
+|    `short`    |           short integer           |    16 bits     |
+|     `int`     |              integer              |    16 bits     |
+|    `long`     |           long integer            |    32 bits     |
+|  `long long`  |           long integer            |    64 bits     |
+|    `float`    |  single-precision floating-point  | 6 sig. digits  |
+|   `double`    |  double-precision floating-point  | 10 sig. digits |
+| `long double` | extended-precision floating-point | 10 sig. digits |
+
+#### Type Conversions
+
+- When we assign one of  non-`bool` arithmetic types to a `bool` object, the result is `false` if the value is `0` and `true` otherwise.
+- When we assign a `bool` to one of the other arithmetic types, the resulting value is `1` if the `bool` is `true` and `0` if the `bool` is `false`.
+- When we assign a floating-point value to an object of integral type, the value is truncated. The value stored is the part before the decimal point.
+- When we assign an integral value to an object of floating-point type, the fractional part is zero. Precision may be lost if the integer has more bits than the floating-point type can accommodate.
+- If we assign an out-of-range value to an object of unsigned type, the result is the remainder of of the value modulo the number of values the target type can hold.
+- If we assign an out-of-range value to an objectof signed type, the result is undefined.
