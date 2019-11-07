@@ -65,3 +65,21 @@ std::string random_string( size_t length )
 #### References
 
 - [How do I create a random alpha-numeric string in C++?](https://stackoverflow.com/a/12468109/9639472)
+
+### Use `vector::push_back` with structs
+
+```cpp
+struct point {
+    int x;
+    int y;
+};
+
+vector <point> a;
+
+a.push_back( {6,7} );
+a.push_back( {5,8} );
+```
+
+#### References
+
+- [How to use vector::push_back()` with a struct?](https://stackoverflow.com/a/49369866/9639472)
