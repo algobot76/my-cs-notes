@@ -103,4 +103,65 @@
 - When we assign a floating-point value to an object of integral type, the value is truncated. The value stored is the part before the decimal point.
 - When we assign an integral value to an object of floating-point type, the fractional part is zero. Precision may be lost if the integer has more bits than the floating-point type can accommodate.
 - If we assign an out-of-range value to an object of unsigned type, the result is the remainder of of the value modulo the number of values the target type can hold.
-- If we assign an out-of-range value to an objectof signed type, the result is undefined.
+- If we assign an out-of-range value to an object of signed type, the result is undefined.
+
+::: tip Defined Terms
+
+- __address__: Number by which a byte in memory can be found.
+- __alias declaration__: Defines a synonym for another type: `using` _name_ = _type_ declares _name_ as a synonym for the type _type_.
+- __array__: Data structure that holds a collection of unnamed objects that are accessed by an index.
+- __auto__: Type specifier that deduces the type of a variable from its initializer.
+- __base type__: type specifier, possibly qualified by `const`, that precedes the declarators in a declaration. The base type provides the custom type on which declarators in a declaration can build.
+- __bind__: Associating a name with a given entity so that uses of the name are uses the underlying entity. For example, a reference is a name that is bound to an object.
+- __byte__: Smallest addressable unit of memory. On most machines a byte is 8 bits.
+- __class member__: Part of a class.
+- __compound type__: A type that is defined in terms on another type.
+- __const__: Type qualifier used to define objects that may not be changed. `const` objects must be initialized, because there is no way to give them a value after they are defined.
+- __const pointer__: Pointer that is `const`.
+- __const reference__: Colloquial synonym for reference to `const`.
+- __const expression__: Expression that can be evaluated at compile time.
+- __constexpr__: Variable that represents a const expression.
+- __conversion__: Process whereby a value of one type is transformed into a value of another type. The language defines conversions among the built-in types.
+- __data member__: Data elements that constitute an object. Every object of a given class has its own copies of the class' data members. Data members may be initialized when declared inside the class.
+- __declaration__: Asserts the existence of a variable, function, or type defined elsewhere. Names may not be used until they are defined or declared.
+- __decltype__: Type specifier that deduces the type of a variable or an expression.
+- __default initialization__: How objects are initialized when no explicit initializer is given. How class type objects are initialized is controlled by the class. Objects of built-in type defined at global scope are uninitiated and have undefined values.
+- __definition__: Allocates storage for a variable of a specified type and optionally initializes the variable. Names may not be used until they are defined or declared.
+- __escape sequence__: Alternative mechanism for representing characters, particularly for those without printable representations. An escape sequence is a backslash followed by a character, three or fewer octal digits, or an `x` followed by a hexadecimal number.
+- __global scope__: The scope that is outside all other scopes.
+- __header guard__: Preprocessor variable used to prevent a header from being included more than once in a single file.
+- __identifier__: Sequence of characters that make up a name. Identifiers are case-sensitive.
+- __in-class initializer__: Initializer provided as part of the declaration of a class data member. In-class initializers must follow an `=` symbol or be enclosed inside curly braces.
+- __in scope__: Name that is visible from the current scope.
+- __initialized__: A variable given an initial value when it is defined. Variables usually should be initialized.
+- __ inner scope__: Scope that is nested insdie another scope.
+- __integeral types__: See arithmetic type.
+- __list initialization__: Form of initialization that uses curly braces to enclose one or more initializers.
+- __literal__: A value such as a number, a character, or a string of characters. The value cannot be changed. Literal characters are enclosed in single quotes, literal strings in double quotes.
+- __local scope__: Colloquial synonym for block scope.
+- __low-level const__: A  `const` that is not top-level. Such `const`s are interal to the type and are never ignored.
+- __member__: Part of class.
+- __nonprintable character__: A character with no visible representation, such as a control character, a backspace, newline, and so on.
+- __null pointer__: Pointer whose value is 0. A null pointer is valid but does not point to any object.
+- __nullptr__: Literal constant that denotes the null pointer.
+- __object__: A region of memory that has a type. A variable is an obejct that has a name.
+- __outer scope__: Scope that encloses another scope.
+- __pointer__: An object that can hold the address of an object, the address one past the end of an object, or zero.
+- __pointer to const__: Pointer that can hold the address of a `const` obejct. A pointer to `const` may not be used to change the value of the obejct to which it points.
+- __preprocessor__: Program that runs as part of compilation of a C++ program.
+- __preprocessor variable__: Variable managed by the preprocessor. The preprocessor replaces each preprocessor variable by its value before our program is compiled.
+- __reference__: An alias for another object.
+- __reference to `const`__: A reference that may not change the value of the object to which it refers. A reference to `const` may not be bound to a `const` object, a non`const` object, or the result of an expression.
+- __scope__; The portion of a program in which names have meaning. C++ has several levels of scope:
+  - __global__: names defined outside any other scope
+  - __class__: names defined inside a class
+  - __namespace__: names defined inside a namespace
+  - __block__: names defined inside a block
+
+  Scopes nest. Once a name is declared, it is accessible until the end of the scope in which it was declared.
+- __separate compilation__: Ability to split a program into multiple separate source files.
+- __signed__: Integer type that holds negative or positive values, including zero.
+- __string__: Library type representing variable-length sequences of characters.
+- __struct__: Keyword used to defined a class.
+
+:::
