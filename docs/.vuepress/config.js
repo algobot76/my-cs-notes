@@ -52,6 +52,10 @@ module.exports = {
         ],
       },
       {
+        title: 'Linux',
+        path: '/linux/',
+      },
+      {
         title: 'Git',
         path: '/git/',
       },
