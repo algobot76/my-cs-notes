@@ -23,3 +23,9 @@ git submodule foreach git pull origin master
 #### References
 
 - [Update Git submodule to latest commit on origin](https://stackoverflow.com/questions/5828324/update-git-submodule-to-latest-commit-on-origin)
+
+### Show authors and commits
+
+```bash
+git shortlog -sn
+```
