@@ -4,19 +4,23 @@
 
 ## 3. Common Programming Concepts
 
-### Variables and Mutability
+### 3.1. Variables and Mutability
+
+- Variables are immutable by default.
+- Use `mut` to make a variable mutable.
 
 #### Differences between Variables and Constants
 
 - Constants
   - Can't use `mut` with constants.
-  - Declare constants with `const` instead of `let`.
-  - Type must be annotated.
-  - Can declare in any scope.
+  - Declare constants with `const` instead of `let` and must be annotated.
+  - Can declare constants in any scope.
   - Only set to a constant expression, not to the result of a function call or any other value that could only be computed at runtime.
   - Valid for the entire time with the scope.
 
 #### Shadowing
+
+- Shadow a variable by using the same variable name and `let`.
 
 ```rust
 let x = 5;
@@ -24,14 +28,12 @@ let x = x + 1;
 let x = x * 2;
 ```
 
-- The second `let` statement shadows `x` and the third `let` statement shadows `x` as well.
+- Shadowing allows you to change the type of a variable.
 
 ```rust
 let spaces = "   ";
 let spaces = spaces.len();
 ```
-
-- Shadowing allows you to change the type of a variable.
 
 ### Data Types
 
