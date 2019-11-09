@@ -250,6 +250,8 @@ fn main() {
 
 ### Repetitions with Loops
 
+- Rust has three kinds of loops: `loop`, `while`, and `for`.
+
 #### `loop`
 
 ```rust
@@ -259,9 +261,6 @@ fn main() {
     }
 }
 ```
-
-- The `println!` statement is repeatedly executed.
-- Use `CTRL-C` to halt the loop.
 
 #### `while`
 
@@ -290,7 +289,6 @@ fn main() {
 }
 ```
 
-- Use `for` to iterate the array `a`.
 - Replace `a.iter()` with `a.rev()` if you want to iterate backward.
 
 ## 4. Understanding Ownership
