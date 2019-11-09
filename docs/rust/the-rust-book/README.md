@@ -207,29 +207,35 @@ fn plus_one(x: i32) -> i32 {
 
 - `-> i32` specifies the type of the return value.
 
-### 3.4 Comments
+### 3.4. Comments
 
 - A comment starts with `//`.
 
-### Control Flow
+### 3.5. Control Flow
 
 #### If Expressions
 
+- The condition of every `if` expression must be a boolean.
+- Arms are blocks of code associated with the condition in an `if` expression.
+
 ```rust
 fn main() {
-    let number = 3;
+    let number = 6;
 
-    if number < 5 {
-        println!("condition was true");
+    if number % 4 == 0 {
+        println!("number is divisible by 4");
+    } else if number % 3 == 0 {
+        println!("number is divisible by 3");
+    } else if number % 2 == 0 {
+        println!("number is divisible by 2");
     } else {
-        println!("condition was false");
+        println!("number is not divisible by 4, 3, or 2");
     }
 }
 ```
 
-- The condition of every `if` expression must be a boolean. It cannot be values other than booleans.
-- __Arms__: blocks of code associated with the condition in an `if` expression.
-- Rust also supports `else if`.
+- You can combine a `let` statement with an `if` expression.
+- The return value in each arm must have the same type.
 
 ```rust
 fn main() {
@@ -241,9 +247,6 @@ fn main() {
     }
 }
 ```
-
-- You can combine a `let` statement with an `if` expression.
-- The return value in each arm must have the same type.
 
 ### Repetitions with Loops
 
