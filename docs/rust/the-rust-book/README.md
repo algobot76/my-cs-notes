@@ -35,7 +35,7 @@ let spaces = "   ";
 let spaces = spaces.len();
 ```
 
-### Data Types
+### 3.2. Data Types
 
 #### Scalar Types
 
@@ -45,24 +45,85 @@ let spaces = spaces.len();
 ##### Integer
 
 - A number without a fractional component.
-- Signed/unsigned (e.g. `i32` and `u32`).
-- Each signed variant: `-2^(n-1)` - `2^(n-1) - 1`.
+- Default integer type is `i32`.
+- Use `isize` or `usize` when indexing some sort of collection.
+
+| Length  | Signed  | Unsigned |
+| :-----: | :-----: | :------: |
+|  8-bit  |  `i8`   |   `u8`   |
+| 16-bit  |  `i16`  |  `u16`   |
+| 32-bit  |  `i32`  |  `u32`   |
+| 64-bit  |  `i64`  |  `u64`   |
+| 128-bit | `i128`  |  `u128`  |
+|  arch   | `isize` | `usize`  |
+
+| Number literals |    Example    |
+| :-------------: | :-----------: |
+|     Decimal     |   `98_222`    |
+|       Hex       |    `0xff`     |
+|      Octal      |    `0o77`     |
+|     Binary      | `ob1111_0000` |
+| Byte(`u8` only) |    `b'A'`     |
 
 ##### Floating-Point
 
-- 2 primitive types: `f32`, `f64`.
+- 2 floating-point types: `f32`, `f64`.
+
+```rust
+fn main() {
+    let x = 2.0; // f64
+
+    let y: f32 = 3.0; // f32
+}
+```
 
 ##### Numeric Operations
 
 - Rust supports `+`, `-`, `*`, `/`, `%`.
 
+```rust
+fn main() {
+    // addition
+    let sum = 5 + 10;
+
+    // subtraction
+    let difference = 95.5 - 4.3;
+
+    // multiplication
+    let product = 4 * 30;
+
+    // division
+    let quotient = 56.7 / 32.2;
+
+    // remainder
+    let remainder = 43 % 5;
+}
+```
+
 ##### Boolean
 
-- `true` or `false`.
+- `true` or `false`
+- One byte in size
+
+```rust
+fn main() {
+    let t = true;
+
+    let f: bool = false; // with explicit type annotation
+}
+```
 
 ##### Character
 
 - `char` represents a Unicode Scalar Value.
+
+```rust
+fn main() {
+    let c = 'z';
+    let z = 'ℤ';
+    let heart_eyed_cat = '😻';
+}
+```
 
 #### Compound Types
 
@@ -71,31 +132,30 @@ let spaces = spaces.len();
 
 ##### Tuple
 
-```rust
-let tup: (i32, f64, u8) = (500, 6.4, 1);
-let (x, y, z) = tup; // destructuring
-let five_hundred = tup.0;
-let six_point_four = tup.1;
-let one = tup.2;
-```
+- Group together some number of other values with a variety of types into one compound type.
+- Fixed in length.
 
-- A comma-separated list of values inside parentheses.
-- Each position has a type and the types don't have to be the same.
-- The values of a tuple can be accessed by either destructuring/period (`.`).
+```rust
+fn main() {
+    let tup: (i32, f64, u8) = (500, 6.4, 1);
+    let (x, y, z) = tup; // destructuring
+    let five_hundred = tup.0;
+    let six_point_four = tup.1;
+    let one = tup.2;
+}
+```
 
 ##### Array
 
+- A collection of multiple values of the same type.
+
 ```rust
-let a = [1, 2, 3, 4];
-
-let first = a[0];
-
-let invalid = a[10]; // invalid => runtime error
+fn main() {
+    let a = [1, 2, 3, 4];
+    let first = a[0];
+    let invalid = a[10]; // invalid => runtime error
+}
 ```
-
-- A comma-separated list of values inside square brackets.
-- Each value can be accessed by a corresponding index.
-- An invalid index causes a runtime error.
 
 ### Functions
 
