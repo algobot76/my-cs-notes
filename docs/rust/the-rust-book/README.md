@@ -157,7 +157,7 @@ fn main() {
 }
 ```
 
-### Functions
+### 3.3. Functions
 
 #### Function Parameters
 
@@ -172,14 +172,10 @@ fn another_function(x: i32, y: i32) {
 }
 ```
 
-- `x` and `y` are __parameters__/__arguments__.
-- You must declare types for each parameter (e.g. `i32`).
-- Parameters can have different types.
+#### Function Bodies Contain Statements and Expressions
 
-#### Statements and Expressions in Function Bodies
-
-- __Statements__: instructions that perform some action and don't return a value.
-- __Expressions__: evaluate to a resulting value.
+- Statements are instructions that perform some action and don't return a value.
+- Expressions evaluate to a resulting value.
 
 ```rust
 fn main () {
@@ -198,6 +194,12 @@ fn main () {
 #### Functions with Return Values
 
 ```rust
+fn main() {
+    let x = plus_one(5);
+
+    println!("The value of x is: {}", x);
+}
+
 fn plus_one(x: i32) -> i32 {
     x + 1
 }
