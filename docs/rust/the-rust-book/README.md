@@ -207,9 +207,9 @@ fn plus_one(x: i32) -> i32 {
 
 - `-> i32` specifies the type of the return value.
 
-### Comments
+### 3.4 Comments
 
-- A __comment__ starts with `//`.
+- A comment starts with `//`.
 
 ### Control Flow
 
