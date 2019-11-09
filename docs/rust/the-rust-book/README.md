@@ -248,11 +248,11 @@ fn main() {
 }
 ```
 
-### Repetitions with Loops
+#### Repetitions with Loops
 
 - Rust has three kinds of loops: `loop`, `while`, and `for`.
 
-#### `loop`
+##### `loop`
 
 ```rust
 fn main() {
@@ -262,7 +262,7 @@ fn main() {
 }
 ```
 
-#### `while`
+##### `while`
 
 ```rust
 fn main () {
@@ -277,7 +277,7 @@ fn main () {
 }
 ```
 
-#### `for`
+##### `for`
 
 ```rust
 fn main() {
