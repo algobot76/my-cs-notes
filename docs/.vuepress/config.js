@@ -59,6 +59,10 @@ module.exports = {
         title: 'Git',
         path: '/git/',
       },
+      {
+        title: 'Nginx',
+        path: '/nginx/',
+      },
     ],
   },
   markdown: {
