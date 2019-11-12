@@ -90,6 +90,17 @@ x(1, 2, 3) # __call__
 
 - [What is the difference between `__init__` and `__call__`?](https://stackoverflow.com/questions/9663562/what-is-the-difference-between-init-and-call)
 
+## `heapq`
+
+### Heapify a list of objects
+
+- Method 1: Define `__lt__` magic method.
+- Method 2: Use tuples as elements in a heap.
+
+#### References
+
+- [How to heapify by field from custom objects](https://stackoverflow.com/questions/11989178/how-to-heapify-by-field-from-custom-objects)
+
 ## Tox
 
 ### Tox config in the Pallets projects
