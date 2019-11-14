@@ -1,4 +1,4 @@
-# My Golang Notes
+# My Go Notes
 
 ## The Laws of Reflection
 

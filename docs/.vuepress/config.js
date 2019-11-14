@@ -17,10 +17,10 @@ module.exports = {
         children: [['/css/css-the-definitive-guide/', 'CSS The Definitive Guide']],
       },
       {
-        title: 'Golang',
+        title: 'Go',
         children: [
-          ['/golang/my-golang-notes/', 'My Golang Notes'],
-          ['/golang/a-tour-of-go/', 'A Tour of Go'],
+          ['/go/my-go-notes/', 'My Go Notes'],
+          ['/go/a-tour-of-go/', 'A Tour of Go'],
         ],
       },
       {
