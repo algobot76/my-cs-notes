@@ -1,0 +1,4 @@
+# Effective Go
+
+[[toc]]
+

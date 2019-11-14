@@ -21,6 +21,7 @@ module.exports = {
         children: [
           ['/go/my-go-notes/', 'My Go Notes'],
           ['/go/a-tour-of-go/', 'A Tour of Go'],
+          ['/go/effective-go/', 'Effective Go'],
         ],
       },
       {
