@@ -2,6 +2,7 @@ module.exports = {
   title: "Kaitian's CS Notes",
   description: "Let's learn more about Computer Science",
   themeConfig: {
+    repo: 'algobot76/my-cs-notes',
     searchPlaceholder: 'Search...',
     sidebar: [
       {
