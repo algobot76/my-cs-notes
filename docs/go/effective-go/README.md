@@ -136,3 +136,194 @@ case *int:
     fmt.Printf("pointer to integer %d\n", *t) // t has type *int
 }
 ```
+
+<!-- TODO: Functions -->
+
+## Data
+
+### Allocation with `new`
+
+- `new` doesn't initialize the memory, it only zeros it.
+- `new(T)` allocates zeroed storage for a new item of type T and returns its address, a value of type `*T`.
+
+```go
+p := new(SyncedBuffer)  // type *SyncedBuffer
+var v SyncedBuffer      // type  SyncedBuffer
+```
+
+### Constructors and composite literals
+
+- A composite literal is an expression that creates a new instance each time it is evaluated.
+
+```go
+func NewFile(fd int, name string) *File {
+    if fd < 0 {
+        return nil
+    }
+    f := File{fd, name, nil, 0}
+    return &f // it's ok to return the address of a local variable
+}
+```
+
+- By labeling the elements explicitly as `field:value` pairs, the initializers can appear in any order.
+- Missing ones left as their respective zero values.
+
+```go
+return &File{fd: fd, name: name}
+```
+
+- Composite literals can also be created for arrays, slices, and maps.
+
+```go
+a := [...]string   {Enone: "no error", Eio: "Eio", Einval: "invalid argument"}
+s := []string      {Enone: "no error", Eio: "Eio", Einval: "invalid argument"}
+m := map[int]string{Enone: "no error", Eio: "Eio", Einval: "invalid argument"}
+```
+
+### Allocation with `make`
+
+- `make` creates slices, maps, and channels only.
+- It returns an initialized (not zeroed) value of type `T` (not `*T`).
+
+```go
+var p *[]int = new([]int)       // allocates slice structure; *p == nil; rarely useful
+var v  []int = make([]int, 100) // the slice v now refers to a new array of 100 ints
+
+// Unnecessarily complex:
+var p *[]int = new([]int)
+*p = make([]int, 100, 100)
+
+// Idiomatic:
+v := make([]int, 100)
+```
+
+### Arrays
+
+- Arrays are values. Assigning one array to another copies all the elements.
+- If you pass an array to a function, it will receive a copy of the array.
+- The size of an array is part of its type.
+
+To pass a pointer to an array:
+
+```go
+func Sum(a *[3]float64) (sum float64) {
+    for _, v := range *a {
+        sum += v
+    }
+    return
+}
+
+array := [...]float64{7.0, 8.5, 9.1}
+x := Sum(&array)  // Note the explicit address-of operator
+```
+
+### Slices
+
+- Slices hold references to an underlaying array.
+- If you assign one slice to another, both refer to the same array.
+- If a function takes a slice argument, changes it makes to the elements of the slice will be visible to the caller.
+
+```go
+var n int
+var err error
+for i := 0; i < 32; i++ {
+    nbytes, e := f.Read(buf[i:i+1])  // Read one byte.
+    n += nbytes
+    if nbytes == 0 || e != nil {
+        err = e
+        break
+    }
+}
+```
+
+- The length of a slice may be changed as long as it still fits within the limits of the underlying array.
+- The capacity of a slice can be accessed by using the `cap` function.
+
+```go
+func Append(slice, data []byte) []byte {
+    l := len(slice)
+    if l + len(data) > cap(slice) {  // reallocate
+        // Allocate double what's needed, for future growth.
+        newSlice := make([]byte, (l+len(data))*2)
+        // The copy function is predeclared and works for any slice type.
+        copy(newSlice, slice)
+        slice = newSlice
+    }
+    slice = slice[0:l+len(data)]
+    copy(slice[l:], data)
+    return slice // must be returned as slice itself (pointer, length, capacity) is passed by value
+}
+```
+
+<!-- TODO: Two-dimensional slices -->
+
+### Maps
+
+- The key can be of any type for which the equality operator is defined.
+- Slices cannot be used as keys because equality is not defined on them.
+- If you pass a map to a function that changes the contents of the map, the changes will be visible in the caller.
+
+Use composite literal syntax to construct a map:
+
+```go
+var timeZone = map[string]int{
+    "UTC":  0*60*60,
+    "EST": -5*60*60,
+    "CST": -6*60*60,
+    "MST": -7*60*60,
+    "PST": -8*60*60,
+}
+```
+
+Fetch data from a map:
+
+```go
+attended := map[string]bool{
+    "Ann": true,
+    "Joe": true,
+    ...
+}
+
+if attended[person] { // will be false if person is not in the map
+    fmt.Println(person, "was at the meeting")
+}
+```
+
+Distinguish a missing entry from a zero value:
+
+```go
+func offset(tz string) int {
+    if seconds, ok := timeZone[tz]; ok {
+        return seconds
+    }
+    log.Println("unknown time zone:", tz)
+    return 0
+}
+```
+
+Delete a map entry:
+
+```go
+delete(timeZone, "PDT")  // Now on Standard Time
+```
+
+<!-- TODO: Printing -->
+
+### Append
+
+Append elements to a slice:
+
+```go
+x := []int{1,2,3}
+x = append(x, 4, 5, 6)
+fmt.Println(x) // [1 2 3 4 5 6]
+```
+
+Append a slice to another:
+
+```go
+x := []int{1,2,3}
+y := []int{4,5,6}
+x = append(x, y...)
+fmt.Println(x) // [1 2 3 4 5 6]
+```
