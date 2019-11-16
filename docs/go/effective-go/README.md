@@ -385,3 +385,110 @@ func init() {
     flag.StringVar(&gopath, "gopath", gopath, "override default GOPATH")
 }
 ```
+
+<!-- TODO: Methods -->
+
+## Interfaces and other types
+
+### Interfaces
+
+- Specify the behavior of an object: if something can do this, then it can be used here.
+- A type can implement multiple interfaces.
+
+```go
+type Sequence []int
+
+// Methods required by sort.Interface.
+func (s Sequence) Len() int {
+    return len(s)
+}
+func (s Sequence) Less(i, j int) bool {
+    return s[i] < s[j]
+}
+func (s Sequence) Swap(i, j int) {
+    s[i], s[j] = s[j], s[i]
+}
+
+// Copy returns a copy of the Sequence.
+func (s Sequence) Copy() Sequence {
+    copy := make(Sequence, 0, len(s))
+    return append(copy, s...)
+}
+
+// Method for printing - sorts the elements before printing.
+func (s Sequence) String() string {
+    s = s.Copy() // Make a copy; don't overwrite argument.
+    sort.Sort(s)
+    str := "["
+    for i, elem := range s { // Loop is O(N²); will fix that in next example.
+        if i > 0 {
+            str += " "
+        }
+        str += fmt.Sprint(elem)
+    }
+    return str + "]"
+}
+```
+
+### Conversions
+
+- Convert the type of an expression to access a different set of methods.
+
+```go
+type Sequence []int
+
+// Method for printing - sorts the elements before printing
+func (s Sequence) String() string {
+    s = s.Copy()
+    sort.IntSlice(s).Sort()
+    return fmt.Sprint([]int(s))
+}
+```
+
+### Interface conversions and type assertions
+
+- A type switch can be used a form of conversion.
+
+```go
+type Stringer interface {
+    String() string
+}
+
+var value interface{} // Value provided by caller.
+switch str := value.(type) {
+case string:
+    return str
+case Stringer:
+    return str.String()
+}
+```
+
+- A type assertion takes an interface value and extracts from it a value of the specified explicit type.
+
+```go
+if str, ok := value.(string); ok {
+    return str
+} else if str, ok := value.(Stringer); ok {
+    return str.String()
+}
+```
+
+### Generality
+
+- If a type exists only to implement an interface and will never have exported methods beyond that interface, there is no need to export the type itself.
+- Exporting just the interface makes it clear the value has no interesting behavior beyond what is described in the interface.
+- Avoids the need to repeat the documentation on every instance of a common method.
+
+```go
+type Block interface {
+    BlockSize() int
+    Encrypt(dst, src []byte)
+    Decrypt(dst, src []byte)
+}
+
+type Stream interface {
+    XORKeyStream(dst, src []byte)
+}
+```
+
+<!-- TODO: Interfaces and methods -->
