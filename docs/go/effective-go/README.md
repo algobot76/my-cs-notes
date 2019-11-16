@@ -327,3 +327,61 @@ y := []int{4,5,6}
 x = append(x, y...)
 fmt.Println(x) // [1 2 3 4 5 6]
 ```
+
+## Initialization
+
+### Constants
+
+- Created at compile time, even when defined as locals in functions.
+- Can only be numbers, characters (runes), strings, or booleans.
+- Expressions that define constants must be constant expressions.
+
+```go
+type ByteSize float64
+
+const (
+    _           = iota // ignore first value by assigning to blank identifier
+    KB ByteSize = 1 << (10 * iota)
+    MB
+    GB
+    TB
+    PB
+    EB
+    ZB
+    YB
+)
+```
+
+### Variables
+
+- Can be initialized just like constants but the initializer can be a general expression computed at run time.
+
+```go
+var (
+    home   = os.Getenv("HOME")
+    user   = os.Getenv("USER")
+    gopath = os.Getenv("GOPATH")
+)
+```
+
+### The `init` function
+
+- Set up state.
+- Called after all the variable declarations in the package have evaluated their initializers.
+- Evaluated only after all the imported packages have been initialized.
+
+```go
+func init() {
+    if user == "" {
+        log.Fatal("$USER not set")
+    }
+    if home == "" {
+        home = "/home/" + user
+    }
+    if gopath == "" {
+        gopath = home + "/go"
+    }
+    // gopath may be overridden by --gopath flag on command line.
+    flag.StringVar(&gopath, "gopath", gopath, "override default GOPATH")
+}
+```
