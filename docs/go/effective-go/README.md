@@ -492,3 +492,60 @@ type Stream interface {
 ```
 
 <!-- TODO: Interfaces and methods -->
+
+## The blank identifier
+
+### The blank identifier in multiple assignment
+
+- Used as a dummy variable that user doesn't want to use.
+
+```go
+if _, err := os.Stat(path); os.IsNotExist(err) {
+    fmt.Printf("%s does not exist\n", path)
+}
+```
+
+### Unused imports and variables
+
+- Used as a workaround for unused imports and variables.
+
+```go
+package main
+
+import (
+    "fmt"
+    "io"
+    "log"
+    "os"
+)
+
+var _ = fmt.Printf // For debugging; delete when done.
+var _ io.Reader    // For debugging; delete when done.
+
+func main() {
+    fd, err := os.Open("test.go")
+    if err != nil {
+        log.Fatal(err)
+    }
+    // TODO: use fd.
+    _ = fd
+}
+```
+
+### Import for side effect
+
+- Used to import a package only for its side effects.
+
+```go
+import _ "net/http/pprof"
+```
+
+<!-- TODO: Interface checks -->
+
+<!-- TOOD: Embedding -->
+
+<!-- TOOD: Concurrency -->
+
+## Errors
+
+<!-- TODO: A web server -->
