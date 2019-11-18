@@ -548,4 +548,89 @@ import _ "net/http/pprof"
 
 ## Errors
 
+- Errors have type `error`, a simple built-in interface.
+
+```go
+type error interface {
+    Error() string
+}
+```
+
+- Implement an error model that contains more Info.
+
+```go
+type PathError struct {
+    Op string // "open", "unlink", etc.
+    Path string // The associated file.
+    Err error // Returned by the system call.
+}
+
+func (e *PathError) Error() string {
+    return e.Op + " " + e.Path + ": " + e.Err.Error()
+}
+```
+
+- Use a type switch or type assertion to look for specific errors and extract details.
+
+```go
+// PathError records an error and the operation and
+// file path that caused it.
+type PathError struct {
+    Op string    // "open", "unlink", etc.
+    Path string  // The associated file.
+    Err error    // Returned by the system call.
+}
+
+func (e *PathError) Error() string {
+    return e.Op + " " + e.Path + ": " + e.Err.Error()
+}
+```
+
+### Panic
+
+- `panic` creates a run-time error that will stop the program.
+
+```go
+// A toy implementation of cube root using Newton's method.
+func CubeRoot(x float64) float64 {
+    z := x/3   // Arbitrary initial value
+    for i := 0; i < 1e6; i++ {
+        prevz := z
+        z -= (z*z*z-x) / (3*z*z)
+        if veryClose(z, prevz) {
+            return z
+        }
+    }
+    // A million iterations has not converged; something is wrong.
+    panic(fmt.Sprintf("CubeRoot(%g) did not converge", x))
+}
+```
+
+- Real library functions should avoid `panic`.
+- One possible counterexample is during initialization: if the library truely cannot set itself up, it might be reasonable to `panic`.
+
+### Recover
+
+- `recover` regains control of goroutine and resume normal execution.
+- `recover` stops the unwinding and returns the argument passed to `panic`.
+- Only useful inside deferred functions.
+- Only returns `nil` unless called directly from a deferred function.
+
+```go
+func server(workChan <-chan *Work) {
+    for work := range workChan {
+        go safelyDo(work)
+    }
+}
+
+func safelyDo(work *Work) {
+    defer func() {
+        if err := recover(); err != nil {
+            log.Println("work failed:", err)
+        }
+    }()
+    do(work)
+}
+```
+
 <!-- TODO: A web server -->
