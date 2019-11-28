@@ -9,7 +9,6 @@ module.exports = {
         children: [
           ['/cpp/my-cpp-notes/', 'My C++ Notes'],
           ['/cpp/a-tour-of-cpp/', 'A Tour of C++'],
-          ['/cpp/cpp-primer/', 'C++ Primer'],
         ],
       },
       {
