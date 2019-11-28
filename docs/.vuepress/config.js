@@ -18,10 +18,7 @@ module.exports = {
       },
       {
         title: 'Go',
-        children: [
-          ['/go/my-go-notes/', 'My Go Notes'],
-          ['/go/effective-go/', 'Effective Go'],
-        ],
+        children: [['/go/my-go-notes/', 'My Go Notes'], ['/go/effective-go/', 'Effective Go']],
       },
       {
         title: 'Java',
@@ -29,7 +26,10 @@ module.exports = {
       },
       {
         title: 'JavaScript',
-        children: [['/javascript/my-js-notes/', 'My JS Notes']],
+        children: [
+          ['/javascript/my-js-notes/', 'My JS Notes'],
+          ['/javascript/beginning-functional-js/', 'Beginning Functional JavaScript'],
+        ],
       },
       {
         title: 'Python',
