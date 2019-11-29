@@ -30,7 +30,7 @@ Imperative approach to iterate over an array (less abstracted):
 ```javascript
 var array = [1, 2, 3]
 for (i=0;i<array.length;i++)
-    console.log(array[i])
+  console.log(array[i])
 ```
 
 Declarative approach to iterate over an array (more abstracted):
@@ -64,3 +64,57 @@ var calculateTax = (value, percentValue) => { return value/100 * (100 + percentV
 
 - set of all permitted inputs = domain
 - set of permissible outputs = codomain
+
+## Chapter 4: Closures and Higher-Order Functions
+
+### Understanding Closures
+
+A closure is an inner function that remembers its context
+
+- access to its own variables
+- access to outer function's variables
+- access to global variables
+
+### Real World Examples
+
+#### `tap`
+
+```javascript
+const tap = (value) => {
+  (fn) => (
+    typeof(fn) === 'function' && fn(value),
+    console.log(value)
+  )
+}
+```
+
+#### `unary`
+
+```javascript
+const unary = (fn) =>
+  fn.length === 1
+    ? fn
+    : (arg) => fn(arg)
+```
+
+#### `once`
+
+```javascript
+const once = (fn) => {
+    let done = false;
+
+    return function() {
+        return done ? undefined : ((done = true), fn.apply(this, arguments))
+    }
+}
+```
+
+#### `memoized`
+
+```javascript
+const memoized = (fn) => {
+    const lookupTable = {};
+
+    return (arg) => lookupTable[arg] || (lookupTable[arg] = fn(arg));
+}
+```
