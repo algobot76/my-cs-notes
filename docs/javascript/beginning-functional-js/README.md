@@ -118,3 +118,72 @@ const memoized = (fn) => {
     return (arg) => lookupTable[arg] || (lookupTable[arg] = fn(arg));
 }
 ```
+
+## Chapter 5: Being Functional on Arrays
+
+### `map`
+
+```javascript
+const map = (array, fn) => {
+  let results = [];
+  for (const value of array)
+    results.push(fn(value));
+  return results;
+}
+```
+
+### `filter`
+
+```javascript
+const filter = (array, fn) => {
+  let results = [];
+  for (const value of array)
+    (fn(value) ? results.push(value) : undefined)
+  return results;
+}
+```
+
+### `concatAll`
+
+```javascript
+const concatAll = (array, fn) => {
+  let results = [];
+  for (const value of array)
+    results.push.apply(results, value);
+  return results;
+}
+```
+
+### `reduce`
+
+```javascript
+const reduce = (array, fn, initialValue) => {
+  let accumulator;
+
+  if (initialValue != undefined)
+    accumulator = initialValue;
+  else
+    accumulator = array[0];
+
+  if (initialValue === undefined)
+    for (let i=1; i<array.length; i++)
+      accumulator = fn(accumulator, array[i])
+  else
+    for (const value of array)
+      accumulator - fn(accumulator, value)
+  return [accumulator]
+}
+```
+
+### `zip`
+
+```javascript
+const zip = (leftArr, rightArr, fn) => {
+  let index, results = [];
+
+  for (index = 0; index < Math.min(leftArr.length, rightArr.lenght); index++)
+    results.push(fn(leftArr[index], rightArr[index]));
+
+  return results;
+}
+```
