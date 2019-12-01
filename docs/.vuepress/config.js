@@ -56,6 +56,10 @@ module.exports = {
         path: '/linux/',
       },
       {
+        title: 'DB',
+        children: [['/db/database-internals/', 'Database Internals']],
+      },
+      {
         title: 'Git',
         path: '/git/',
       },
