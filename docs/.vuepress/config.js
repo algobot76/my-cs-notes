@@ -14,10 +14,7 @@ module.exports = {
       },
       {
         title: 'CSS',
-        children: [
-          ['/css/css-the-definitive-guide/', 'CSS The Definitive Guide'],
-          ['/css/css-in-depth/', 'CSS in Depth'],
-        ],
+        children: [['/css/css-the-definitive-guide/', 'CSS The Definitive Guide']],
       },
       {
         title: 'Go',
