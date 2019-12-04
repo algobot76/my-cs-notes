@@ -83,3 +83,41 @@ let o3 = Object.create(Object.prototype); // o3 is like {} or new Object().
 let o = { x: "don't change this value" };
 library.function(Object.create(o));  // Guard against accidental modifications
 ```
+
+### 3.3 Querying and Setting Properties
+
+To get/set the value of a property, use dot(`.`) or square bracket(`[]`) operators:
+
+```javascript
+let author = book.author;       // Get the "author" property of the book.
+let name = author.surname;      // Get the "surname" property of the author.
+let title = book["main title"]; // Get the "main title" property of the book.
+
+book.edition = 7;                   // Create an "edition" property of book.
+book["main title"] = "ECMAScript";  // Change the "main title" property.
+```
+
+#### 3.3.2 Inheritance
+
+Suppose you query the property `x` in the object `o`:
+
+- If `o` does not have an own property with that name, the property `x` is queried via the prototype chain until `x` is found or `null` prototype is reached.
+
+```javascript
+let o = {};               // o inherits object methods from Object.prototype
+o.x = 1;                  // and it now has an own property x.
+let p = Object.create(o); // p inherits properties from o and Object.prototype
+p.y = 2;                  // and has an own property y.
+let q = Object.create(p); // q inherits properties from p, o, and...
+q.z = 3;                  // ...Object.prototype and has an own property z.
+let f = q.toString();     // toString is inherited from Object.prototype
+q.x + q.y                 // => 3; x and y are inherited from o and p
+```
+
+Suppose you assign to the property `x` of the object `o`:
+
+- If `o` already has an own (noninherited) property named `x`, then the assignment simply changes the value of this existing property. Otherwise, the assignment creates a new property named `x` on the object `o`.
+- If `o` previously inherited the property `x`, that inherited property is now hidden by the newly created own property with the same name.
+- If `o` inherits a read-only property named `x`, the assignment is not allowed.
+- If `o` inherits the property `x`, and that property is an accessor property with a setter method, then that setter method is called (only called on `o` not on the prototype object) rather than creating a new property `x` in `o`.
+- Prototype chain is never modified.
