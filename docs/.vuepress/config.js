@@ -28,6 +28,7 @@ module.exports = {
         title: 'JavaScript',
         children: [
           ['/javascript/my-js-notes/', 'My JS Notes'],
+          ['/javascript/javascript-the-definitive-guide/', 'JavaScript: The Definitive Guide'],
           ['/javascript/beginning-functional-js/', 'Beginning Functional JavaScript'],
         ],
       },
