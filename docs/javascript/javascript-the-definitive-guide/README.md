@@ -121,3 +121,13 @@ Suppose you assign to the property `x` of the object `o`:
 - If `o` inherits a read-only property named `x`, the assignment is not allowed.
 - If `o` inherits the property `x`, and that property is an accessor property with a setter method, then that setter method is called (only called on `o` not on the prototype object) rather than creating a new property `x` in `o`.
 - Prototype chain is never modified.
+
+#### 3.3.3 Property Access Errors
+
+Attempt to set the property of `null`/`undefiend` raises a `TypeError`.
+
+Attempt to set property `p` of an object `o` fails (and raises a `TypeError` in strict mode) if:
+
+- `o` has an own property `p` that is read-only.
+- `o` has an inherited property `p` that is read-only.
+- `o` does not have an own property `p`/an inherited property `p` with a setter method, and `o`'s `extensible` attribute is `false`.
