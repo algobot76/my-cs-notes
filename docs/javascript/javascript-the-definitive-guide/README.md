@@ -204,3 +204,32 @@ o.y !== undefined          // => false: property doesn't even exist
 delete o.x;                // Delete the property x
 "x" in o                   // => false: it doesn't exist anymore
 ```
+
+### 3.6 Enumerating Properties
+
+`for/in` loop iterates over `enumerable` properties (own/inherited). To guard against enumerating inherited properties, add an explicit check:
+
+```javascript
+for(let p in o) {
+    if (!o.hasOwnProperty(p)) continue;       // Skip inherited properties
+}
+
+for(let p in o) {
+    if (typeof o[p] === "function") continue; // Skip all methods
+}
+```
+
+Alternatives:
+
+- `Object.keys()` returns an array of the names of the `enumerable` own properties (NO non-enumerable, inherited, or properties whose names are Symbols).
+- `Object.getOwnPropertyNames()` returns an array of the names of all own properties as well, as long as their names are strings.
+- `Object.getOwnPropertySymbols()` returns own properties whose names are Symbols (both `enumerable` and non-`enumerable`).
+- `Reflect.ownKeys()` returns all own property (both `enumerable` and non-`enumerable`) names (both strings and Symbols).
+
+#### 3.6.1 Property Enumeration Order
+
+1. String properties whose names are non-negative integers (arrays and array-like objects) in numeric order from smallest to largest.
+2. All remaining properties with string names in order in which they were added (or the order they appear in object literals).
+3. Properties whose names are Symbols in order they were added.
+
+_Note_: A property will not be enumerated if a property by that same name has already been enumerated, or even if a non-enumerable property by the same name has already been considered.
