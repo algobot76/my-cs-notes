@@ -248,3 +248,13 @@ o = Object.assign({}, defaults, o);
 
 o = {...defaults, ...o}; // alternative
 ```
+
+### 3.8 Serializing Objects
+
+`JSON.stringify()` converts an object to a string which could be restored by `JSON.parse()`:
+
+- Objects, arrays, strings, finite numbers, `true`, `false`, and `null` are supported.
+- `NaN`, `Infinity`, `-Infinity` are serialized to `null`.
+- Functions, RegExp, Error, and `undefined` cannot be serialized/restored.
+- Only `enumerable` own properties can be serialized. Those cannot be serialized are omitted.
+- Optional arguments are available for customization.
