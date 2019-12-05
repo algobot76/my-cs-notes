@@ -131,3 +131,26 @@ Attempt to set property `p` of an object `o` fails (and raises a `TypeError` in 
 - `o` has an own property `p` that is read-only.
 - `o` has an inherited property `p` that is read-only.
 - `o` does not have an own property `p`/an inherited property `p` with a setter method, and `o`'s `extensible` attribute is `false`.
+
+### 3.4 Deleting Properties
+
+`delete` removes a own (non-inherited) property. (To delete an inherited property, you must delete it from the prototype object).
+
+```javascript
+let o = {x: 1};    // o has own property x and inherits property toString
+delete o.x         // => true: deletes property x
+delete o.x         // => true: does nothing (x doesn't exist) but true anyway
+delete o.toString  // => true: does nothing (toString isn't an own property)
+delete 1           // => true: nonsense, but true anyway
+```
+
+`delete` cannot remove a property that has `configurable` attribute of `false`. (`TypeError` in strict mode, `false` in non-strict mode).
+
+`delete` a `configurable` property of the global object:
+
+```javascript
+this.x = 1;     // Create a configurable global property (no let or var)
+delete x;       // And delete it (SyntaxError in strict mode)
+
+delete this.x   // This works in strict mode
+```
