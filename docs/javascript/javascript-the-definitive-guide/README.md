@@ -258,3 +258,81 @@ o = {...defaults, ...o}; // alternative
 - Functions, RegExp, Error, and `undefined` cannot be serialized/restored.
 - Only `enumerable` own properties can be serialized. Those cannot be serialized are omitted.
 - Optional arguments are available for customization.
+
+### 3.10 Extended Object Literal Syntax
+
+#### 3.10.1 Shorthand Properties
+
+```javascript
+let x = 1, y = 2;
+let o = { x, y };
+o.x + o.y  // => 3
+```
+
+#### 3.10.2 Computed Property Names
+
+```javascript
+const PROPERTY_NAME = "p1";
+function computePropertyName() { return "p" + 2; }
+
+let p = {
+    [PROPERTY_NAME]: 1,
+    [computePropertyName()]: 2
+};
+
+p.p1 + p.p2 // => 3
+```
+
+#### 3.10.3 Symbols as Property Names
+
+```javascript
+const extension = Symbol("my extension symbol");
+let o = {
+    [extension]: { /* extension data stored in this object */ }
+};
+o[extension].x = 0; // This won't conflict with other properties of o
+```
+
+- Every Symbol is different, so they are good for making unique property names (used to define safe extension mechanism for objects).
+- Symbol is a primitive value and the argument in `Symbol()` is a string used for debugging only.
+
+#### 3.10.4 Spread Operator
+
+```javascript
+let position = { x: 0, y: 0 };
+let dimensions = { width: 100, height: 75 };
+let rect = { ...position, ...dimensions };
+rect.x + rect.y + rect.width + rect.height // => 175
+
+let o = { x: 1 };
+let p = { x: 0, ...o };
+p.x   // => 1: the value from object o overrides the initial value
+let q = { ...o, x: 2 };
+q.x   // => 2: the value 2 overrides the previous value from o.
+```
+
+_Note_:
+
+- The spread operator only spreads the own properties of an object.
+- If an object has `n` properties, the spreading process is an `O(n)` operation.
+
+#### 3.10.5 Shorthand Methods
+
+```javascript
+let square = {
+    area() { return this.side * this.side; },
+    side: 10
+};
+square.area() // => 100
+
+const METHOD_NAME = "m";
+const symbol = Symbol();
+let weirdMethods = {
+    "method With Spaces"(x) { return x + 1; },
+    [METHOD_NAME](x) { return x + 2; },
+    [symbol](x) { return x + 3; }
+};
+weirdMethods["method With Spaces"](1)  // => 2
+weirdMethods[METHOD_NAME](1)           // => 3
+weirdMethods[symbol](1)                // => 4
+```
