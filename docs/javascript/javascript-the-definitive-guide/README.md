@@ -233,3 +233,18 @@ Alternatives:
 3. Properties whose names are Symbols in order they were added.
 
 _Note_: A property will not be enumerated if a property by that same name has already been enumerated, or even if a non-enumerable property by the same name has already been considered.
+
+### 3.7 Extending Objects
+
+`Object.assign()` takes two+ arguments:
+
+- First argument is the target object (modified and returned).
+- Other arguments are the source objects (not modified).
+
+The own properties (including those whose names are Symbols) of the source objects are added to/used to override the existing properties of the target object in argument list order:
+
+```javascript
+o = Object.assign({}, defaults, o);
+
+o = {...defaults, ...o}; // alternative
+```
