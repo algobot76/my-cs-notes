@@ -471,3 +471,17 @@ let a = new Array(10);
 ```javascript
 let a = new Array(5, 4, 3, 2, 1, "testing, testing");
 ```
+
+#### 4.1.4 `Array.of()`
+
+```javascript
+Array.of()        // => []; returns empty array with no arguments
+Array.of(10)      // => [10]; can create arrays with a single numeric argument
+Array.of(1,2,3)   // => [1, 2, 3]
+```
+
+#### 4.1.5 `Array.from()`
+
+`Array.from(iterable)` creates a copy of an iterable or array-like object, similar to `[...iterable]`.
+
+- Accepts a second argument - a map function to call on every element of the array (more efficient than `map` as the mapping is being performed while the array is being built than it is to build the array and then map it to another array).
