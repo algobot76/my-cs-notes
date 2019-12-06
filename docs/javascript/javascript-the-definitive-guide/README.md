@@ -392,3 +392,25 @@ weirdMethods["method With Spaces"](1)  // => 2
 weirdMethods[METHOD_NAME](1)           // => 3
 weirdMethods[symbol](1)                // => 4
 ```
+
+#### 3.10.6 Property Getters and Setters
+
+Accessor properties are defined by getters and setters:
+
+- Different from data properties that only hold a simple value.
+- No `writable` attribute.
+- getter + setter => read/write property
+- getter only => read-only property
+- setter only => write-only property
+- Getter and setter have the same name.
+
+```javascript
+let o = {
+    // An ordinary data property
+    dataProp: value,
+
+    // An accessor property defined as a pair of functions
+    get accessorProp() { return this.dataProp; },
+    set accessorProp(value) { this.dataProp = value; }
+};
+```
