@@ -259,6 +259,62 @@ o = {...defaults, ...o}; // alternative
 - Only `enumerable` own properties can be serialized. Those cannot be serialized are omitted.
 - Optional arguments are available for customization.
 
+### 3.9 Object Methods
+
+#### 3.9.1 The `toString()` Method
+
+`toString()` methods takes no arguments and returns a string that represents the value of the object on which it is invoked.
+
+```javascript
+let s = { x: 1, y: 1 }.toString();  // s == "[object Object]"
+
+let point = {
+    x: 1,
+    y: 2,
+    toString: function() { return `(${this.x}, ${this.y})`; }
+};
+String(point)    // => "(1, 2)": toString() is used for string conversions
+```
+
+#### 3.9.2 The `toLocaleString()` Method
+
+`toLocaleString()` method returns a localized string representation of the object:
+
+- `Date` and `Number` have customized versions of `toLocaleString()` method.
+- `Array`'s  `toLocaleString()` method invokes the `toLocaleString()` method of each object in an array.
+
+#### 3.9.3 The `valueOf()` Method
+
+`valueOf()` method is called when an object needs to be converted to a primitive type rather than a string.
+
+```javascript
+let point = {
+    x: 3,
+    y: 4,
+    valueOf: function() { return Math.hypot(this.x, this.y); }
+};
+Number(point)  // => 5: valueOf() is used for conversions to numbers
+point > 4      // => true
+point > 5      // => false
+point < 6      // => true
+```
+
+### 3.9.4 The `toJSON()` Method
+
+`toJSON()` method returns a serializable string representation of an object, which is invoked by `JSON.stringify()`.
+
+- `Object.prototype` does not define a `toJSON()` method.
+
+```javascript
+let point = {
+    x: 1,
+    y: 2,
+    toString: function() { return `(${this.x}, ${this.y})`; },
+    toJSON: function() { return this.toString(); }
+};
+JSON.stringify([point])   // => '["(1, 2)"]'
+```
+
 ### 3.10 Extended Object Literal Syntax
 
 #### 3.10.1 Shorthand Properties
