@@ -414,3 +414,60 @@ let o = {
     set accessorProp(value) { this.dataProp = value; }
 };
 ```
+
+## Chapter 4. Arrays
+
+### 4.1 Creating Arrays
+
+#### 4.1.1 Array Literals
+
+```javascript
+let empty = [];                 // An array with no elements
+let primes = [2, 3, 5, 7, 11];  // An array with 5 numeric elements
+let misc = [ 1.1, true, "a", ]; // 3 elements of various types + trailing comma
+let table = [base, base+1, base+2, base+3];
+let b = [[1,{x:1, y:2}], [2, {x:3, y:4}]];
+let count = [1,,3]; // Elements at indexes 0 and 2. No element at index 1
+let undefs = [,,];  // An array with no elements but a length of 2
+```
+
+#### 4.1.2 The Spread Operator
+
+```javascript
+let a = [1, 2, 3];
+let b = [0, ...a, 4];  // b == [0, 1, 2, 3, 4]
+let digits = [..."0123456789ABCDEF"];
+// digits == ['0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F']
+```
+
+The spread operator can be used to create a shallow copy of an array:
+
+```javascript
+let original = [1,2,3];
+let copy = [...original];
+copy[0] = 0;  // Modifying the copy does not change the original
+original[0]   // => 1
+```
+
+#### 4.1.3 The `Array()` Constructor
+
+`Array()` constructor can be used to create an array.
+
+- no arguments => empty array (same as `[]`)
+
+```javascript
+let a = new Array();
+```
+
+- a single numeric argument => empty array with the specified length
+  - No values/indexes stored in the array.
+
+```javascript
+let a = new Array(10);
+```
+
+- two are more arguments => arguments become the elements of the created array
+
+```javascript
+let a = new Array(5, 4, 3, 2, 1, "testing, testing");
+```
