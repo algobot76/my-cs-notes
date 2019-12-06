@@ -299,7 +299,7 @@ point > 5      // => false
 point < 6      // => true
 ```
 
-### 3.9.4 The `toJSON()` Method
+#### 3.9.4 The `toJSON()` Method
 
 `toJSON()` method returns a serializable string representation of an object, which is invoked by `JSON.stringify()`.
 
