@@ -703,6 +703,40 @@ a.concat(4, [5,[6,7]])  // => [1,2,3,4,5,[6,7]]; but not nested arrays
 a                       // => [1,2,3]; the original array is unmodified
 ```
 
+##### 4.8.3 Stacks and Queues with `push()`, `pop()`, `shift()` and `unshift()`
+
+```javascript
+let stack = [];       // stack == []
+stack.push(1,2);      // stack == [1,2];
+stack.pop();          // stack == [1]; returns 2
+stack.push(3);        // stack == [1,3]
+stack.pop();          // stack == [1]; returns 3
+stack.push([4,5]);    // stack == [1,[4,5]]
+stack.pop()           // stack == [1]; returns [4,5]
+stack.pop();          // stack == []; returns 1
+```
+
+- Use `push(...values)` to flatten an array.
+
+```javascript
+let q = [];            // q == []
+q.push(1,2);           // q == [1,2]
+q.shift();             // q == [2]; returns 1
+q.push(3)              // q == [2, 3]
+q.shift()              // q == [3]; returns 2
+q.shift()              // q == []; returns 3
+```
+
+_Note_: `unshift()` inserts all elements at once:
+
+```javascript
+let a = [];            // a == []
+a.unshift(1)           // a == [1]
+a.unshift(2)           // a == [2, 1]
+a = [];                // a == []
+a.unshift(1,2)         // a == [1, 2]
+```
+
 ### 4.9 Array-Like Objects
 
 You can iterate an array-like object like an array:
