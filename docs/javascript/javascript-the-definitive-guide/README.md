@@ -691,6 +691,18 @@ let a = [2, 3, 4]
 a.reduceRight((acc,val) => Math.pow(val,acc)) // => 2.4178516392292583e+24
 ```
 
+##### 4.8.2 Adding arrays with `concat()`
+
+The `concat()` method returns a new array that contains the elements from the original array followed by each of the arguments to `concat()`:
+
+```javascript
+let a = [1,2,3];
+a.concat(4, 5)          // => [1,2,3,4,5]
+a.concat([4,5],[6,7])   // => [1,2,3,4,5,6,7]; arrays are flattened
+a.concat(4, [5,[6,7]])  // => [1,2,3,4,5,[6,7]]; but not nested arrays
+a                       // => [1,2,3]; the original array is unmodified
+```
+
 ### 4.9 Array-Like Objects
 
 You can iterate an array-like object like an array:
