@@ -590,6 +590,107 @@ for(let row = 0; row < table.length; row++) {
 table[5][7]  // => 35
 ```
 
+### 4.8 Array Methods
+
+#### 4.8.1 Array Iterator Methods
+
+##### FOREACH()
+
+`forEach()` method iterates through an array, invoking a given function for each element:
+
+- No way to terminate before all elements have been passed.
+
+```javascript
+let data = [1,2,3,4,5], sum = 0;
+// Compute the sum of the elements of the array
+data.forEach(value => { sum += value; });          // sum == 15
+
+// Now increment each array element
+data.forEach(function(v, i, a) { a[i] = v + 1; }); // data == [2,3,4,5,6]
+```
+
+##### MAP()
+
+`map()` method passes each element on which it is invoked to a given function, and returns an array containing the values returned by the function.
+
+- Does not modify the original array.
+
+```javascript
+let a = [1, 2, 3];
+a.map(x => x*x)    // => [1, 4, 9]
+```
+
+##### FILTER()
+
+`filter()` method returns a subset of an array given a predicate.
+
+```javascript
+a = [5, 4, 3, 2, 1];
+a.filter(x => x < 3)        // => [2, 1]; values less than 3
+a.filter((x,i) => i%2 == 0) // => [5, 3, 1]; every other value
+```
+
+Close gaps in a sparse array:
+
+```javascript
+let dense = sparse.filter(() => true);
+```
+
+Close gaps and remove `undefined`/`null`:
+
+```javascript
+a = a.filter(x => x !== undefined && x !== null);
+```
+
+##### FIND() & FINDINDEX()
+
+`find()`/`findIndx()` returns a matching element or the index of a matching element for a given predicate:
+
+- Returns `undefined`/-1 if no matching element is found.
+
+```javascript
+a = [1,2,3,4,5];
+a.findIndex(x => x == 3)  // => 2; the value 3 appears at index 2
+a.findIndex(x => x < 0)   // => -1; no negative numbers in the array
+a.find(x => x % 5 == 0)   // => 5: this is a multiple of 5
+a.find(x => x % 7 == 0)   // => undefined: no multiples of 7 in the array
+```
+
+##### EVERY() & SOME()
+
+`every()`/`some()` apply a predicate to an array, and then returns `true`/`false`:
+
+- `every()` applies the predicate to every element of the array. It returns `true` if and only if the predicate returns `true` for all elements.
+- `some()` returns `true` if there exists at least one element for which the predicate returns `true`, returns `false` if and only if the predicate returns `false` for all elements.
+
+```javascript
+a = [1,2,3,4,5];
+a.every(x => x < 10)      // => true: all values are < 10.
+a.every(x => x % 2 === 0) // => false: not all values are even.
+
+a = [1,2,3,4,5];
+a.some(x => x%2===0)  // => true; a has some even numbers.
+a.some(isNaN)         // => false; a has no non-numbers.
+```
+
+##### REDUCE() & REDUCERIGHT()
+
+`reduce()`/`reduceRight()` combines the elements of an array with a your function to produce a single value:
+
+- `reduce()` uses the first element as the initial value if no initial value argument is given. It raises `TypeError` if the array is empty and the initial value is not given.
+- `reduceRight()` processes the array from highest index to lowest index.
+
+```javascript
+let a = [1,2,3,4,5]
+a.reduce((x,y) => x+y, 0)          // => 15; the sum of the values
+a.reduce((x,y) => x*y, 1)          // => 120; the product of the values
+a.reduce((x,y) => (x > y) ? x : y) // => 5; the largest of the values
+
+// Compute 2^(3^4).  Exponentiation has right-to-left precedence
+let a = [2, 3, 4]
+a.reduceRight((acc,val) => Math.pow(val,acc)) // => 2.4178516392292583e+24
+```
+
 ### 4.9 Array-Like Objects
 
 You can iterate an array-like object like an array:
