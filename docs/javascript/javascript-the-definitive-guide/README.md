@@ -511,3 +511,15 @@ Each array has a `length` property and it has two special behaviors:
 
 - If you assign a value to an array element whose index `i` >= `length`, `length` is set to `i+1`.
 - If you set `length` to a non-negative integer `n` < `length`, elements with indexes >= `n` are removed.
+
+### 4.5 Adding and Deleting Array Elements
+
+You can modify an array with the following methods:
+
+- `push()` adds one+ values to the end of an array.
+- `unshift()` inserts a value at the beginning of an array and shifts the existing elements to higher indexes.
+- `pop()` removes and returns  the last element, reducing `length` by 1.
+- `shift()` removes and returns the first element, reducing `length` by 1; shits all elements down to an index one lower than their current index.
+- `splice()` is a general purpose method to change an array.
+
+`delete` replaces the element with `undefined`, but does not change `length`.
