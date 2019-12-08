@@ -691,7 +691,7 @@ let a = [2, 3, 4]
 a.reduceRight((acc,val) => Math.pow(val,acc)) // => 2.4178516392292583e+24
 ```
 
-##### 4.8.2 Adding arrays with `concat()`
+#### 4.8.2 Adding arrays with `concat()`
 
 The `concat()` method returns a new array that contains the elements from the original array followed by each of the arguments to `concat()`:
 
@@ -703,7 +703,7 @@ a.concat(4, [5,[6,7]])  // => [1,2,3,4,5,[6,7]]; but not nested arrays
 a                       // => [1,2,3]; the original array is unmodified
 ```
 
-##### 4.8.3 Stacks and Queues with `push()`, `pop()`, `shift()` and `unshift()`
+#### 4.8.3 Stacks and Queues with `push()`, `pop()`, `shift()` and `unshift()`
 
 ```javascript
 let stack = [];       // stack == []
@@ -737,9 +737,9 @@ a = [];                // a == []
 a.unshift(1,2)         // a == [1, 2]
 ```
 
-##### 4.8.5 Array Searching and Sorting Methods
+#### 4.8.5 Array Searching and Sorting Methods
 
-###### INDEXOF() &LASTINDEXOF()
+##### INDEXOF() &LASTINDEXOF()
 
 `index()`/`lastIndexOf()` returns the index of a specified element in an array. Returns -1 if not found:
 
@@ -753,7 +753,7 @@ a.lastIndexOf(1)   // => 3: a[3] is 1
 a.indexOf(3)       // => -1: no element has value 3
 ```
 
-###### INCLUDES()
+##### INCLUDES()
 
 `includes()` takes a single argument and returns `true` if the array contains that value or `false` otherwise:
 
@@ -767,7 +767,7 @@ a.includes(NaN)             // => true
 a.indexOf(NaN)              // => -1; indexOf can't find NaN
 ```
 
-###### SORT()
+##### SORT()
 
 `sort()` sorts an array in place and returns the sorted array:
 
@@ -787,7 +787,7 @@ a.sort(function(a,b) {    // Pass a comparator function
 a.sort((a,b) => b-a);     // a == [1111, 222, 33, 4]; reverse numerical order
 ```
 
-###### REVERSE()
+##### REVERSE()
 
 `reverse()` reverses an array in place and returns the reversed array:
 
@@ -796,7 +796,7 @@ let a = [1,2,3];
 a.reverse();   // a == [3,2,1]
 ```
 
-##### 4.8.6 Array to String Conversions
+#### 4.8.6 Array to String Conversions
 
 `join()` converts all elements to strings and concatenates them, returning the result string:
 
@@ -809,7 +809,7 @@ let b = new Array(10)  // An array of length 10 with no elements
 b.join('-')            // => '---------': a string of 9 hyphens
 ```
 
-##### 4.8.7 Static Array Functions
+#### 4.8.7 Static Array Functions
 
 `Array.isArray()` check if a value is an array:
 
