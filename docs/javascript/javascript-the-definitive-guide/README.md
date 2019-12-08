@@ -523,3 +523,50 @@ You can modify an array with the following methods:
 - `splice()` is a general purpose method to change an array.
 
 `delete` replaces the element with `undefined`, but does not change `length`.
+
+### 4.6 Iterating Arrays
+
+`for/of` loop:
+
+```javascript
+let letters = [..."Hello world"];  // An array of characters for testing
+let string = ""
+for(let letter of letters) {
+    string += letter
+}
+string  // => "Hello world"; we reassembled the original text
+
+let everyother = ""
+for(let [index, letter] of letters.entries()) {
+    if (index % 2 == 0) everyother += letter;  // letters at even indexes
+}
+everyother  // => "Hlowrd"
+```
+
+`forEach()`:
+
+- Aware of sparse arrays and does not invoke your function for non-existent elements.
+
+```javascript
+let uppercase = ""
+letters.forEach(letter => {  // Note arrow function syntax here
+    uppercase += letter.toUpperCase();
+});
+uppercase  // => "HELLO WORLD"
+```
+
+`for` loop:
+
+- Should test the array elements before using them.
+
+```javascript
+// Save the array length into a local variable
+for(let i = 0, len = letters.length; i < len; i++) {
+   // loop body remains the same
+}
+
+// Iterate backwards from the end of the array to the start
+for(let i = letters.length-1; i >= 0; i--) {
+   // loop body remains the same
+}
+```
