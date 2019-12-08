@@ -737,6 +737,73 @@ a = [];                // a == []
 a.unshift(1,2)         // a == [1, 2]
 ```
 
+#### 4.8.4 Subarrays with `slice()`, `splice()`, `fill()` and `copyWithin()`
+
+##### SLICE()
+
+`slice()` returns a subarray of a specified array:
+
+- two arguments => start and end
+- one argument => start only
+- negative values for arguments => relative offsets from the last element
+
+```javascript
+let a = [1,2,3,4,5];
+a.slice(0,3);    // Returns [1,2,3]
+a.slice(3);      // Returns [4,5]
+a.slice(1,-1);   // Returns [2,3,4]
+a.slice(-3,-2);  // Returns [3]
+```
+
+##### SPLICE()
+
+`splice()` is a general-purpose method for inserting or removing elements from an array:
+
+- first argument => start index
+- second argument => number of elements to be deleted (default: all elements from the start index)
+- other arugments => elements to be inserted
+
+```javascript
+let a = [1,2,3,4,5,6,7,8];
+a.splice(4)    // => [5,6,7,8]; a is now [1,2,3,4]
+a.splice(1,2)  // => [2,3]; a is now [1,4]
+a.splice(1,1)  // => [4]; a is now [1]
+
+let a = [1,2,3,4,5];
+a.splice(2,0,'a','b')  // => []; a is now [1,2,'a','b',3,4,5]
+a.splice(2,2,[1,2],3)  // => ['a','b']; a is now [1,2,[1,2],3,3,4,5]
+```
+
+##### FILL()
+
+`fill()` sets the elements of an array/slice of an array to a specific value in place, and returns the modified array:
+
+- first argument => value to set elements to
+- second argument => start index (default: 0)
+- third argument => end index (default: `length`)
+
+```javascript
+let a = new Array(5);   // Start with no elements and length 5
+a.fill(0)               // => [0,0,0,0,0]; fill the array with zeros
+a.fill(9, 1)            // => [0,9,9,9,9]; fill with 9 starting at index 1
+a.fill(8, 2, -1)        // => [0,9,8,8,9]; fill with 8 at indexes 2, 3
+```
+
+##### COPYWITHIN()
+
+`copyWithin()` copies a slice of an array to a new position within the array in place, and returns the modified array, without changing the length:
+
+- first argument => destination index
+- second argument => index of the first element to be copied (default: 0)
+- third argument => end of the slice of the elements to be copied (default: `length`)
+
+```javascript
+let a = [1,2,3,4,5]
+a.copyWithin(1)       // => [1,1,2,3,4]: copy array elements up one
+a.copyWithin(2, 3, 5) // => [1,1,3,4,4]: copy last 2 elements to index 2
+a.copyWithin(0, -2)   // => [4,4,3,4,4]: negative offsets work, too
+```
+
 #### 4.8.5 Array Searching and Sorting Methods
 
 ##### INDEXOF() &LASTINDEXOF()
