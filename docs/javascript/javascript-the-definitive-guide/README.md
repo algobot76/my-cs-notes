@@ -737,6 +737,65 @@ a = [];                // a == []
 a.unshift(1,2)         // a == [1, 2]
 ```
 
+##### 4.8.5 Array Searching and Sorting Methods
+
+###### INDEXOF() &LASTINDEXOF()
+
+`index()`/`lastIndexOf()` returns the index of a specified element in an array. Returns -1 if not found:
+
+- `index`() searches the array from the beginning to end; `lastIndexOf()` searches the array from end to beginning.
+- They take a second optional argument to specify the start index. Negative values are treated as the offsets from the end.
+
+```javascript
+a = [0,1,2,1,0];
+a.indexOf(1)       // => 1: a[1] is 1
+a.lastIndexOf(1)   // => 3: a[3] is 1
+a.indexOf(3)       // => -1: no element has value 3
+```
+
+###### INCLUDES()
+
+`includes()` takes a single argument and returns `true` if the array contains that value or `false` otherwise:
+
+- `indexOf()` cannot detect `NaN` but `includes()` can.
+
+```javascript
+let a = [1,true,3,NaN];
+a.includes(true)            // => true
+a.includes(2)               // => false
+a.includes(NaN)             // => true
+a.indexOf(NaN)              // => -1; indexOf can't find NaN
+```
+
+###### SORT()
+
+`sort()` sorts an array in place and returns the sorted array:
+
+- Alphabetical order by default (temporarily converting non-string elements to strings).
+- Undefined elements sorted to the end.
+- A comparison function is needed to control sort order.
+
+```javascript
+let a = ["banana", "cherry", "apple"];
+a.sort(); // a == ["apple", "banana", "cherry"]
+
+let a = [33, 4, 1111, 222];
+a.sort();                 // a == [1111, 222, 33, 4]; alphabetical order
+a.sort(function(a,b) {    // Pass a comparator function
+           return a-b;    // Returns < 0, 0, or > 0, depending on order
+       });                // a == [4, 33, 222, 1111]; numerical order
+a.sort((a,b) => b-a);     // a == [1111, 222, 33, 4]; reverse numerical order
+```
+
+###### REVERSE()
+
+`reverse()` reverses an array in place and returns the reversed array:
+
+```javascript
+let a = [1,2,3];
+a.reverse();   // a == [3,2,1]
+```
+
 ##### 4.8.6 Array to String Conversions
 
 `join()` converts all elements to strings and concatenates them, returning the result string:
