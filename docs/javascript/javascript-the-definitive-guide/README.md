@@ -641,3 +641,9 @@ Array.prototype.join.call(a, "+")  // => "a+b+c"
 Array.prototype.map.call(a, x => x.toUpperCase())  // => ["A","B","C"]
 Array.prototype.slice.call(a, 0)   // => ["a","b","c"]: true array copy
 ```
+
+### 4.10 Strings as Arrays
+
+Strings behave like read-only arrays of UTF-16 Unicode characters:
+
+Can invoke array methods using `Function.call`.
