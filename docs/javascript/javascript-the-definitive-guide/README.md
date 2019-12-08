@@ -737,6 +737,28 @@ a = [];                // a == []
 a.unshift(1,2)         // a == [1, 2]
 ```
 
+##### 4.8.6 Array to String Conversions
+
+`join()` converts all elements to strings and concatenates them, returning the result string:
+
+```javascript
+let a = [1, 2, 3];
+a.join()               // => "1,2,3"
+a.join(" ")            // => "1 2 3"
+a.join("")             // => "123"
+let b = new Array(10)  // An array of length 10 with no elements
+b.join('-')            // => '---------': a string of 9 hyphens
+```
+
+##### 4.8.7 Static Array Functions
+
+`Array.isArray()` check if a value is an array:
+
+```javascript
+Array.isArray([])     // => true
+Array.isArray({})     // => false
+```
+
 ### 4.9 Array-Like Objects
 
 You can iterate an array-like object like an array:
