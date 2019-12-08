@@ -488,15 +488,26 @@ Array.of(1,2,3)   // => [1, 2, 3]
 
 ### 4.2 Reading and Writing Array Elements
 
-- Read/write an element of an array using the `[]` operator.
-- Array indexes are converted to strings (same for regular objects).
-- Indexes are property names that are integers between 0 and 2^32-2 (including floating-point numbers e.g. 1.00).
-  - Negative numbers or non-integers are converted to strings and treated as regular property names.
+Read/write an element of an array using the `[]` operator.
+
+Array indexes are converted to strings (same for regular objects).
+
+Indexes are property names that are integers between 0 and 2^32-2 (including floating-point numbers e.g. 1.00).
+
+- Negative numbers or non-integers are converted to strings and treated as regular property names.
 - `length` is updated as needed so no "out of bound" error.
 
 ### 4.3 Sparse Arrays
 
-- A sparse array does not have contiguous indexes starting at 0.
-  - `length` is greater than the number of elements.
+A sparse array does not have contiguous indexes starting at 0.
+
+- `length` > the number of elements.
 - Looking up elements in a sparse array will take as much time as regular object property lookup.
 - Omitted elements do not exist.
+
+### 4.4 Array Length
+
+Each array has a `length` property and it has two special behaviors:
+
+- If you assign a value to an array element whose index `i` >= `length`, `length` is set to `i+1`.
+- If you set `length` to a non-negative integer `n` < `length`, elements with indexes >= `n` are removed.
