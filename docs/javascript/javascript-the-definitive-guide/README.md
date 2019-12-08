@@ -485,3 +485,11 @@ Array.of(1,2,3)   // => [1, 2, 3]
 `Array.from(iterable)` creates a copy of an iterable or array-like object, similar to `[...iterable]`.
 
 - Accepts a second argument - a map function to call on every element of the array (more efficient than `map` as the mapping is being performed while the array is being built than it is to build the array and then map it to another array).
+
+### 4.2 Reading and Writing Array Elements
+
+- Read/write an element of an array using the `[]` operator.
+- Array indexes are converted to strings (same for regular objects).
+- Indexes are property names that are integers between 0 and 2^32-2 (including floating-point numbers e.g. 1.00).
+  - Nagative numbers or non-integers are converted to strings and treated as regular property names.
+- `length` is updated as needed so no "out of bound" error.
