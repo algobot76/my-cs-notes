@@ -14,11 +14,17 @@ module.exports = {
       },
       {
         title: 'CSS',
-        children: [['/css/css-the-definitive-guide/', 'CSS The Definitive Guide']],
+        children: [
+          ['/css/css-the-definitive-guide/', 'CSS The Definitive Guide'],
+          ['/css/bem/', 'BEM'],
+        ],
       },
       {
         title: 'Go',
-        children: [['/go/my-go-notes/', 'My Go Notes'], ['/go/effective-go/', 'Effective Go']],
+        children: [
+          ['/go/my-go-notes/', 'My Go Notes'],
+          ['/go/effective-go/', 'Effective Go'],
+        ],
       },
       {
         title: 'Java',
