@@ -178,8 +178,8 @@ p[class="urgent warning"] {font-weight: bold;}
 
 #### Selection Based on Partial Attribute Values
 
-| Type           |                                                                   Description                                                                   |
-| :------------- | :---------------------------------------------------------------------------------------------------------------------------------------------: |
+|      Type      |                                                                   Description                                                                   |
+| :------------: | :---------------------------------------------------------------------------------------------------------------------------------------------: |
 | `[foo~="bar"]` |               Selects any element with an attribute `foo` whose value contains the word `bar` in a space-separated list of words.               |
 | `[foo*="bar"]` |                              Selects any element with an attribute `foo` whose value contains the substring `bar`.                              |
 | `[foo^="bar"]` |                                   Selects any element with an attribute `foo` whose value begins with `bar`.                                    |
@@ -285,3 +285,460 @@ h2 ~ol {font-style: italic;}
 ```
 
 - `ol` elements are italicized even `h2` and `ol` are not adjacent siblings.
+
+### Pseudo-Class Selectors
+
+#### Combining Pseudo-Classes
+
+It is possible to combine ("chain") pseudo-classes together.
+
+- Order does not matter.
+
+```css
+a:link:hover {color: red;}
+a:visited:hover {color: maroon;}
+```
+
+#### Structural Pseudo-Classes
+
+All pseudo-classes are a word preceded by `:`, and they can appear anywhere in a selector.
+
+- Always refer to the elements they attach to, and no other.
+
+##### SELECTING THE ROOT ELEMENT
+
+`:root` selects the root element (`html`).
+
+```css
+:root {border: 10px dotted gray;}
+body {border: 10px solid black;}
+```
+
+##### SELECTING EMPTY ELEMENTS
+
+`:empty` selects an empty element.
+
+- No whitespace, visible content, or descendant elements.
+
+```html
+<p></p>
+<p> </p>
+<p>
+</p>
+<p><!—-a comment--></p>
+```
+
+```css
+p:empty {display: none;}
+```
+
+- Only the first and the last `p` elements are selected.
+
+_Note_: Do not use `*:empty {display: none;},` as it selects elements like `img` and `input`, including `textarea` that does not have any default text.
+
+##### SELECTING UNIQUE CHILDREN
+
+`:only-child` selects elements when they are the only child element of another element.
+
+- Only applied to the element you want to be the only child, not the parent.
+- When used in a descendant selector, not restricted to a parent-child relationship.
+
+```html
+<a href="http://w3.org/"><img src="w3.png" alt="W3C"></a>
+<a href="http://w3.org/"><img src="w3.png" alt=""> The W3C</a>
+<a href="http://w3.org/"><img src="w3.png" alt=""> <em>The W3C</em></a>
+```
+
+```css
+a[href] img:only-child {border: 5px solid black;}
+```
+
+- Only the first and the second `img` elements are selected.
+
+`:only-of-type` selects any element that is the only of its type among all its siblings.
+
+```html
+<a href="http://w3.org/"><b>•</b><img src="w3.png" alt="W3C"></a>
+<a href="http://w3.org/"><span><b>•</b><img src="w3.png" alt="W3C"></span></a>
+```
+
+```css
+a[href] img:only-of-type {border: 5px solid black;}
+```
+
+- All `img` elements are selected.
+
+_Note_: `:only-of-type` refers to elements and nothing else.
+
+##### SELECTING FIRST AND LAST CHILDREN
+
+`:first-child` selects elements that are the first children of other elements.
+
+```html
+<div>
+  <p>These are the necessary steps:</p>
+  <ul>
+    <li>Insert key</li>
+    <li>Turn key <strong>clockwise</strong></li>
+    <li>Push accelerator</li>
+  </ul>
+  <p>
+    Do <em>not</em> push the brake at the same time as the accelerator.
+  </p>
+</div>
+```
+
+```css
+p:first-child {font-weight: bold;}
+li:first-child {text-transform: uppercase;}
+```
+
+- Only the first `p` element and the first `li` element are selected.
+
+`:last-child` is the mirror of `:first-child`.
+
+```css
+p:last-child {font-weight: bold;}
+li:last-child {text-transform: uppercase;}
+```
+
+- Only the last `p` element and the last `li` element are selected.
+
+_Note_: These two selectors are the same:
+
+```css
+p:only-child {color: red;}
+p:first-child:last-child {background-color: red;}
+```
+
+##### SELECTING FIRST AND LAST OF A TYPE
+
+`:first-of-type` selects the first of a type of an element within another element.
+
+```css
+table:first-of-type {border-top: 2px solid gray;}
+```
+
+- It does not apply to the entire document.
+- It selects the first `table` element within each element that contains one, and skips any sibling `table` elements that come after the first.
+
+`:last-of-type` is the mirror of `:first-of-type`.
+
+_Note_: These two selectors are the same:
+
+```css
+table:only-of-type{color: red;}
+table:first-of-type:last-of-type {background: red;}
+```
+
+##### SELECTING EVERY NTH CHILD
+
+`:nth-child()` selects any arbitrarily numbered child element based on an integer or algebraic expression (`an + b` or `an - b`).
+
+`:nth-child(1)` is equivalent to `:first-child`.
+
+`:nth-child(2n)` or `:nth-child(even)` selects even-numbered children; `:nth-child(2n+1)`, :`nth-child(2n-1)`, or `:nth-child(odd)` selects odd-numbered children.
+
+`:nth-last-child()` is the same as `:nth-child()`, except that it starts from the last sibling.
+
+##### SELECTING EVERY NTH OF A TYPE
+
+`:nth-of-type()` and `:nth-last-of-type()` are similar to `:nth-child()` and `:nth-last-child()`, except that they only consider element types.
+
+#### Dynamic Pseudo-Classes
+
+##### HYPERLINK PSEUDO-CLASSES
+
+|    Name    |                                                                             Description                                                                             |
+| :--------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+|  `:link`   |                    Refers to any anchor that is a hyperlink (i.e., has an `href` attribute) and points to an address that has not been visited.                     |
+| `:visited` | Refers to any anchor that is a hyperlink to an already visited address. For security reasons, the styles that can be applied to visited links are severely limited. |
+
+```css
+a:link {color: blue;}    /* unvisited links are blue */
+a:visited {color: red;}   /* visited links are red */
+```
+
+##### USER ACTION PSEUDO-CLASSES
+
+|   Name    |                                                                     Description                                                                     |
+| :-------: | :-------------------------------------------------------------------------------------------------------------------------------------------------: |
+| `:focus`  |                Refers to any element that currently has the input focus—i.e., can accept keyboard input or be activated in some way.                |
+| `:hover`  |              Refers to any element over which the mouse pointer is placed—e.g., a hyperlink over which the mouse pointer is hovering.               |
+| `:active` | Refers to any element that has been activated by user input—e.g., a hyperlink on which a user clicks during the time the mouse button is held down. |
+
+```css
+a:link {color: navy;}
+a:visited {color: gray;}
+a:focus {color: orange;}
+a:hover {color: red;}
+a:active {color: yellow;}
+```
+
+_Note_: Recommendation for the order of the pseudo-classes: link-visited-focus-hover-active.
+
+##### REAL-WORLD ISSUES WITH DYNAMIC STYLING
+
+```css
+a:link, a:visited {font-size: 13px;}
+a:hover, a:active {font-size: 20px;}
+```
+
+- Possible to set visited and unvisited links to one font size and make hovered links a larger size.
+
+#### UI-State Pseudo-Classes
+
+|       Name       |                                                                      Description                                                                       |
+| :--------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------: |
+|    `:enabled`    |                       Refers to user-interface elements (such as form elements) that are enabled; that is, available for input.                        |
+|   `:disabled`    |                     Refers to user-interface elements (such as form elements) that are disabled; that is, not available for input.                     |
+|    `:checked`    |              Refers to radio buttons or checkboxes that have been selected, either by the user or by defaults within the document itself.              |
+| `:indeterminate` | Refers to radio buttons or checkboxes that are neither checked nor unchecked; this state can only be set via DOM scripting, and not due to user input. |
+|    `:default`    |                                     Refers to the radio button, checkbox, or option that was selected by default.                                      |
+|     `:valid`     |                                         Refers to a user input that meets all of its data validity semantics.                                          |
+|    `:invalid`    |                                      Refers to a user input that does not meet all of its data validity semantics                                      |
+|   `:in-range`    |                                      Refers to a user input whose value is between the minimum and maximum values                                      |
+| `:out-of-range`  |                       Refers to a user input whose value is below the minimum or above the maximum values allowed by the control                       |
+|   `:required`    |                                                   Refers to a user input that must have a value set                                                    |
+|   `:optional`    |                                             Refers to a user input that does not need to have a value set                                              |
+|  `:read-write`   |                                                  Refers to a user input that is editable by the user                                                   |
+|   `:read-only`   |                                                Refers to a user input that is not editable by the user                                                 |
+
+##### ENABLED AND DISABLED UI ELEMENTS
+
+An element can be disabled by adding a `disabled` attribute. A disabled element is displayed, but cannot be selected, activated, or otherwise interacted with by the user.
+
+```css
+:enabled {font-weight: bold;}
+:disabled {opacity: 0.5;}
+```
+
+##### CHECK STATES
+
+Certain UI elements, e.g. `checkbox` and `radio`, can be checked or unchecked.
+
+- `:checked` selects checked elements.
+- `:indeterminate` selects elements that are neither checked nor unchecked.
+- The indeterminate state does not affect the underlying state of the element.
+
+```css
+:checked {background: silver;}
+:indeterminate {border: red;}
+```
+
+![Styling checked and indeterminate UI elements](./img/css4_0239.png)
+
+##### DEFAULT OPTION PSEUDO-CLASS
+
+`:default` matches the elements that are the default among a set of similar elements, e.g. context menu items, buttons, and select lists/menus.
+
+```html
+<input type="checkbox" id="chbx" checked name="foo" value="bar">
+<label for="chbx">This was checked on page load</label>
+```
+
+```css
+[type="checkbox"]:default + label { font-style: italic; }
+```
+
+##### OPTIONALITY PSEUDO-CLASSES
+
+`:required` matches any form control that is required, as denoted by the presence of the `required` attribute. `:optional` matches form controls that do not have the `required` attribute, or whose `required` attribute has a value of `false`.
+
+```html
+<input type="email" placeholder="enter an email address" required>
+<input type="email" placeholder="optional email address">
+<input type="email" placeholder="optional email address" required="false">
+```
+
+```css
+input:required { border: 1px solid #f00;}
+input:optional { border: 1px solid #ccc;}
+```
+
+- The first `input` element is matched by `:required`.
+- The second and the third `input` elements are matched by `:optional`.
+
+##### VALIDITY PSEUDO-CLASSES
+
+`:valid` refers to a user input that meets all of its data validity requirements. `:invalid` refers to a user input that does not meet all of its data validity requirements.
+
+- Only apply to elements having the capacity for data validity requirements.
+
+```html
+<input type="email">
+```
+
+```css
+input[type="email"]:focus {
+  background-position: 100% 50%;
+  background-repeat: no-repeat;
+}
+input[type="email"]:focus:invalid {
+  background-image: url(warning.jpg);
+}
+input[type="email"]:focus:valid {
+  background-image: url(checkmark.jpg);
+}
+```
+
+![Styling valid and invalid UI elements](./img/css4_0240.png)
+
+_Note_: An empty email input may match `:valid`.
+
+##### RANGE PSEUDO-CLASSES
+
+`:in-range` refers to a user input whose value is between the minimum and maximum values set by `min` and `max` attributes. `:out-of-range` refers to a user input whose value is below the minimum or above the maximum values.
+
+- Only apply to elements with range limitations.
+
+```html
+<input id="nickels" type="number" min="0" max="1000" />
+```
+
+```css
+input[type="number"]:focus {
+  background-position: 100% 50%;
+  background-repeat: no-repeat;
+}
+input[type="number"]:focus:out-of-range {
+  background-image: url(warning.jpg);
+}
+input[type="number"]:focus:in-range {
+  background-image: url(checkmark.jpg);
+}
+```
+
+If a value is invalid because it does not match the `step` value, but is still between or equal to the `min` and `max` values, it will match `:invalid` and `:in-range`.
+
+```html
+<input id="by-tens" type="number" min="0" max="1000" step="10" value="23" />
+```
+
+```css
+input[type="number"]:invalid {color: red;}
+input[type="number"]:in-range {font-weight: bold;}
+```
+
+##### MUTABILITY PSEUDO-CLASSES
+
+`:read-write` refers to a user input that is editable by the user. `:read-only` matches user inputs that are not editable.
+
+```html
+<textarea disabled></textarea>
+<pre contenteditable>Type your own code!</pre>
+```
+
+```css
+textarea:read-only {opacity: 0.75;}
+pre:read-write:hover {border: 1px dashed green;}
+```
+
+- `textarea` element with a `disabled` attribute becomes read-only (default: read-write).
+- `pre` element with a `contenteditable` attribute becomes read-write (default: read-only).
+
+#### The :target Pseudo-Class
+
+`:target` selects any element that is the target of a URL fragment identifier.
+
+`:target` not applied in two circumstances:
+
+- If the page is accessed via a URL that does not have a fragment identifier.
+- If the page is accessed via a URL that has a fragment identifier, but the identifier does not match any elements within the document.
+
+```css
+*:target {border-left: 5px solid gray; background: yellow url(target.png)
+    top right no-repeat;}
+```
+
+![Styling a fragment identifier target](./img/css4_0241.png)
+
+#### The :lang Pseudo-Class
+
+`:lang` selects an element based on its language.
+
+```css
+*:lang(fr) {font-style: italic;}
+*[lang|="fr"] {font-style: italic;}
+```
+
+- Select an element written in French.
+- `:lang` matches descendants of an element with the language declaration.
+- The attribute selector must have the attribute present to match.
+
+#### The Negation Pseudo-Class
+
+`:not` selects elements based on what they are not. It works with a simple selector (e.g. a type selector, universal selector, attribute selector, class selector, ID selector, or pseudo-class) that has no  no ancestral-descendant relationship.
+
+- Possible to chain negations together to create a sort of "and also not this" effect.
+
+```css
+moreinfo:not(li) {font-style: italic;}
+```
+
+- Select all elements with a class whose value contains the word `moreinfo` as long as they are not `li` elements.
+
+### Pseudo-Element Selectors
+
+#### Styling the First Letter
+
+`::fisrt-letter` styles the first letter, or a leading punctuation character and the first letter of any non-inline element.
+
+```css
+p::first-letter {color: red;}
+```
+
+```html
+<p><p-first-letter>T</p-first-letter>his is a p element, with a styled first
+    letter</h2>
+```
+
+- Causes the user agent creates a fictional/faux element that encloses the first letter of each `p`.
+- `<p-first-letter>` does not appear in the document source/DOM tree.
+
+#### Styling the First Line
+
+`::first-line` styles the first line of text in an element.
+
+```css
+p::first-line {
+  font-size: 150%;
+  color: purple;
+}
+```
+
+#### Restrictions on ::first-letter and ::first-line
+
+Can be applied only to block-display elements, not to inline-display elements.
+
+`::first-letter`:
+
+- All font properties
+- All background properties
+- All text decoration properties
+- All inline typesetting properties
+- All inline layout properties
+- All border properties
+- box-shadow
+- color
+- opacity
+
+`::first-line`:
+
+- All font properties
+- All background properties
+- All margin properties
+- All padding properties
+- All border properties
+- All text decoration properties
+- All inline typesetting properties
+- color
+- opacity
+
+#### Styling (or Creating) Content Before and After Elements
+
+`::before` and `::after` insert and style generated content.
+
+```css
+h2::before {content: "]]"; color: silver;}
+```
