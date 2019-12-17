@@ -742,3 +742,78 @@ Can be applied only to block-display elements, not to inline-display elements.
 ```css
 h2::before {content: "]]"; color: silver;}
 ```
+
+## Chapter 3. Specificity and the Cascade
+
+### Specificity
+
+A selector's specificity is determined by the components of the selector itself and can be expressed in 4 parts, like `0, 0, 0, 0`.
+
+- inline style => add `1, 0, 0, 0`
+- ID attribute value => add `0, 1, 0, 0`
+- class attribute value, attribute selection, or pseudo-class => add `0, 0, 1, 0`
+- element and pseudo-element => add `0, 0, 0, 1`
+- combinators and the universal selector => add `0, 0, 0, 0`
+
+```css
+h1 {color: red;}                     /* specificity = 0,0,0,1 */
+p em {color: purple;}                /* specificity = 0,0,0,2 */
+.grape {color: purple;}              /* specificity = 0,0,1,0 */
+*.bright {color: yellow;}            /* specificity = 0,0,1,0 */
+p.bright em.dark {color: maroon;}    /* specificity = 0,0,2,2 */
+#id216 {color: blue;}                /* specificity = 0,1,0,0 */
+div#sidebar *[href] {color: silver;} /* specificity = 0,1,1,1 */
+```
+
+```html
+<h1 style="color: green;">The Meadow Party</h1>
+```
+
+#### Importance
+
+Important declarations (`!important`) outweighs other declarations. If there is a conflict between an important declaration and an non-important declaration, the important declaration always wins.
+
+```css
+p.dark {color: #333 !important; background: white;}
+```
+
+### Inheritance
+
+Inheritance is the mechanism by which some styles are applied not only to a specified element, but also its descendants.
+
+- Values not propagated upward in the document tree.
+- Many properties are not inherited, including may box-model properties.
+- Inherited values have no specificity, not even zero specificity.
+
+The lack of specificity may cause problems.
+
+```css
+#toolbar {color: white; background: black;}
+a:link {color: blue;}
+```
+
+- If the text within this element is ally hyperlinks (`a` elements), then the user agent's styles for hyper links take over.
+
+Two possible solutions:
+
+```css
+#toolbar {color: white; background: black;}
+#toolbar a:link {color: white;}
+```
+
+or
+
+```css
+#toolbar {color: white; background: black;}
+#toolbar a:link {color: inherit;}
+```
+
+### The Cascade
+
+1. Find all rules that contain a selector that matches a given element.
+2. Sort all declarations applying to the given element by explicit weight. Those rules marked !important have a higher weight than those that are not.
+3. Sort all declarations applying to the given element by origin.
+   1. Three basic origins: author, reader, and user agent
+   2. author > reader (but reader's `!important` > others) > user agent
+4. Sort all declarations applying to the given element by specificity (from high to low).
+5. Sort all declarations applying to the given element by order. The later a declaration appears in the style sheet or document, the more weight it is given. Declarations that appear in an imported style sheet are considered to come before all declarations within the style sheet that imports them.
