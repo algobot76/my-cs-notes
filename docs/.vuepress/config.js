@@ -74,6 +74,10 @@ module.exports = {
         title: 'Nginx',
         path: '/nginx/',
       },
+      {
+        title: 'Soft Skills',
+        children: [['/soft-skills/software-developer-life/', 'Software Developer Life']],
+      },
     ],
   },
   markdown: {
