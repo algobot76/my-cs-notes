@@ -817,3 +817,147 @@ or
    2. author > reader (but reader's `!important` > others) > user agent
 4. Sort all declarations applying to the given element by specificity (from high to low).
 5. Sort all declarations applying to the given element by order. The later a declaration appears in the style sheet or document, the more weight it is given. Declarations that appear in an imported style sheet are considered to come before all declarations within the style sheet that imports them.
+
+## Chapter 4. Values and Units
+
+### Keywords, Strings, and Other Text Values
+
+#### Keywords
+
+A keyword is a value described with a word, e.g. `none`.
+
+- If two properties have the same keyword, the behavior of the keyword for one property will not necessarily be shared with the other.
+
+```css
+a:link, a:visited {text-decoration: none;}
+```
+
+##### GLOBAL KEYWORDS
+
+`inherit` makes the value of a property on an element the same as the value of that property on its parent element.
+
+```css
+#toolbar {background: blue; color: white;}
+#toolbar a {color: inherit;}
+```
+
+```html
+<div id="toolbar">
+<a href="one.html">One</a> | <a href="two.html">Two</a> |
+<a href="three.html">Three</a>
+</div>
+```
+
+- Without `inherit`, links are styled according to the browser's preference settings.
+- `inherit` causes the links to use the inherited value of `color`.
+
+`initial` sets the value of a property to the defined initial value, which in a way means it "resets" the value.
+
+For example, the default value of `font-weight` is `normal`. Thus, declaring `font-weight: initial` is the same as declaring `font-weight: normal`.
+
+<!-- TODO: Finish GLOBAL KEYWORDS -->
+
+#### Strings
+
+A string value is an arbitrary sequence of characters wrapped in either single or double quotes (`<string>`).
+
+- It is ok to put quote marks inside a string, as long as they are not the ones you use to enclose the string or escaped using a backslash.
+- `\` can be used to escape a newline character.
+- `\Afor` used to include a newline character.
+
+#### URLs
+
+Absolute URL: `url(protocol://server/pathname)`
+
+- Works no matter where it is found.
+
+Relative URL: `url(pathname)`
+
+- Relative to the stylesheets, not to the HTML document that uses the stylesheet.
+
+#### Images
+
+An image value is a reference to an image (`<image>`).
+
+- `<url>`: a URL identifier of an image
+- `<image-set>`: a set of images, chosen based on a set of conditions embedded into the value
+- `<gradient>`: a linear/radial gradient image, either singly or in a repeating pattern
+
+#### Identifiers
+
+An identifier value is a user-defined identifier of some kind (`<identifier>`), e.g. generated list counters.
+
+- case-sensitive words
+
+### Numbers and Percentages
+
+#### Integers
+
+A integer is a number, optionally prefixed by `+`/`-` (`<integer>`).
+
+Clamping causes a value outside the accepted range to be set to the accepted value closest to the declared value.
+
+#### Numbers
+
+A number is an `<integer>` or `<integer>.<integer>`, optionally prefixed by `+`/`-` (`<number>`).
+
+#### Percentages
+
+A percentage is a `<number>%` (`<percentage>`).
+
+#### Fractions
+
+A fraction/flex is a `<number>fr`.
+
+### Distances
+
+#### Absolute Length Units
+
+- inches (in)
+- centimeters (cm)
+- millimeters (mm)
+- quarter-millimeters (g)
+- points (pt)
+- picas (pc)
+- pixels (px)
+
+##### PIXEL THEORY
+
+<!-- TODO: Finish PIXEL THEORY -->
+
+#### Resolution Units
+
+<!-- TODO: Finish Resolution Units -->
+
+#### Relative Length Units
+
+##### EM AND EX UNITS
+
+`em` is the value of `font-size` for a given font.
+
+- Can change from element to element.
+- Refers to the width of a lowercase "m".
+
+`ex` refers the height of a lowercase "x".
+
+- Different fonts have different heights for "x".
+
+##### THE REM UNIT
+
+`rem` is based on declared font size.
+
+- Always calculated using the root element (`html`).
+- Acts as a reset for font size: no matter what relative font sizing has happened to the ancestors of an element, giving it `font-size: 1rem`; will put it right back where the root element is set.
+
+##### THE CH UNIT
+
+<!-- TODO: Finish THE CH UNIT -->
+
+##### VIEWPORT-RELATIVE UNITS
+
+Viewport-relative size units are calculated with respect to the size of the viewport (browser window, printable area, mobile device display, etc.).
+
+- Viewport width unit (`vw`): calculated with respect to the viewport's width, which is divided by 100.
+- Viewport height unit (`vh`): calculated with respect to the viewport’s height, which is divided by 100.
+- Viewport minimum unit (`vmin`): 1/100 of the viewport’s width or height, whichever is lesser.
+- Viewport maximum unit (`vmax`): 1/100 of the viewport’s width or height, whichever is greater.
