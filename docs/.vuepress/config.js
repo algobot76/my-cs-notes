@@ -59,6 +59,10 @@ module.exports = {
         ],
       },
       {
+        title: 'Swift',
+        children: [['/swift/swift-book/', 'The Swift Programming Language']],
+      },
+      {
         title: 'Linux',
         path: '/linux/',
       },
