@@ -817,3 +817,88 @@ or
    2. author > reader (but reader's `!important` > others) > user agent
 4. Sort all declarations applying to the given element by specificity (from high to low).
 5. Sort all declarations applying to the given element by order. The later a declaration appears in the style sheet or document, the more weight it is given. Declarations that appear in an imported style sheet are considered to come before all declarations within the style sheet that imports them.
+
+## Chapter 7. Functions
+
+### 7.1 Defining Functions
+
+#### 7.1.1 Function Declarations
+
+Examples of function declarations:
+
+```javascript
+// Print the name and value of each property of o.  Return undefined.
+function printprops(o) {
+    for(let p in o)
+        console.log(p + ": " + o[p] + "\n");
+}
+
+// Compute the distance between Cartesian points (x1,y1) and (x2,y2).
+function distance(x1, y1, x2, y2) {
+    let dx = x2 - x1;
+    let dy = y2 - y1;
+    return Math.sqrt(dx*dx + dy*dy);
+}
+
+// A recursive function (one that calls itself) that computes factorials
+// Recall that x! is the product of x and all positive integers less than it.
+function factorial(x) {
+    if (x <= 1) return 1;
+    return x * factorial(x-1);
+}
+```
+
+- Prior to ES6, function declarations were only allowed at the top-level within a JS file/within another function (not legal in body of loops, conditionals or other blocks).
+- In the strict mode of ES6, function declarations are allowed within blocks (not visible outside).
+
+#### 7.1.2 Function Expressions
+
+Examples of function expressions:
+
+```javascript
+// This function expression defines a function that squares its argument.
+// Note that we assign it to a variable
+const square = function(x) { return x*x; }
+
+// Function expressions can include names, which is useful for recursion.
+const f = function fact(x) { if (x <= 1) return 1; else return x*fact(x-1); };
+
+// Function expressions can also be used as arguments to other functions:
+[3,2,1].sort(function(a,b) { return a-b; });
+
+// Function expressions are sometimes defined and immediately invoked:
+let tensquared = (function(x) {return x*x;}(10));
+```
+
+Function declaration vs. function expression:
+
+- Function declaration declares a variable and assigns a function object to it.
+- Function expression does not declare a variable: you can assign the newly-defined function object to a constant or variable.
+- In the declaration form, function objects are created before code runs (functions are hoisted).
+- In the expression form, a function does not exist until its expression is evaluated; before it is invoked, you must be able to refer to it.
+
+#### 7.1.3 Arrow Functions
+
+Examples of arrow functions:
+
+```javascript
+const sum = (x, y) => x + y;
+const constant_func = () => 42;
+
+const f = x => { return { value: x }; };  // Good: f() returns an object
+const g = x => ({ value: x });            // Good: g() returns an object
+const h = x => { value: x };              // Bad: h() returns nothing
+const i = x => { v: x, w: x };            // Bad: Syntax Error
+```
+
+- Arrow functions inherit the value of `this` from the environment in which they are defined.
+- Arrow functions do not have `prototype` property (cannot be used as constructor functions for new classes).
+
+#### 7.1.4 Nested Functions
+
+```javascript
+function hypotenuse(a, b) {
+    function square(x) { return x*x; }
+    return Math.sqrt(square(a) + square(b));
+}
+```
