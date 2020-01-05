@@ -902,3 +902,38 @@ function hypotenuse(a, b) {
     return Math.sqrt(square(a) + square(b));
 }
 ```
+
+### 7.2 Invoking Functions
+
+JS functions can be invoked in 5 ways:
+
+- as functions
+- as methods
+- as constructors
+- indirectly through their `call()` and `apply()` methods
+- implicitly, via JS language features that do not appear like normal function invocations
+
+#### 7.2.1 Function Invocation
+
+Examples of function invocation:
+
+```javascript
+printprops({x:1});
+let total = distance(0,0,2,1) + distance(2,1,3,5);
+let probability = factorial(5)/factorial(13);
+```
+
+- Each argument expression is evaluated, and the resulting values become the arguments to the function.
+- For regular function invocation, the return value becomes the value of the invocation expression.
+- If the interpreter reaches the end, the return value is `undefined`.
+- If the interpreter executes a `return`, the return value is the value after the `return` or `undefined` if `return` has not value.
+- In nonstrict mode, the invocation context (the `this` value) is the global object.
+- In strict mode, the invocation context is `undefined`.
+- Arrow functions always inherit the `this` value that is in effect where they are defined.
+
+```javascript
+// Define and invoke a function to determine if we're in strict mode.
+const strict = (function() { return !this; }());
+```
+
+_Note_: Most browsers and Node do not support tail optimization.
