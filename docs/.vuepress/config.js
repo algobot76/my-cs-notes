@@ -40,12 +40,7 @@ module.exports = {
       },
       {
         title: 'Python',
-        children: [
-          ['/python/my-python-notes/', 'My Python Notes'],
-          ['/python/python-101/', 'Python 101'],
-          ['/python/python-201/', 'Python 201'],
-          ['/python/python-tricks/', 'Python Tricks'],
-        ],
+        children: [['/python/my-python-notes/', 'My Python Notes']],
       },
       {
         title: 'Rust',
