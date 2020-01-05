@@ -40,7 +40,10 @@ module.exports = {
       },
       {
         title: 'Python',
-        children: [['/python/my-python-notes/', 'My Python Notes']],
+        children: [
+          ['/python/my-python-notes/', 'My Python Notes'],
+          ['/python/effective-python/', 'Effective Python (2nd Edition)'],
+        ],
       },
       {
         title: 'Rust',
