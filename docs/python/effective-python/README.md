@@ -175,3 +175,137 @@ for i, (item, count) in enumerate(pantry):
 
    assert old_style == new_style == f_string
 ```
+
+### Item 5: Write helper functions instead of complex expressions
+
+- Write the repeated logic into helper functions.
+- `if`/`else` is more readable than `or`/`and`.
+
+### Item 6: Prefer multiple assignment unpacking over indexing
+
+Unpacking allows assigning multiple values in a single statement:
+
+```python
+item = ('Peanut butter', 'Jelly')
+first, second = item # Unpacking
+print(first, 'and', second) # Peanut butter and Jelly
+```
+
+Unpacking can be used to swap indexes:
+
+```python
+def bubble_sort(a):
+    for _ in range(len(a)):
+        for i in range(1, len(a)):
+            if a[i] < a[i-1]:
+                a[i-1], a[i] = a[i], a[i-1] # Swap
+
+names = ['pretzels', 'carrots', 'arugula', 'bacon']
+bubble_sort(names)
+print(names) # ['arugula', 'bacon', 'carrots', 'pretzels']
+```
+
+Unpacking can be used in `for` loops and similar constructs, such as comprehensions and generator expressions:
+
+```python
+for rank, (name, calories) in enumerate(snacks, 1):
+    print(f'#{rank}: {name} has {calories} calories')
+```
+
+### Item 7: Prefer `enumerate` over `range`
+
+Instead of using `range`:
+
+```python
+for i in range(len(flavor_list)):
+    flavor = flavor_list[i]
+    print(f'{i + 1}: {flavor}')
+```
+
+Use `enumerate`:
+
+```python
+for i, flavor in enumerate(flavor_list, 1):
+    print(f'{i}: {flavor}')
+```
+
+### Item 8: Use `zip` to process iterators in parallel
+
+Instead of using `range`:
+
+```python
+longest_name = None
+max_count = 0
+
+for i in range(len(names)):
+    count = counts[i]
+    if count > max_count:
+       longest_name = names[i]
+       max_count = count
+
+print(longest_name)
+```
+
+Use `zip`:
+
+```python
+for name, count in zip(names, counts):
+    if count > max_count:
+        longest_name = name
+        max_count = count
+```
+
+Use `itertools.zip_longest` when two lists do not have the same length.
+
+### Item 9: Avoid `else` blocks after `for` and `while` loops
+
+- The `else` block after a loop runs only if the loop body did not encounter a `break` statement.
+- Avoid using `else` blocks after loops because their behavior is not intuitive and can be confusing.
+
+### Item 10: Prevent repetition with assignment expressions
+
+Instead of writing like this:
+
+```python
+def make_lemonade(count):
+    ...
+def out_of_stock():
+    ...
+
+count = fresh_fruit.get('lemon', 0)
+if count:
+    make_lemonade(count)
+else:
+    out_of_stock()
+```
+
+Use `:=`:
+
+```python
+if count := fresh_fruit.get('lemon', 0):
+    make_lemonade(count)
+else:
+    out_of_stock()
+```
+
+Another example:
+
+```python
+bottles = []
+while True:                    # Loop
+    fresh_fruit = pick_fruit()
+    if not fresh_fruit:        # And a half
+        break
+
+    for fruit, count in fresh_fruit.items():
+        batch = make_juice(fruit, count)
+        bottles.extend(batch)
+```
+
+```python
+bottles = []
+while fresh_fruit := pick_fruit():
+    for fruit, count in fresh_fruit.items():
+        batch = make_juice(fruit, count)
+        bottles.extend(batch)
+```
