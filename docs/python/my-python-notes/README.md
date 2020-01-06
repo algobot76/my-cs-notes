@@ -147,6 +147,25 @@ References:
 
 ## Misc
 
+### Execute `main()` in `__main__`
+
+```python
+def main():
+    try:
+        doSomething()
+        return 0
+    except:
+        return 1
+
+
+if __name__ == "__main__":
+    exit (main())
+```
+
+#### References
+
+- [What does this mean exit (main())](https://stackoverflow.com/questions/5280203/what-does-this-mean-exit-main)
+
 ### Only call a function once
 
 ```python
