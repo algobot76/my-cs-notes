@@ -21,10 +21,7 @@ module.exports = {
       },
       {
         title: 'Go',
-        children: [
-          ['/go/my-go-notes/', 'My Go Notes'],
-          ['/go/effective-go/', 'Effective Go'],
-        ],
+        children: [['/go/my-go-notes/', 'My Go Notes']],
       },
       {
         title: 'Java',
