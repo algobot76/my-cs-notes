@@ -2,9 +2,9 @@
 
 [[toc]]
 
-## Chapter 3. Objects
+## Chapter 5. Objects
 
-### 3.1 Introduction to Objects
+### 5.1 Introduction to Objects
 
 An object is an unordered collection of properties.
 
@@ -26,9 +26,9 @@ Each property has three property attributes:
 - `enumerable`: whether the property name is returned by a `for/in` loop.
 - `configurable`: whether the property can be deleted or its attributes can be altered.
 
-### 3.2 Creating Objects
+### 5.2 Creating Objects
 
-#### 3.2.1 Object Literals
+#### 5.2.1 Object Literals
 
 ```javascript
 let empty = {};                           // An object with no properties
@@ -45,7 +45,7 @@ let book = {
 };
 ```
 
-#### 3.2.2 Creating Objects with `new`
+#### 5.2.2 Creating Objects with `new`
 
 ```javascript
 let o = new Object();  // Create an empty object: same as {}.
@@ -54,7 +54,7 @@ let d = new Date();    // Create a Date object representing the current time
 let r = new Map();     // Create a Map object for key/value mapping
 ```
 
-#### 3.2.3 Prototypes
+#### 5.2.3 Prototypes
 
 Every object has a second object "prototype" and the first object inherits properties from the prototype.
 
@@ -66,7 +66,7 @@ Objects created by `new` inherit from the prototype of the constructor.
 
 `Object.prototype` has no prototype: no inherited properties.
 
-#### 3.2.4 `Object.create()`
+#### 5.2.4 `Object.create()`
 
 ```javascript
 let o1 = Object.create({x: 1, y: 2});     // o1 inherits properties x and y.
@@ -84,7 +84,7 @@ let o = { x: "don't change this value" };
 library.function(Object.create(o));  // Guard against accidental modifications
 ```
 
-### 3.3 Querying and Setting Properties
+### 5.3 Querying and Setting Properties
 
 To get/set the value of a property, use dot(`.`) or square bracket(`[]`) operators:
 
@@ -97,7 +97,7 @@ book.edition = 7;                   // Create an "edition" property of book.
 book["main title"] = "ECMAScript";  // Change the "main title" property.
 ```
 
-#### 3.3.2 Inheritance
+#### 5.3.2 Inheritance
 
 Suppose you query the property `x` in the object `o`:
 
@@ -122,7 +122,7 @@ Suppose you assign to the property `x` of the object `o`:
 - If `o` inherits the property `x`, and that property is an accessor property with a setter method, then that setter method is called (only called on `o` not on the prototype object) rather than creating a new property `x` in `o`.
 - Prototype chain is never modified.
 
-#### 3.3.3 Property Access Errors
+#### 5.3.3 Property Access Errors
 
 Attempt to set the property of `null`/`undefiend` raises a `TypeError`.
 
@@ -132,7 +132,7 @@ Attempt to set property `p` of an object `o` fails (and raises a `TypeError` in 
 - `o` has an inherited property `p` that is read-only.
 - `o` does not have an own property `p`/an inherited property `p` with a setter method, and `o`'s `extensible` attribute is `false`.
 
-### 3.4 Deleting Properties
+### 5.4 Deleting Properties
 
 `delete` removes a own (non-inherited) property. (To delete an inherited property, you must delete it from the prototype object).
 
@@ -155,7 +155,7 @@ delete x;       // And delete it (SyntaxError in strict mode)
 delete this.x   // This works in strict mode
 ```
 
-### 3.5 Testing Properties
+### 5.5 Testing Properties
 
 `in` operator tests whether an object has the own/inherited property of a specified name:
 
@@ -205,7 +205,7 @@ delete o.x;                // Delete the property x
 "x" in o                   // => false: it doesn't exist anymore
 ```
 
-### 3.6 Enumerating Properties
+### 5.6 Enumerating Properties
 
 `for/in` loop iterates over `enumerable` properties (own/inherited). To guard against enumerating inherited properties, add an explicit check:
 
@@ -226,7 +226,7 @@ Alternatives:
 - `Object.getOwnPropertySymbols()` returns own properties whose names are Symbols (both `enumerable` and non-`enumerable`).
 - `Reflect.ownKeys()` returns all own property (both `enumerable` and non-`enumerable`) names (both strings and Symbols).
 
-#### 3.6.1 Property Enumeration Order
+#### 5.6.1 Property Enumeration Order
 
 1. String properties whose names are non-negative integers (arrays and array-like objects) in numeric order from smallest to largest.
 2. All remaining properties with string names in order in which they were added (or the order they appear in object literals).
@@ -234,7 +234,7 @@ Alternatives:
 
 _Note_: A property will not be enumerated if a property by that same name has already been enumerated, or even if a non-enumerable property by the same name has already been considered.
 
-### 3.7 Extending Objects
+### 5.7 Extending Objects
 
 `Object.assign()` takes two+ arguments:
 
@@ -249,7 +249,7 @@ o = Object.assign({}, defaults, o);
 o = {...defaults, ...o}; // alternative
 ```
 
-### 3.8 Serializing Objects
+### 5.8 Serializing Objects
 
 `JSON.stringify()` converts an object to a string which could be restored by `JSON.parse()`:
 
@@ -259,9 +259,9 @@ o = {...defaults, ...o}; // alternative
 - Only `enumerable` own properties can be serialized. Those cannot be serialized are omitted.
 - Optional arguments are available for customization.
 
-### 3.9 Object Methods
+### 5.9 Object Methods
 
-#### 3.9.1 The `toString()` Method
+#### 5.9.1 The `toString()` Method
 
 `toString()` methods takes no arguments and returns a string that represents the value of the object on which it is invoked.
 
@@ -276,14 +276,14 @@ let point = {
 String(point)    // => "(1, 2)": toString() is used for string conversions
 ```
 
-#### 3.9.2 The `toLocaleString()` Method
+#### 5.9.2 The `toLocaleString()` Method
 
 `toLocaleString()` method returns a localized string representation of the object:
 
 - `Date` and `Number` have customized versions of `toLocaleString()` method.
 - `Array`'s  `toLocaleString()` method invokes the `toLocaleString()` method of each object in an array.
 
-#### 3.9.3 The `valueOf()` Method
+#### 5.9.3 The `valueOf()` Method
 
 `valueOf()` method is called when an object needs to be converted to a primitive type rather than a string.
 
@@ -299,7 +299,7 @@ point > 5      // => false
 point < 6      // => true
 ```
 
-#### 3.9.4 The `toJSON()` Method
+#### 5.9.4 The `toJSON()` Method
 
 `toJSON()` method returns a serializable string representation of an object, which is invoked by `JSON.stringify()`.
 
@@ -315,9 +315,9 @@ let point = {
 JSON.stringify([point])   // => '["(1, 2)"]'
 ```
 
-### 3.10 Extended Object Literal Syntax
+### 5.10 Extended Object Literal Syntax
 
-#### 3.10.1 Shorthand Properties
+#### 5.10.1 Shorthand Properties
 
 ```javascript
 let x = 1, y = 2;
@@ -325,7 +325,7 @@ let o = { x, y };
 o.x + o.y  // => 3
 ```
 
-#### 3.10.2 Computed Property Names
+#### 5.10.2 Computed Property Names
 
 ```javascript
 const PROPERTY_NAME = "p1";
@@ -339,7 +339,7 @@ let p = {
 p.p1 + p.p2 // => 3
 ```
 
-#### 3.10.3 Symbols as Property Names
+#### 5.10.3 Symbols as Property Names
 
 ```javascript
 const extension = Symbol("my extension symbol");
@@ -372,7 +372,7 @@ _Note_:
 - The spread operator only spreads the own properties of an object.
 - If an object has `n` properties, the spreading process is an `O(n)` operation.
 
-#### 3.10.5 Shorthand Methods
+#### 5.10.5 Shorthand Methods
 
 ```javascript
 let square = {
@@ -393,7 +393,7 @@ weirdMethods[METHOD_NAME](1)           // => 3
 weirdMethods[symbol](1)                // => 4
 ```
 
-#### 3.10.6 Property Getters and Setters
+#### 5.10.6 Property Getters and Setters
 
 Accessor properties are defined by getters and setters:
 
@@ -415,11 +415,11 @@ let o = {
 };
 ```
 
-## Chapter 4. Arrays
+## Chapter 6. Arrays
 
-### 4.1 Creating Arrays
+### 6.1 Creating Arrays
 
-#### 4.1.1 Array Literals
+#### 6.1.1 Array Literals
 
 ```javascript
 let empty = [];                 // An array with no elements
@@ -431,7 +431,7 @@ let count = [1,,3]; // Elements at indexes 0 and 2. No element at index 1
 let undefs = [,,];  // An array with no elements but a length of 2
 ```
 
-#### 4.1.2 The Spread Operator
+#### 6.1.2 The Spread Operator
 
 ```javascript
 let a = [1, 2, 3];
@@ -449,7 +449,7 @@ copy[0] = 0;  // Modifying the copy does not change the original
 original[0]   // => 1
 ```
 
-#### 4.1.3 The `Array()` Constructor
+#### 6.1.3 The `Array()` Constructor
 
 `Array()` constructor can be used to create an array.
 
@@ -472,7 +472,7 @@ let a = new Array(10);
 let a = new Array(5, 4, 3, 2, 1, "testing, testing");
 ```
 
-#### 4.1.4 `Array.of()`
+#### 6.1.4 `Array.of()`
 
 ```javascript
 Array.of()        // => []; returns empty array with no arguments
@@ -480,13 +480,13 @@ Array.of(10)      // => [10]; can create arrays with a single numeric argument
 Array.of(1,2,3)   // => [1, 2, 3]
 ```
 
-#### 4.1.5 `Array.from()`
+#### 6.1.5 `Array.from()`
 
 `Array.from(iterable)` creates a copy of an iterable or array-like object, similar to `[...iterable]`.
 
 - Accepts a second argument - a map function to call on every element of the array (more efficient than `map` as the mapping is being performed while the array is being built than it is to build the array and then map it to another array).
 
-### 4.2 Reading and Writing Array Elements
+### 6.2 Reading and Writing Array Elements
 
 Read/write an element of an array using the `[]` operator.
 
@@ -497,7 +497,7 @@ Indexes are property names that are integers between 0 and 2^32-2 (including flo
 - Negative numbers or non-integers are converted to strings and treated as regular property names.
 - `length` is updated as needed so no "out of bound" error.
 
-### 4.3 Sparse Arrays
+### 6.3 Sparse Arrays
 
 A sparse array does not have contiguous indexes starting at 0.
 
@@ -505,14 +505,14 @@ A sparse array does not have contiguous indexes starting at 0.
 - Looking up elements in a sparse array will take as much time as regular object property lookup.
 - Omitted elements do not exist.
 
-### 4.4 Array Length
+### 6.4 Array Length
 
 Each array has a `length` property and it has two special behaviors:
 
 - If you assign a value to an array element whose index `i` >= `length`, `length` is set to `i+1`.
 - If you set `length` to a non-negative integer `n` < `length`, elements with indexes >= `n` are removed.
 
-### 4.5 Adding and Deleting Array Elements
+### 6.5 Adding and Deleting Array Elements
 
 You can modify an array with the following methods:
 
@@ -524,7 +524,7 @@ You can modify an array with the following methods:
 
 `delete` replaces the element with `undefined`, but does not change `length`.
 
-### 4.6 Iterating Arrays
+### 6.6 Iterating Arrays
 
 `for/of` loop:
 
@@ -571,7 +571,7 @@ for(let i = letters.length-1; i >= 0; i--) {
 }
 ```
 
-### 4.7 Multidimensional Arrays
+### 6.7 Multidimensional Arrays
 
 ```javascript
 // Create a multidimensional array
@@ -590,9 +590,9 @@ for(let row = 0; row < table.length; row++) {
 table[5][7]  // => 35
 ```
 
-### 4.8 Array Methods
+### 6.8 Array Methods
 
-#### 4.8.1 Array Iterator Methods
+#### 6.8.1 Array Iterator Methods
 
 ##### FOREACH()
 
@@ -691,7 +691,7 @@ let a = [2, 3, 4]
 a.reduceRight((acc,val) => Math.pow(val,acc)) // => 2.4178516392292583e+24
 ```
 
-#### 4.8.2 Adding arrays with `concat()`
+#### 6.8.2 Adding arrays with `concat()`
 
 The `concat()` method returns a new array that contains the elements from the original array followed by each of the arguments to `concat()`:
 
@@ -703,7 +703,7 @@ a.concat(4, [5,[6,7]])  // => [1,2,3,4,5,[6,7]]; but not nested arrays
 a                       // => [1,2,3]; the original array is unmodified
 ```
 
-#### 4.8.3 Stacks and Queues with `push()`, `pop()`, `shift()` and `unshift()`
+#### 6.8.3 Stacks and Queues with `push()`, `pop()`, `shift()` and `unshift()`
 
 ```javascript
 let stack = [];       // stack == []
@@ -737,7 +737,7 @@ a = [];                // a == []
 a.unshift(1,2)         // a == [1, 2]
 ```
 
-#### 4.8.4 Subarrays with `slice()`, `splice()`, `fill()` and `copyWithin()`
+#### 6.8.4 Subarrays with `slice()`, `splice()`, `fill()` and `copyWithin()`
 
 ##### SLICE()
 
@@ -804,7 +804,7 @@ a.copyWithin(2, 3, 5) // => [1,1,3,4,4]: copy last 2 elements to index 2
 a.copyWithin(0, -2)   // => [4,4,3,4,4]: negative offsets work, too
 ```
 
-#### 4.8.5 Array Searching and Sorting Methods
+#### 6.8.5 Array Searching and Sorting Methods
 
 ##### INDEXOF() &LASTINDEXOF()
 
@@ -863,7 +863,7 @@ let a = [1,2,3];
 a.reverse();   // a == [3,2,1]
 ```
 
-#### 4.8.6 Array to String Conversions
+#### 6.8.6 Array to String Conversions
 
 `join()` converts all elements to strings and concatenates them, returning the result string:
 
@@ -876,7 +876,7 @@ let b = new Array(10)  // An array of length 10 with no elements
 b.join('-')            // => '---------': a string of 9 hyphens
 ```
 
-#### 4.8.7 Static Array Functions
+#### 6.8.7 Static Array Functions
 
 `Array.isArray()` check if a value is an array:
 
@@ -885,7 +885,7 @@ Array.isArray([])     // => true
 Array.isArray({})     // => false
 ```
 
-### 4.9 Array-Like Objects
+### 6.9 Array-Like Objects
 
 You can iterate an array-like object like an array:
 
@@ -937,8 +937,128 @@ Array.prototype.map.call(a, x => x.toUpperCase())  // => ["A","B","C"]
 Array.prototype.slice.call(a, 0)   // => ["a","b","c"]: true array copy
 ```
 
-### 4.10 Strings as Arrays
+### 6.10 Strings as Arrays
 
 Strings behave like read-only arrays of UTF-16 Unicode characters:
 
 Can invoke array methods using `Function.call`.
+
+## Chapter 7. Functions
+
+### 7.1 Defining Functions
+
+#### 7.1.1 Function Declarations
+
+Examples of function declarations:
+
+```javascript
+// Print the name and value of each property of o.  Return undefined.
+function printprops(o) {
+    for(let p in o)
+        console.log(p + ": " + o[p] + "\n");
+}
+
+// Compute the distance between Cartesian points (x1,y1) and (x2,y2).
+function distance(x1, y1, x2, y2) {
+    let dx = x2 - x1;
+    let dy = y2 - y1;
+    return Math.sqrt(dx*dx + dy*dy);
+}
+
+// A recursive function (one that calls itself) that computes factorials
+// Recall that x! is the product of x and all positive integers less than it.
+function factorial(x) {
+    if (x <= 1) return 1;
+    return x * factorial(x-1);
+}
+```
+
+- Prior to ES6, function declarations were only allowed at the top-level within a JS file/within another function (not legal in body of loops, conditionals or other blocks).
+- In the strict mode of ES6, function declarations are allowed within blocks (not visible outside).
+
+#### 7.1.2 Function Expressions
+
+Examples of function expressions:
+
+```javascript
+// This function expression defines a function that squares its argument.
+// Note that we assign it to a variable
+const square = function(x) { return x*x; }
+
+// Function expressions can include names, which is useful for recursion.
+const f = function fact(x) { if (x <= 1) return 1; else return x*fact(x-1); };
+
+// Function expressions can also be used as arguments to other functions:
+[3,2,1].sort(function(a,b) { return a-b; });
+
+// Function expressions are sometimes defined and immediately invoked:
+let tensquared = (function(x) {return x*x;}(10));
+```
+
+Function declaration vs. function expression:
+
+- Function declaration declares a variable and assigns a function object to it.
+- Function expression does not declare a variable: you can assign the newly-defined function object to a constant or variable.
+- In the declaration form, function objects are created before code runs (functions are hoisted).
+- In the expression form, a function does not exist until its expression is evaluated; before it is invoked, you must be able to refer to it.
+
+#### 7.1.3 Arrow Functions
+
+Examples of arrow functions:
+
+```javascript
+const sum = (x, y) => x + y;
+const constant_func = () => 42;
+
+const f = x => { return { value: x }; };  // Good: f() returns an object
+const g = x => ({ value: x });            // Good: g() returns an object
+const h = x => { value: x };              // Bad: h() returns nothing
+const i = x => { v: x, w: x };            // Bad: Syntax Error
+```
+
+- Arrow functions inherit the value of `this` from the environment in which they are defined.
+- Arrow functions do not have `prototype` property (cannot be used as constructor functions for new classes).
+
+#### 7.1.4 Nested Functions
+
+```javascript
+function hypotenuse(a, b) {
+    function square(x) { return x*x; }
+    return Math.sqrt(square(a) + square(b));
+}
+```
+
+### 7.2 Invoking Functions
+
+JS functions can be invoked in 5 ways:
+
+- as functions
+- as methods
+- as constructors
+- indirectly through their `call()` and `apply()` methods
+- implicitly, via JS language features that do not appear like normal function invocations
+
+#### 7.2.1 Function Invocation
+
+Examples of function invocation:
+
+```javascript
+printprops({x:1});
+let total = distance(0,0,2,1) + distance(2,1,3,5);
+let probability = factorial(5)/factorial(13);
+```
+
+- Each argument expression is evaluated, and the resulting values become the arguments to the function.
+- For regular function invocation, the return value becomes the value of the invocation expression.
+- If the interpreter reaches the end, the return value is `undefined`.
+- If the interpreter executes a `return`, the return value is the value after the `return` or `undefined` if `return` has not value.
+- In nonstrict mode, the invocation context (the `this` value) is the global object.
+- In strict mode, the invocation context is `undefined`.
+- Arrow functions always inherit the `this` value that is in effect where they are defined.
+
+```javascript
+// Define and invoke a function to determine if we're in strict mode.
+const strict = (function() { return !this; }());
+```
+
+_Note_: Most browsers and Node do not support tail optimization.
