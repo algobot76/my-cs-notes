@@ -77,6 +77,10 @@ module.exports = {
         path: '/nginx/',
       },
       {
+        title: 'RabbitMQ',
+        children: [['/rabbitmq/rabbitmq-in-depth/', 'RabbitMQ in Depth']],
+      },
+      {
         title: 'Soft Skills',
         children: [['/soft-skills/software-developer-life/', 'Software Developer Life']],
       },
