@@ -155,3 +155,26 @@ Send a new `Basic.Get` request to retrieve a message, even if there are multiple
 ### 5.2. PERFORMANCE-TUNING CONSUMERS
 
 ![Figure 5.5](./img/fig_5_5.jpg)
+
+## Chapter 6. Message patterns via exchange routing
+
+4 types of exchange:
+
+- Direct exchange
+- Fanout exchange
+- Topic exchange
+- Headers exchange
+
+### 6.1. SIMPLE MESSAGE ROUTING USING THE DIRECT EXCHANGE
+
+![Figure 6.1](./img/fig_6_1.jpg)
+
+- Useful when delivering a message with a specific target or a set of targets.
+- Good for routing reply messages used in RPC messaging patterns.
+
+#### 6.1.1. Creating the application architecture
+
+![Figure 6.4](./img/fig_6_4.jpg)
+
+- Application Creates a message with a unique ID that identifies the remote request.
+- Response queue name will be set in the `reply-to` field and request ID will be placed in `correlation-id` field.
