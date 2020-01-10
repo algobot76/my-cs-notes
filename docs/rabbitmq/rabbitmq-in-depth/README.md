@@ -133,3 +133,25 @@ When publishing a message to RabbitMQ, the method, header, and body frames are u
 |    timestamp     |  timestamp   | Application |                                    An epoch or Unix timestamp value that can be used to indicate when the message was created.                                    |
 |       type       | short-string | Application |                                          A text string your application can use to describe the message type or payload.                                          |
 |     user-id      | short-string |    Both     |                    A free-form string that, if used, RabbitMQ will validate against the connected user and drop messages if they don’t match.                     |
+
+## Chapter 5. Don’t get messages; consume them
+
+### 5.1. BASIC.GET VS. BASIC.CONSUME
+
+`Basic.Get` is a polling mode; `Basic.Consume` is a push model.
+
+#### 5.1.1. Basic.Get
+
+Send a new `Basic.Get` request to retrieve a message, even if there are multiple messages in the queue.
+
+- RabbitMQ responds with `Basic.GetOk` if not empty, otherwise `Basic.GetEmpty`.
+
+#### 5.1.2. Basic.Consume
+
+`Basic.Consume` tells RabbitMQ to send messages asynchronously to until `Basic.Cancel` is issued.
+
+![Figure 5.4](./img/fig_5_4.jpg)
+
+### 5.2. PERFORMANCE-TUNING CONSUMERS
+
+![Figure 5.5](./img/fig_5_5.jpg)
