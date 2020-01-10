@@ -134,6 +134,24 @@ When publishing a message to RabbitMQ, the method, header, and body frames are u
 |       type       | short-string | Application |                                          A text string your application can use to describe the message type or payload.                                          |
 |     user-id      | short-string |    Both     |                    A free-form string that, if used, RabbitMQ will validate against the connected user and drop messages if they don’t match.                     |
 
+## Chapter 4. Performance trade-offs in publishing
+
+### 4.1. BALANCING DELIVERY SPEED WITH GUARANTEED DELIVERY
+
+![Figure 4.1](./img/fig_4_1.jpg)
+
+Ask the following questions to find the right balance between performance and message delivery.
+
+- How important is it that messages are guaranteed to be enqueued when published?
+- Should a message be returned to a publisher if it can’t be routed?
+- If a message can’t be routed, should it be sent somewhere else where it can later be reconciled?
+- Is it okay if messages are lost when a RabbitMQ server crashes?
+- Should RabbitMQ confirm that it has performed all requested routing and persistence tasks to a publisher when it processes a new message?
+- Should a publisher be able to batch message deliveries and then receive confirmation from RabbitMQ that all requested routing and persistence tasks have been applied to all of the messages in the batch?
+- If you’re batching the publishing of messages that require confirmation of routing and persistence, is there a need for true atomic commits to the destination queues for a message?
+- Are there acceptable trade-offs in reliable delivery that your publishers can use to achieve higher performance and message throughput?
+- What other aspects of message publishing will impact message throughput and performance?
+
 ## Chapter 5. Don’t get messages; consume them
 
 ### 5.1. BASIC.GET VS. BASIC.CONSUME
