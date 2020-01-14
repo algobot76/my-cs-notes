@@ -61,6 +61,12 @@ module.exports = {
         children: [['/swift/swift-book/', 'The Swift Programming Language']],
       },
       {
+        title: 'TerraForm',
+        children: [
+          ['/terraform/terraform-up-and-running-2nd/', 'Terraform: Up & Running (2nd Edition)'],
+        ],
+      },
+      {
         title: 'Linux',
         path: '/linux/',
       },
