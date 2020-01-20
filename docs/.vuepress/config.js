@@ -23,6 +23,7 @@ module.exports = {
         title: 'Go',
         children: [
           ['/go/my-go-notes/', 'My Go Notes'],
+          ['/go/go-in-action/', 'Go in Action'],
           ['/go/gopl/', 'The Go Programming Language'],
         ],
       },
