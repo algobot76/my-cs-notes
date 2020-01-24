@@ -69,7 +69,10 @@ module.exports = {
       },
       {
         title: 'Linux',
-        children: [['/linux/my-linux-notes/', 'My Linux Notes']],
+        children: [
+          ['/linux/my-linux-notes/', 'My Linux Notes'],
+          ['/linux/tlpi/', 'The Linux Programming Interface'],
+        ],
       },
       {
         title: 'DB',
