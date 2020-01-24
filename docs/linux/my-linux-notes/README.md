@@ -1,4 +1,4 @@
-# Linux
+# My Linux Notes
 
 [[toc]]
 

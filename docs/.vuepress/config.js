@@ -69,7 +69,7 @@ module.exports = {
       },
       {
         title: 'Linux',
-        path: '/linux/',
+        children: [['/linux/my-linux-notes/', 'My Linux Notes']],
       },
       {
         title: 'DB',
