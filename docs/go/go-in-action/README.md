@@ -353,3 +353,38 @@ func foo(slice []int) []int {
     return slice
 }
 ```
+
+## Chapter 6. Concurrency
+
+### 6.4. LOCKING SHARED RESOURCES
+
+#### 6.4.1. Atomic functions
+
+The `sync/atomic` package provides low-level locking mechanisms for synchronizing access integers and pointers.
+
+#### 6.4.2. Mutexes
+
+A mutex is used to create a critical section around code that ensures only one goroutine at a time can execute that code section.
+
+```go
+var mutex sync.Mutex
+
+// inside a function being runned in a goroutine
+mutex.Lock()
+// critical section
+mutex.Unlock()
+```
+
+### 6.5. CHANNELS
+
+#### 6.5.1. Unbuffered channels
+
+An unbuffered channel is a channel with no capacity to hold any value before it’s received. It requires both a sending and receiving goroutine to be ready at the same instant.
+
+![fig 6.6](./img/fig_6_6.jpg)
+
+#### 6.5.2. Buffered channels
+
+A buffered channel is a channel with capacity to hold one or more values before they’re received. It does not force gorountines to be ready at the same instant.
+
+![fig 6.7](./img/fig_6_7.jpg)
