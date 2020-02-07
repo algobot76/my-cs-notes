@@ -25,7 +25,7 @@ module.exports = {
           ['/go/my-go-notes/', 'My Go Notes'],
           ['/go/go-in-action/', 'Go in Action'],
           ['/go/gopl/', 'The Go Programming Language'],
-          ['/go/concurrency-in-go/', 'Concurrency in Go']
+          ['/go/concurrency-in-go/', 'Concurrency in Go'],
         ],
       },
       {
@@ -61,6 +61,10 @@ module.exports = {
       {
         title: 'Swift',
         children: [['/swift/swift-book/', 'The Swift Programming Language']],
+      },
+      {
+        title: 'Docker',
+        children: [['/docker/the-docker-book/', 'The Docker Book']],
       },
       {
         title: 'TerraForm',
