@@ -89,6 +89,10 @@ module.exports = {
         path: '/git/',
       },
       {
+        title: 'CMake',
+        children: [['/cmake/professional-cmake/', 'Professional CMake (5th Edition)']],
+      },
+      {
         title: 'Nginx',
         path: '/nginx/',
       },
